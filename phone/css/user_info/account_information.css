@@ -1,0 +1,54 @@
+.nav__top_span {
+    float: right;
+    margin: .1rem .2rem 0 0;
+    color: #0299ec;
+    font-size: .44rem;
+}
+
+.section {
+    width: 100%;
+    margin-top: .2rem;
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+}
+
+.information_ul {
+    margin-left: .2rem;
+    overflow: hidden;
+    font-size: .33rem;
+    color: #333333;
+}
+
+.information_ul li {
+    border-bottom: 1px solid #dfdfdf;
+    padding: .4rem 0;
+    overflow: hidden;
+}
+.information_ul li:last-child{
+    border: none;
+}
+.information_li_p2 {
+    float: left;
+}
+
+.information_input {
+    border: none;
+    text-align: right;background: #fff;
+}
+
+.information_right {
+    float: right;
+    overflow: hidden;
+}
+
+input {
+    margin-right: .2rem;
+}
+
+.information_right_img {
+    width: .2rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 .2rem;
+}

@@ -1,0 +1,119 @@
+
+.login_account_ul_li {
+    background: #fff !important;
+    padding: 0 !important;
+}
+
+.login_account_ul_li_div {
+    float: left;
+    background: #f2f2f2;
+    padding: .4rem 0;
+    border-radius: .1rem;
+    overflow: hidden;
+    width: 5.97rem;
+}
+
+.login_account_ul_li_img {
+    float: left;
+    margin-left: .2rem;
+    width: 3rem;
+    border-radius: .4rem;
+    height: 1.22rem;
+}
+
+
+.login_account_ul {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: .2rem;
+    background: #fff;
+    font-size: .36rem;
+    padding: .4rem 0 1rem;
+}
+
+.login_account_ul li {
+    margin: 0 .33rem .46rem;
+    overflow: hidden;
+    background: #f2f2f2;
+    border-radius: .1rem;
+    padding: .4rem 0;
+    overflow: hidden;
+}
+
+.login_account_ul li input {
+    border: none;
+    width: 68%;
+    margin-left: .3rem;
+    background: #f2f2f2;
+}
+
+.login_account_ul_li {
+    background: #fff !important;
+    padding: 0 !important;
+}
+
+.login_account_ul_li_div {
+    float: left;
+    background: #f2f2f2;
+    padding: .4rem 0;
+    border-radius: .1rem;
+    overflow: hidden;
+    width: 5.97rem;
+}
+
+.login_account_ul li input {
+    border: none;
+    width: 68%;
+    margin-left: .3rem;
+    background: #f2f2f2;
+}
+
+.login_account_ulli {
+    padding: .3rem 0 !important;
+}
+
+.login_account_ulli input {
+    margin-top: .2rem;
+}
+
+.login_account_input {
+    float: left;
+}
+
+.login_account_span {
+    float: right;
+    padding: .1rem .2rem;
+    overflow: hidden;
+    font-size: .32rem;
+    border-radius: .4rem;
+    margin-right: .2rem;
+    border: 1px solid #309cff;
+    color: #309cff;
+}
+
+.textarea {
+    border: 1px solid #c2c2c2;
+    display: block;
+    width: 8.8rem;
+    padding: .2rem;
+    height: 2.2rem;
+    margin: 0 auto;
+    overflow: hidden;
+    position: relative;
+    resize: none;
+    font-size: .35rem;
+    border-radius: .2rem;
+}
+.submit {
+    width: 9.2rem;
+    height: 1rem;
+    line-height: 1rem;
+    border-radius: .2rem;
+    background: #0199ec;
+    margin: 0 auto 0;
+    font-size: .35rem;
+    color: #fff;
+    text-align: center;
+    margin-top: .4rem;
+}

@@ -1,0 +1,169 @@
+
+.nav__top_span {
+    float: right;
+    margin: .1rem .2rem 0 0;
+    color: #0299ec;
+    font-size: .44rem;
+}
+.information {
+    width: 100%;
+    overflow: hidden;
+    margin-top: .2rem;
+    position: relative;
+    color: #333333;
+    padding: .2rem 0 0;
+    background: #fff;
+}
+
+.information_ul {
+    margin-left: .2rem;
+    overflow: hidden;
+    font-size: .33rem;
+    color: #333333;
+}
+
+.information__ul {
+    margin-left: .2rem;
+    overflow: hidden;
+    font-size: .33rem;
+    color: #333333;
+}
+
+.information__ul li {
+    border-bottom: 1px solid #dfdfdf;
+    padding: .4rem 0;
+    overflow: hidden;
+}
+
+.information_ul li {
+    border-bottom: 1px solid #dfdfdf;
+    padding: .4rem 0;
+    overflow: hidden;
+}
+
+.information_li_p {
+    line-height: 1.38rem;
+    float: left;
+}
+
+.information_li_p2 {
+    float: left;
+}
+.information_li__div{
+    float: right;
+    margin-right: .2rem;
+    width: 1.38rem;
+    height: 1.38rem;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+.information_li_img {
+    opacity: 0;
+    z-index: 111;
+    position: absolute;
+    top: 0;
+    width: 1.38rem;
+    height: 1.38rem;
+    border-radius: 50%;
+}
+.information_li__div img{
+
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.information_right {
+    float: right;
+    overflow: hidden;
+}
+
+.information_input {
+    border: none;
+    text-align: right;
+    background: #fff;
+}
+
+.information_right_img {
+    width: .2rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 .2rem;
+}
+
+.layui-form-item {
+    margin: 0;
+}
+
+.information_right_img2 {
+    margin-top: .1rem;
+}
+
+.information_li_p3 {
+    line-height: .89rem;
+}
+.information_li_p4{
+    line-height: .98rem;
+}
+.layui-form-radio > i:hover, .layui-form-radioed > i {
+    color: #0299ec;
+}
+
+.layui-input, .layui-textarea {
+    border: none;
+    text-align: right;
+}
+
+.layui-form-item .layui-input-inline {
+    float: left;
+    margin: 0;
+}
+
+.information_right_img_two {
+    margin-top: .3rem;
+}
+.layui-form-item .layui-inline{
+    margin: 0;
+}
+.curriculum__ul{
+    overflow: hidden;
+    position: relative;
+    font-size: .32rem;
+    color: #666666;
+}
+.curriculum__ul li {
+    float: left;
+    overflow: hidden;
+    padding-bottom: 0.2rem;
+    margin-bottom: 0.2rem;
+    border: none;
+    margin-right: .4rem;
+}
+
+.concealmentlayer_xuan3 {
+    float: left;
+    margin: 0 .1rem;
+    overflow: hidden;
+    width: .4rem;
+    height: .4rem;
+    border: 1px solid #999999;
+    border-radius: 50%;
+}
+
+.concealmentlayer_ullidiv {
+    border-color: #1d94d9;
+    background: #1d94d9;
+}
+
+.concealmentlayer_xuan3 img {
+    display: block;
+    width: .25rem;
+    margin: .13rem auto 0;
+    height: .18rem;
+}
+
+
+
+
+

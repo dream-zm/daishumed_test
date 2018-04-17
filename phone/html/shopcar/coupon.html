@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>优惠券</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--购物车公共.css-->
+    <link rel="stylesheet" href="../../css/shopcar/shopcar_index.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/shopcar/Coupon.css">
+</head>
+<body>
+<div id="app_body" v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" v-on:click="back">
+        优惠券
+
+
+    </div>
+    <ul class="Coupon_ul">
+        <li v-on:click.stop="select(index,data)" v-for="(data,index) in data_list" :class="data.clazz">
+            <div class="Coupon_li_div">
+                <img :src="getImg(data.status,data.minimum_charge)" alt="">
+
+                <div class="Coupon_li_div_sh">
+                    <p class="Coupon_li_div_sh_p" style="margin-top: .2rem">
+                        ¥ <span class="Coupon_li_div_sh_p_span" style="font-size:.45rem;">{{parseInt(data.coupon_money)}}元</span>
+                    </p>
+                    <p class="Coupon_li_div_sh_p2">
+                        优惠券
+                    </p>
+                </div>
+            </div>
+            <div class="Coupon_title" :class="{Coupon_title1:data.status==0&&data.minimum_charge<ZJ}">
+                <p class="Coupon_title_p">
+                    消费满{{parseInt(data.minimum_charge)}}元可使用
+                </p>
+                <p class="Coupon_title_p2">
+                    编号：{{data.cdkey}}
+                </p>
+                <p class="Coupon_title_p2">
+                    有效期：{{data.inputtime}} 至 {{data.validitytime}}
+                </p>
+                <img class="Coupon_title_img" src="../../img/shopcar/xuanzhong_03.png" alt="" v-show="data.status==0&&data.minimum_charge<ZJ">
+            </div>
+        </li>
+
+    </ul>
+    <div class="Coupon_bottom" @click="commit">
+        <!--<p class="Coupon_bottom_p">-->
+        <!--抵扣金额：<span>¥{{current_coupon.coupon_price}}</span>-->
+        <!--</p>-->
+        <!--<div class="Coupon_bottom_div" @click="commit">-->
+        <!--确定-->
+        <!--</div>-->
+
+        激活优惠券
+
+
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app_body',
+        data: {
+            data_list: [],
+            current_coupon: {
+                coupon_price: 0,//单价
+                coupon_id: '',//id
+                status: '',//状态
+                total:"",//最大价
+                ZJ:"",//传过来总价
+            }
+
+        },
+        methods: {
+            back(){
+                union_back();
+                localStorage.setItem("coupon", "");
+            },
+            select(index,data){
+                if(data.status==0||data.minimum_charge>this.ZJ){
+                    alert('消费金额不足，无法使用')
+                }else{
+                    for (x in this.data_list) {
+                        console.log(x + "  " + index)
+                        if (x == index) {
+                            this.data_list[x].clazz = (this.data_list[x].status == 1 ? "Coupon_li Coupon_li2" : "Coupon_li_two");
+                            this.current_coupon.coupon_price = this.data_list[x].coupon_money;
+                            this.current_coupon.coupon_id = this.data_list[x].cdkey;
+                            this.current_coupon.status = this.data_list[x].status;
+                            this.current_coupon.total = this.data_list[x].minimum_charge;
+
+                            if (this.current_coupon.coupon_id != 0) {
+                                if (this.current_coupon.status == 1) {
+
+                                    if (vm.come_from_flag) {
+                                        localStorage.setItem("coupon", JSON.stringify(this.current_coupon));
+                                        window.location.href="submit_order.html";
+                                    }
+                                } else {
+                                    alert("优惠券不可用");
+                                }
+                            }
+
+                        } else {
+                            this.data_list[x].clazz = (this.data_list[x].status == 1 ? "Coupon_li" : "Coupon_li_two");
+                        }
+                    }
+                }
+
+
+            }, getImg(status,minimum_charge){
+
+                if(status == 1){
+                    if(Number(minimum_charge)>Number(this.ZJ)){
+                        return "../../img/shopcar/Coupon_img2_10.png"
+                    }else{
+                        return "../../img/shopcar/Coupon_img_07.png"
+                    }
+                }else{
+                    return "../../img/shopcar/Coupon_img2_10.png"
+                }
+            }, commit(){
+
+                window.location.href = "active_coupon.html";
+
+            }
+        }
+    });
+
+    yaqooNetPost('Userinfo/cdkey_list', "", function (data) {
+
+        if (data['code'] == 1000) {
+            var datas = data['data_list']
+            for (x in datas) {
+                if (x == 0) {
+                    datas[x].clazz = (datas[x].status == 1 ? "Coupon_li Coupon_li2" : "Coupon_li_two");
+                    vm.current_coupon.coupon_price = datas[x].coupon_money;
+                    vm.current_coupon.coupon_id = datas[x].cdkey;
+                    vm.current_coupon.status = datas[x].status;
+                    console.log(datas[x].minimum_charge)
+                } else {
+                    datas[x].clazz = (datas[x].status == 1 ? "Coupon_li" : "Coupon_li_two");
+                }
+
+            }
+            vm.data_list = datas;
+            console.log(datas[x])
+        }
+
+    })
+    var come_from_flag = localStorage.getItem("come_from_flag");
+    vm.ZJ=localStorage.getItem("ZJ");
+
+    if (!isNull(come_from_flag)) {
+        vm.come_from_flag = (come_from_flag == "submit_order");
+    } else {
+        vm.come_from_flag = false;
+    }
+
+</script>
+</html>

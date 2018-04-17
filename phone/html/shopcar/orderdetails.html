@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>订单详情页</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/shopcar/shopcar_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/shopcar/orderdetails.css">
+</head>
+<body>
+
+<div v-cloak id="app_body">
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back">
+        订单详情
+    </div>
+    <div class="seciton">
+        <div class="section_div">
+            <div class="section__div">
+                <p class="section__div_p">
+                    <span class="section__div_span"><strong
+                            class="section_strong">订单号：</strong>{{datas.order_sn}}</span>
+                    <span class="section__div_span2" v-if="datas.order_status==0">
+                    <img src="../../img/shopcar/timer_03.png" alt="">支付剩余：  {{formatTime(datas.expire_time)}}
+                </span>
+                </p>
+                <p>
+                    订单状态： <span class="section__div_span3">{{getOrder_state_public(datas.order_status)}}</span>
+                </p>
+                <p>
+                    下单时间：{{formatTime(datas.add_time)}}
+                </p>
+            </div>
+        </div>
+        <ul class="seciton_ul">
+
+            <div class="seciton_ul_li" v-if="datas.order_status==0"
+                 v-on:click="cancle(datas.order_id)">
+                取消订单
+            </div>
+            <div class="seciton_ul_li2" v-if="datas.order_status==4"
+                 @click="deletes(datas.order_id)">
+                删除订单
+            </div>
+
+            <div class="seciton_ul_li2" v-if="datas.order_status==2"
+                 @click="confirm(datas.order_id)">
+                确认收货
+            </div>
+            <div  @click="returned(datas)" class="seciton_ul_li2" v-if="datas.is_refund == 1 && (datas.order_status==1||datas.order_status==2||datas.order_status==3)">
+                {{datas.refund_status==0?"申请退款":""}}
+            </div>
+            <div   @click="returned(datas)" class="seciton_ul_li2" v-if="datas.is_refund == 0  && datas.order_status!=0 && (datas.order_status==1||datas.order_status==2||datas.order_status==3)">
+                {{datas.refund_status==1?"退款审核中":(datas.refund_status==2?"等待退款":(datas.refund_status==3?"已退款":"已拒绝"))}}
+            </div>
+            <div class="seciton_ul_li2" v-if="datas.order_status==0"
+                 @click="public_gopay(datas.order_id)">
+                立即支付
+            </div>
+
+
+        </ul>
+    </div>
+    <div class="logistics" v-if="have_post">
+        <h4 class="logistics_h4">
+            <span>物流信息</span>
+        </h4>
+        <div class="logistics_div">
+            <ul class="logistics_h4_ul">
+
+                <li class="logistics_h4_ulli" v-for="( data,index) in post_list"
+                    :class="{logistics_h4_ulli_click:data.clicks,logistics_h4_ulli_unclick:!data.clicks}"
+                    v-on:click="post_click_fun(data.number)">
+                    物流信息{{ index+1}}
+                </li>
+
+            </ul>
+            <div class="logistics_div_div">
+                <ul class="layui-timeline">
+
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">发货方式</h3>
+                            <p>
+                                快递
+                            </p>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">物流公司</h3>
+                            <p>{{nowpost_data.name}}</p>
+
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <h3 class="layui-timeline-title">运单号码</h3>
+                            <p>
+                            <p>{{nowpost_data.number}}</p>
+                            </p>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            物流跟踪
+                            <div class="layui-timeline-title">
+                                <ul>
+                                    <li v-for="d in nowpost_data.detail_list">
+                                        {{d.AcceptTime}} {{d.AcceptStation}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <div class="orderinformation">
+        <h4 class="logistics_h4">
+            <span>订单信息</span>
+        </h4>
+        <div class="orderinformation_div">
+            <p>
+                <span>收货地址：</span>{{datas.consignee}}，{{datas.mobile}}，{{datas.province}} {{datas.city}}
+                {{datas.district}} {{datas.address}} {{datas.zipcode}}
+            </p>
+            <p>
+                <span>运送方式：</span>快递
+            </p>
+            <p>
+                <span>订单信息：</span>
+            </p>
+            <p>
+                订单编号:{{datas.order_sn}}
+            </p>
+            <!--<p>-->
+            <!--支付宝交易号:2017102821001001145297095765-->
+            <!--</p>-->
+            <p>
+                创建时间:{{formatTime(datas.add_time)}}
+            </p>
+            <p v-if="datas.order_status==2||datas.order_status==3">
+                付款时间:{{formatTime(datas.pay_time)}}
+            </p>
+            <p v-if="datas.delivery_time!=0">
+                发货时间:{{formatTime(datas.delivery_time)}}
+            </p>
+            <p v-if="datas.complete_time!=0">
+                成交时间:{{formatTime(datas.complete_time)}}
+            </p>
+
+        </div>
+    </div>
+    <div class="commodity">
+        <ul class="commodity_ul">
+            <li class="commodity_li" v-for="data in datas.course">
+                <div class="commodity_li_div">
+                    <img class="commodity_li_div_img" src="../../img/shopcar/kecheng_img_07.png" alt="">
+                    <div class="commodity_li_div_right">
+                        <p class="commodity_li_div_p">
+                        <span>
+                            {{data.course_name}}{{data.spec_key_name==""?"":"("+data.spec_key_name+")"}}
+                        </span>
+
+
+                            <span class="commodity_li_div_span" v-if="data.giveaway_name!=''"
+                                  @click="show_giveaway(data.giveaway_name)">
+                            有赠品
+                        </span>
+                        </p>
+                        <p class="commodity_li_div_p2">
+                            {{data.direction_name}}
+                        </p>
+                        <p class="commodity_li_div_p3">
+                            有效期：{{data.down_time}}
+                        </p>
+                        <div class="commodity_li_divdiv">
+                            <p class="commodity_li_divdiv_p">
+                                <span class="commodity_li_divdiv_p_span">¥ {{data.course_price}}</span>
+                                <!--<s class="commodity_li_divdiv_p_span2">¥50</s>-->
+                                <span class="commodity_li_divdiv_p_span3">单价:{{data.market_price}}</span>
+                            </p>
+                            <p class="commodity_li_divdiv_p2">
+                                X{{data.course_num}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+    <!--<div class="discount">-->
+    <!--<ul class="discount_ul">-->
+    <!--<li class="discount_li">-->
+    <!--<p class="discount_li_p">-->
+    <!--满减优惠 <span>满299元减10</span>-->
+    <!--</p>-->
+    <!--<p class="discount_li_p2">-->
+    <!-- -¥10.00-->
+    <!--</p>-->
+    <!--</li>-->
+    <!--<li class="discount_li">-->
+    <!--<p class="discount_li_p">-->
+    <!--免邮优惠 <span>满299元免运费</span>-->
+    <!--</p>-->
+    <!--<p class="discount_li_p2">-->
+    <!--¥00.00-->
+    <!--</p>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <div class="copewith">
+        <p>
+            应付金额：<span>¥{{datas.order_amount}}</span>
+        </p>
+    </div>
+    <!--赠品弹出层-->
+    <div class="location" v-if="have_giveaway">
+        <div class="giveaway_div">
+            <h4 class="giveaway_h4">
+                <span class="giveaway_span">{{Zpin}}</span>
+                <img class="giveaway_img" src="../../img/shopcar/guanbi_img_03.png" @click="shut" alt="">
+            </h4>
+            <ul class="giveaway_div_ul">
+                <li v-for="data in list" v-if="list!=''">
+                    {{data}}
+                </li>
+                <li v-if="Jue!=''">
+                    {{Jue}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+
+<!--购物车公共.js-->
+<script src="../../js/shopcar/order.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script type="application/javascript">
+
+
+    checkUserState(true);
+
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            datas: '',
+            post_list: {name: '', number: '', detail_list: [], clicks: false},
+            have_post: false,
+            nowpost_data: '',
+            isFirstPost: true,
+            have_giveaway: false,//是否有赠品,
+            Zpin: "",//显示title是有赠品还是拒绝原因
+            list: "",//赠品列表
+            Jue: "",//拒绝原因
+            giveaway_txt:''
+        },
+        methods: {
+            close_giveaway: function () {
+                this.have_giveaway = false;
+                this.giveaway_txt = "";
+            },
+            show_giveaway: function (content) {
+                //展示赠品
+                if (!isNull(content)) {
+                    this.Jue = "";
+                    this.have_giveaway = true;
+                    this.Zpin = "有赠品";
+                    this.list = list;
+                }
+
+            },
+            shut() {
+                this.have_giveaway = false;
+            },
+            back: function () {
+                //返回
+                union_back();
+            }, post_click_fun(flag)
+            {
+
+                for (x in this.post_list) {
+                    if (this.post_list[x].number == flag) {
+                        this.post_list[x].clicks = true;
+                        this.nowpost_data = this.post_list[x];
+                    } else {
+                        this.post_list[x].clicks = false;
+                    }
+                }
+            },
+            cancle(order_id)
+            {
+                cancle_public(order_id, function (data) {
+                    union_back();
+//                    app.data_list =data ;
+//                    app.getData();
+                });
+
+            }, deletes(order_id)
+            {
+                public_deletes(order_id, function (data) {
+                    union_back();
+//                    app.data_list = data;
+//                    app.getData();
+                });
+
+            }, init()
+            {
+                var order_id = localStorage.getItem("order_id");
+                if (isNull(order_id)) {
+                    backToIndex();
+                }
+
+                //获取订单信息
+                yaqooNetPost("Order/detail", {order_id: order_id}, function (data) {
+                    if (data['code'] == 1000) {
+                        app.datas = data['data'];
+
+                        app.post_list = new Array();
+
+                        for (x in app.datas.course) {
+                            var y = app.datas.course[x];
+                            if (!isNull(y.shipper_code)) {
+                                app.have_post = true;
+                                app.getPostInfo(y.shipper_code, y.logistic_code);
+
+                            }
+                        }
+
+                    }
+                })
+            }, confirm(order_id){
+
+                public_confirm(order_id, function () {
+                    app.init();
+                })
+            }, formatTime(time)
+            {
+                return formatTime_Y_M_D_H_M_S(time);
+            }, returned(data){
+                if (data.refund_status == 0) {
+                    if(data.is_refund == 0){
+                        alert("该商品不能退款")
+                    }else{
+                        public_returned(data);
+                    }
+                } else if (data.refund_status == 4) {
+                    this.list = "";
+                    this.have_giveaway = true;
+                    this.Zpin = "拒绝原因";
+                    this.Jue = data.refund_note;
+                } else {
+                    return
+                }
+            }, getPostInfo(shipper_code, logistic_code)
+            {//物流名称及编号，最后一个参数为初始化是不是第一个
+                yaqooNetPost("Order/logistic_info", {
+                    shipper_code: shipper_code,
+                    logistic_code: logistic_code
+                }, function (data) {
+                    if (data['code'] == 1000) {
+
+                        if (!isNull(data['data'])) {
+                            app.post_list.push({
+                                name: shipper_code,
+                                number: logistic_code,
+                                detail_list: data['data'].reverse(),
+                                clicks: app.isFirstPost
+                            });
+
+                            if (app.isFirstPost) {
+                                app.nowpost_data = app.post_list[0];
+                                app.isFirstPost = false;
+                            }
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+    app.init();
+
+</script>
+</html>

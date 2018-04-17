@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>师资力量</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/company_info/company_info_index.css">
+    <!--本页引入-->
+    <link rel="stylesheet" href="../../css/company_info/teacher.css">
+    <link rel="stylesheet" href="../../css/homepage/dredge.css">
+</head>
+<body style="background: #fff">
+
+<div id="app_body" class="section" v-cloak>
+    <!--原页-->
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back">
+        师资力量
+    </div>
+    <div class="about_us_banner">
+        <img src="../../img/company_info/teacher_02.png" alt="">
+        <div class="section__above">
+            <p class="section__above_p">
+                师资力量
+            </p>
+            <p class="section__above_p2">
+                卓越学习体验，打造国内医学教育的旗舰品牌。  
+            </p>
+        </div>
+
+    </div>
+    <div class="find_nav">
+        <ul>
+            <li v-for="(data,index) in tab_list" v-on:click="tab_check(index)"
+                :class="{'find_nav_cur':current_tab==index}">
+                {{data.name}}
+            </li>
+        </ul>
+    </div>
+    <div style="height:.2rem;background:#f0f0f0;width:100%"></div>
+    <ul class="section_ul" v-if="!IsDredge">
+        <li v-on:click="newsstorage(data.teacher_id)" v-for="data in news_list">
+            <div class="section_li_div">
+                <img class="section_li_div_img" :src="data.teacher_photo" alt="">
+                <div class="section_li_div_right">
+                    <div class="section_li_div_right_div">
+                        <p class="section_li_div_right_p">
+                            <span class="section_li_div_right_p_span">{{data.teacher_name}}</span>{{data.education}}
+                        </p>
+                        <p class="section_li_div_right_p2">
+                            <img src="../../img/company_info/audition_11.png" alt="">试听
+                        </p>
+                    </div>
+                    <p class="section_li_div_right__p">
+                        {{data.introduce}}
+                    </p>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <div style="height: 8rem;position: relative;" v-if="IsDredge">
+        <div style="position:absolute;left:46%;top:50%;margin-top:-2.1rem;margin-left:-3rem;width: 6rem;height: 4.2rem;display: inline-block;text-align: center;">
+            <img src="../../img/course/tip.png" style="width: 4.49rem;height: 3.47rem;margin-bottom: .52rem;display: inline-block;">
+            <p style="margin-left:.5rem;color: #a3c5e0;font-size: .48rem;">内容暂未上线</p>
+            <p style="margin-left:.2rem;font-size: .34rem;color: #a3c5e0;text-align: center;margin-top: .1rem">如有疑问请拨打 400-9001-765 咨询</p>
+        </div>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    var newsstorage = '';
+    var t___id = new Number();
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            IsDredge:false,//是否开通
+            tab_list: [
+                {name: "执业医师 ", index: 0},
+                {name: "执业药师", index: 1},
+                {name: "中医师承", index: 2}
+              /*  {name: "卫生管理", index: 3}*/
+            ],
+            current_tab: 0,
+            number_pages: 1,
+            news_list: [
+                {
+                    "teacher_id": "",
+                    "teacher_name": "",
+                    "position": "",
+                    "des_photo": "",
+                    "intro_list": "",
+                    "teacher_photo": ""
+                }
+            ],
+        },
+        methods: {
+            FDredge(){
+              this.IsDredge = false;
+            },
+            back(){
+                union_back();
+            },
+            newsstorage(id){
+                localStorage.setItem('teacher_id', id);
+                window.location.href = "../else/teacher_details.html";
+
+            },
+            tab_check(index){
+                this.current_tab = index;
+                if (index == 0) {
+                    index = 11989;
+                    this.IsDredge = false;
+                } else if (index == 1) {
+                    index = 11991;
+                    this.IsDredge = false;
+                } else if (index == 2) {
+                    index = 11992;
+                    this.IsDredge = true;
+                    return;
+                } else if (index == 3) {
+                    index = 11993;
+                }
+                t___id = index;
+                yaqooNetPost('Teacher/teacher_list', {t_id: index}, function (data) {
+                    if (data['code'] == 1000) {
+                        app.news_list = data['data'];
+                        app.number_pages = 2;
+                    }
+                })
+            }
+        },
+    })
+
+
+    yaqooNetPost('Teacher/teacher_list', {t_id: 11989}, function (data) {
+        if (data['code'] == 1000) {
+            app.number_pages += 1;
+            app.news_list = data['data'];
+            t___id = 11989;
+        }
+    });
+
+
+    // function getScrollTop(e) {
+        /*var scrollTop = 0, bodyScrollTop = 0, documentScrollTop = 0;*/
+        /*if (document.body) {
+            bodyScrollTop = document.body.scrollTop;
+        }
+        if (document.documentElement) {
+            documentScrollTop = document.documentElement.scrollTop;
+        }*/
+        // scrollTop = (bodyScrollTop - documentScrollTop > 0) ? bodyScrollTop : documentScrollTop;
+    //     var e =e || window.event;
+    //     var scrollTop = document.body.scrollTop || document.documentElement.scrollTop
+    //     return scrollTop;
+    // }
+    //文档的总高度
+    // function getScrollHeight(e) {
+        // var scrollHeight = 0, bodyScrollHeight = 0, documentScrollHeight = 0;
+        /*if (document.body) {
+            bodyScrollHeight = document.body.scrollHeight;
+        }
+        if (document.documentElement) {
+            documentScrollHeight = document.documentElement.scrollHeight;
+        }*/
+        /*scrollHeight = (bodyScrollHeight - documentScrollHeight > 0) ? bodyScrollHeight : documentScrollHeight;*/
+    //     var e =e || window.event;
+    //     var scrollHeight = document.body.scrollHeight ||  document.documentElement.scrollHeight;
+    //     return scrollHeight;
+    // }
+    // function getWindowHeight(e) {
+        /*var windowHeight = 0;
+        if (document.compatMode == "CSS1Compat") {
+            windowHeight = document.documentElement.clientHeight;
+        } else {
+            windowHeight = document.body.clientHeight;
+        }*/
+        /*var e =e || window.event;
+        var windowHeight =  window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        return windowHeight;
+    }
+    window.onscroll = function (e) {
+        if (getScrollTop(e) + getWindowHeight(e) >= getScrollHeight(e)) {
+            yaqooNetPost('Teacher/teacher_list', {t_id: t___id, page: app.number_pages}, function (data) {
+                if (data['code'] == 1000) {
+                    if (data['data']!=null) {
+                        app.news_list= app.news_list.concat(data['data']);
+                        app.number_pages += 1;
+                    }    
+                }
+            });
+        } 
+    };*/
+</script>
+</html>

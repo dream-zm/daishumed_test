@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>购物车</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--购物车公共.css-->
+    <link rel="stylesheet" href="../../css/shopcar/shopcar_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/shopcar/Shopping_cart.css">
+
+</head>
+<body>
+
+<div v-cloak id="app_body">
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back">
+        购物车
+    </div>
+
+    <div class="address">
+        <div class="address_div">
+            <p class="address_p_right" v-on:click="edit">
+                {{is_edit?"完成":"收藏删除"}}
+            </p>
+        </div>
+    </div>
+    <div class="commodity">
+        <ul class="commodity_ul">
+
+            <li class="commodity_li" v-for="data in datalist">
+
+                <div class="commodity_li_div">
+                    <div class="commodity_li_div_img_div">
+                        <div :class="{option_div:data.selected==1}" v-on:click="select_cart(data)" class="option">
+                            <img src="../../img/shopcar/Checkmark_11.png" alt="">
+                        </div>
+
+                        <img class="commodity_li_div_img" :src="data.course_thumb" alt="">
+
+                    </div>
+                    <div class="commodity_li_div_right">
+                        <p class="commodity_li_div_p">
+                        <span>
+                            {{data.course_name}}
+                            {{data.spec_key_name==""?"":"("+data.spec_key_name+")"}}
+                            {{data.course_type==2?"(直播)":""}}
+                        </span>
+                            <span class="commodity_li_div_span" v-if="data.giveaway_name!=''"
+                                  @click="show_giveaway(data.giveaway_name)">
+                            有赠品
+                        </span>
+                        </p>
+                        <p class="commodity_li_div_p2">
+                            {{data.direction_name}}
+                        </p>
+                        <p class="commodity_li_div_p3">
+                            有效期：{{data.down_time}}
+                        </p>
+                        <div class="commodity_li_divdiv">
+                            <p class="commodity_li_divdiv_p">
+                                <span class="commodity_li_divdiv_p_span" v-if="data.discount_price != null">¥ {{data.discount_price}}</span>
+                                <span class="commodity_li_divdiv_p_span3" v-if="data.discount_price != null"><del>原价:{{data.course_price}}</del></span>
+                                <span class="commodity_li_divdiv_p_span" v-if="data.discount_price == null">¥ {{data.course_price}}</span>
+                                
+                            </p>
+
+                            <p class="commodity_li_divdiv_p2">
+                                <img class="commodity_li_divdiv_p2_img" src="../../img/shopcar/minussign_07.png" alt=""
+                                     v-on:click="minus_num(data)">
+                                <input class="commodity_li_divdiv_p2_input" v-model.number.trim="data.cart_num"
+                                       type="number" disabled onkeyup="value=value.replace(/[^123456789]/g,'')">
+                                <img class="commodity_li_divdiv_p2_img2" src="../../img/shopcar/Plus_09.png" alt=""
+                                     >
+                                     <!-- v-on:click="add_num(data)" -->
+                            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="settlement">
+        <div class="settlement_left">
+            <div :class="{option_div:select_num==cart_num}" v-on:click="check_all" class="option_pasent">
+                <img src="../../img/shopcar/Checkmark_11.png" alt="">
+            </div>
+            全选
+        </div>
+
+        <div :class="{show_class:!is_edit,hiddle_class:is_edit}">
+            <div class="settlement_in">
+                <p class="settlement_in_p">
+                    合计：<span>¥{{price_sum}}</span>
+                </p>
+                <p class="settlement_in__p">
+                    共 {{cart_num}} 件商品，已选择 {{select_num}} 件
+                </p>
+            </div>
+            <div class="settlement_right" v-on:click="commit">
+                结算
+            </div>
+        </div>
+        <div :class="{show_class:is_edit,hiddle_class:!is_edit}">
+            <div class="delete" v-on:click="deletez">
+                删除
+            </div>
+            <div class="collection" v-on:click="collect">
+                加入收藏
+            </div>
+        </div>
+    </div>
+
+    <div class="location" v-if="have_giveaway">
+        <div class="giveaway_div">
+            <h4 class="giveaway_h4">
+                <span class="giveaway_span">有赠品</span>
+                <img class="giveaway_img" src="../../img/shopcar/guanbi_img_03.png" alt="" @click="close_giveaway">
+            </h4>
+            <ul class="giveaway_div_ul">
+                <li v-for="data in giveaway_txt">
+                    {{data}}
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+
+<!--购物车公共.js-->
+<!--<script src="../../js/shopcar/shopcar_index.js"></script>-->
+<!--<script src="../../js/shopcar/Shopping_cart.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="../../js/index_footer.js"></script>
+<script type="application/javascript">
+    checkUserState(true);
+
+
+
+
+
+    var tempArray = new Array();
+    var tempArray2 = new Array();
+
+    var app_body = new Vue({
+        el: '#app_body',
+        data: {
+            test: 1,
+            datalist: [],
+            cart_num: 0,
+            select_num: 0,
+            price_sum: 0,
+            is_edit: false,
+            shows: 'display:block',
+            hiddles: 'display:none',
+            giveaway_txt: '',
+            have_giveaway: false//是否有赠品
+        },
+        methods: {
+            back:function () {
+              union_back();
+            },
+            close_giveaway: function () {
+                this.have_giveaway = false;
+                this.giveaway_txt = "";
+            },
+            show_giveaway: function (content) {
+                //展示赠品
+                if (!isNull(content)) {
+                    this.have_giveaway = true;
+                    this.giveaway_txt = content;
+                }
+
+            },
+            minus_num: function (data) {
+                //减少数量
+                if (data.cart_num > 1) {
+                    data.cart_num--;
+                }
+                compute_sum();
+            },
+            add_num: function (data) {
+                //添加数量
+                data.cart_num++;
+                compute_sum();
+            }, select_cart: function (data) {
+                //选择商品
+                data.selected = (data.selected == 0 ? 1 : 0);
+                compute_sum();
+            }, check_all: function () {
+                //全选
+                check_all();
+            }, edit: function () {
+                this.is_edit = !this.is_edit;
+            }, collect: function () {
+                collect();
+            }, deletez: function () {
+                deletes();
+            }, commit: function () {
+                commit_order();
+            }
+        }, watch: {}
+    })
+
+    //提交订单
+    function commit_order() {
+        if (tempArray.length != 0) {
+            tempArray.splice(0, tempArray.length);
+        }
+        for (var i = 0; i < app_body.datalist.length; i++) {
+            if (app_body.datalist[i].selected == 1) {
+                tempArray.push(app_body.datalist[i]);
+            }
+        }
+        if (tempArray.length == 0) {
+            alert("请选择商品")
+        } else {
+            setTempData(JSON.stringify(tempArray));
+            window.location.href = "submit_order.html";
+        }
+    }
+
+    //收藏
+    function collect() {
+        if (tempArray.length != 0) {
+            tempArray.splice(0, tempArray.length);
+        }
+        for (var i = 0; i < app_body.datalist.length; i++) {
+            if (app_body.datalist[i].selected == 1) {
+                tempArray.push({
+                    "course_id": app_body.datalist[i].course_id,
+                    "spec_key": parseInt(app_body.datalist[i].spec_key)
+                });
+            }
+        }
+        if (tempArray.length == 0) {
+            alert("请选择商品")
+        } else {
+
+            yaqooNetPost("Favorite/add", {"favorite": tempArray}, function (data) {
+                console.log(data)
+                alert(data['message'])
+            })
+        }
+    }
+
+    //删除
+    function deletes() {
+        if (tempArray.length != 0) {
+            tempArray.splice(0, tempArray.length);
+        }
+        if (tempArray2.length != 0) {
+            tempArray2.splice(0, tempArray2.length);
+        }
+
+        for (var i = 0; i < app_body.datalist.length; i++) {
+            if (app_body.datalist[i].selected == 0) {
+                tempArray.push(app_body.datalist[i]);
+            } else {
+                tempArray2.push(app_body.datalist[i].cart_id);
+            }
+        }
+        app_body.datalist = tempArray;
+
+        if (tempArray2.length == 0) {
+            alert("请选择商品");
+            datalist();
+            return;
+        } else {
+            yaqooNetPost("Cart/del", {"cart_id": tempArray2}, function (data) {
+                alert(data['message']);
+                datalist();
+                // window.location.href="Shopping_cart.html"
+            })
+        }
+    }
+
+
+    //全选
+    function check_all() {
+        if (app_body.select_num == app_body.cart_num) {//反选
+            compute_sum(false);
+        } else {
+            //全选
+            compute_sum(true);
+        }
+    }
+
+    //计算数量及价格
+    function compute_sum(flag) {
+        var temp_sum = 0;
+        var temp_price = 0;
+        for (var i = 0; i < app_body.datalist.length; i++) {
+            if (flag == true) {//全选
+                app_body.datalist[i].selected = 1;
+            } else if (flag == false) {//反选
+                app_body.datalist[i].selected = 0;
+            }
+            if (app_body.datalist[i].selected == 1) {
+                temp_sum++;
+                if(app_body.datalist[i].discount_price == null){
+                    temp_price += app_body.datalist[i].course_price * app_body.datalist[i].cart_num;
+                }else{
+                    temp_price += app_body.datalist[i].discount_price * app_body.datalist[i].cart_num;
+                }
+
+            }
+        }
+        app_body.select_num = temp_sum;
+        app_body.cart_num = app_body.datalist.length;
+        //保留两位小数点
+        app_body.price_sum = temp_price.toFixed(2);
+
+    }
+
+    //网络请求
+    function datalist(){
+        yaqooNetPost("Cart/index", "", function (data) {
+            console.log(data)
+            if (data['code'] == 1000) {
+                app_body.datalist=[];
+                for(i in data['data']){
+                    if(data['data'][i].product_type != 2){
+                        app_body.datalist.push(data['data'][i])
+                    }
+                }
+                compute_sum();
+            } else {
+                alert(data['message'])
+            }
+        })
+    }
+    datalist();
+
+
+</script>
+
+
+</html>

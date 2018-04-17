@@ -1,0 +1,325 @@
+
+.nav__top {
+    background: #1e2028;
+    color: #fff;
+}
+
+.find_nav {
+    width: 100%;
+    font-size: .36rem;
+    z-index: 99;
+    border-bottom: 1px solid #ddd;
+    display: -moz-box;
+    display: -webkit-box;
+}
+
+.find_nav_left {
+    position: relative;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+}
+
+.find_nav_list {
+    position: absolute;
+    left: 0;
+}
+
+.find_nav_list ul {
+    position: relative;
+    white-space: nowrap;
+    font-size: 0;
+    background: #fff;
+}
+
+.find_nav_list ul li {
+    display: inline-block;
+    padding: 0 .4rem;
+}
+
+.find_nav_list ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: .875rem;
+    font-size: 0.4rem;
+    text-align: center;
+
+}
+
+.find_nav_cur a {
+    color: #0299ec;
+}
+
+.sideline {
+    display: block;
+    position: absolute;
+    border: 0;
+    height: 2px;
+    background-color: #0299ec;
+    left: 0;
+    top: 0.82rem;
+    pointer-events: none;
+}
+
+.sideline span {
+    position: absolute;
+    bottom: -.2rem;
+    left: 50%;
+    margin-left: -.05rem;
+    width: 0;
+    height: 0;
+    border-left: .1rem solid transparent;
+    border-right: .1rem solid transparent;
+    border-top: .2rem solid #0299ec;
+}
+
+.courselist_banner {
+    width: 100%;
+    height: 2.82rem;
+    overflow: hidden;
+    position: relative;
+    margin: .2rem 0;
+}
+
+.courselist_banner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.courselist_div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+}
+
+.courselist_div_right {
+    text-align: left;
+    margin-left: 4.48rem;
+    font-size: .4rem;
+    color: #fff;
+    padding-top: .2rem;
+}
+
+.courselist_div_right p {
+    padding: .1rem 0;
+}
+
+.courselist_div_right_div {
+    padding: .14rem .2rem;
+    background: #ffffff;
+    color: #2ba3da;
+    border-radius: .6rem;
+    display: inline-block;
+}
+
+.courselist_nav {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    font-size: .36rem;
+    color: #333333;
+    padding-top: .2rem;
+    background: #fff;
+}
+
+.courselist_nav_div {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.courselist_nav_div_left {
+    float: left;
+    width: 50%;
+    overflow: hidden;
+    text-align: center;
+
+}
+
+.courselist_nav_div_left p {
+    padding-bottom: .2rem;
+}
+
+.courselist_nav_div_left_bottom {
+    width: 100%;
+    height: 1px;
+    background: transparent;
+}
+
+.courselist_nav_div_left2 {
+    color: #35adf0;
+}
+
+.courselist_nav_div_left2 .courselist_nav_div_left_bottom {
+    background: #35adf0;
+}
+
+.practice {
+    display: none;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    font-size: .36rem;
+    background: #fff;
+
+}
+
+.practice li {
+    padding: .3rem 0;
+    border-bottom: 1px solid #e4e4e4;
+}
+
+.practice_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.practice_div_top {
+    overflow: hidden;
+    margin-bottom: .14rem;
+}
+
+.practice_div_top_span {
+    display: inline-block;
+    border-radius: 50%;
+    width: .48rem;
+    height: .48rem;
+    background: #0299ec;
+    text-align: center;
+    line-height: .48rem;
+    color: #fff;
+    margin-right: .2rem;
+}
+
+.practice_in_p {
+    font-size: .28rem;
+    color: #999999;
+    padding-left: .68rem;
+    margin-bottom: .2rem;
+}
+
+.practice_in_p_span {
+    color: #0299ec;
+}
+
+.practice_in_p_span2 {
+    color: #ff8a00;
+}
+
+.practice_in_p_span3 {
+    color: #3bb959;
+}
+
+.practice_in_p_span4 {
+    color: #f13949;
+}
+
+.practice_div_bottom {
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+}
+
+.practice_div_bottom_left {
+    float: left;
+    width: 2.82rem;
+    padding: .2rem 0;
+    border-radius: .1rem;
+    text-align: center;
+    background: #3bb959;
+    margin-right: .6rem;
+}
+
+.practice_div_bottom_left2 {
+    float: left;
+    width: 2.82rem;
+    padding: .2rem 0;
+    border-radius: .1rem;
+    text-align: center;
+    background: #ff8a00;
+}
+
+.practice_div_bottom_left3 {
+    float: right;
+    width: 2.82rem;
+    padding: .2rem 0;
+    border-radius: .1rem;
+    text-align: center;
+    background: #0299ec;
+}
+
+.simulation {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    font-size: .4rem;
+    background: #fff;
+}
+
+.simulationli {
+    padding: .3rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.simulation_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.simulation_div_p {
+    margin-bottom: .2rem;
+    color: #333333;
+}
+
+.simulation_ul {
+    overflow: hidden;
+    position: relative;
+}
+
+.simulation_ul li {
+    float: left;
+    width: 2.82rem;
+    overflow: hidden;
+}
+
+.simulation_ul li p {
+    font-size: .32rem;
+    color: #555555;
+    margin-bottom: .14rem;
+}
+
+.simulation_ul_li_bottom {
+    width: 100%;
+    padding: .2rem 0;
+    border-radius: .1rem;
+    text-align: center;
+    background: #3bb959;
+    color: #fff;
+    font-size: .36rem;
+}
+
+.simulation_ul_li {
+    float: left;
+    margin-right: .6rem;
+}
+
+.simulation_ul_li_bottom2 {
+    background: #fb8524;
+}
+
+.simulation_ul_li2 {
+    float: right !important;
+}
+
+.simulation_ul_li_bottom3 {
+    background: #0299ec;
+}

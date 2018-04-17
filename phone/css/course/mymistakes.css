@@ -1,0 +1,231 @@
+
+.find_nav {
+    width: 100%;
+    height: 1.44rem;
+    font-size: .36rem;
+    z-index: 99;
+    display: -moz-box;
+    display: -webkit-box;
+    background: #1e2028;
+}
+
+.find_nav_left {
+    position: relative;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    height: 1.44rem;
+}
+
+.find_nav_list {
+    position: absolute;
+    left: 0;
+    height: 1.44rem;
+}
+.find_nav_lee{
+    border: none;
+}
+.find_nav_list ul {
+    position: relative;
+    white-space: nowrap;
+    color: #adafb9;
+
+}
+
+.find_nav_list ul li {
+    display: inline-block;
+    padding: 0 .4rem;
+    height: 1.44rem;
+}
+
+.find_nav_list ul li:last-child {
+    height: 2px;
+}
+
+.find_nav_list ul li  span{
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 1.4rem;
+    font-size: .52rem;
+    text-align: center;
+    color: #adafb9;
+
+}
+
+.find_nav_cur a {
+    color: #fff !important;
+}
+
+.sideline {
+    display: block;
+    position: absolute;
+    border: 0;
+    height: 2px;
+    background-color: #0299ec;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.mymistakes {
+    width: 100%;
+    height: 3.78rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.mymistakes img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.mymistakes_div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 111;
+}
+
+.mymistakes_div_p {
+    text-align: center;
+    font-size: .56rem;
+    color: #fff;
+    margin: 1.1rem 0 .2rem;
+}
+
+.mymistakes_div_p2 {
+    text-align: center;
+    font-size: .36rem;
+    color: #fff;
+}
+
+.mymistakes_div_span {
+    color: #58e5ff;
+}
+
+.mymistakes_div_span2 {
+    color: #E63737;
+}
+.mymistakes_div_span3 {
+    color: #fff000;
+}
+.mymistakes_nav {
+    width: 100%;
+    padding-top: .2rem;
+    font-size: .36rem;
+    color: #333333;
+    overflow: hidden;
+    text-align: center;
+}
+
+.mymistakes_left {
+    width: 50%;
+    float: left;
+    overflow: hidden;
+}
+
+.mymistakes_left_p {
+    padding-bottom: .2rem;
+}
+
+.mymistakes_left_p2 {
+    width: 100%;
+    height: 2px;
+    background: transparent;
+}
+
+.mymistakes_left2 {
+    color: #0299ec;
+}
+
+.mymistakes_left2 .mymistakes_left_p2 {
+    background: #0299ec;
+}
+.mymistakes_ul_div{
+    width: 100%;
+    padding-top: .2rem;background: #f0f0f0;
+}
+.mymistakes_ul {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    padding-bottom: 1.6rem;
+}
+
+.mymistakes_li {
+    padding: .3rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #d0d0d0;
+    background: #fff;
+}
+
+.mymistakes_li_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+
+.mymistakes_li_div_p {
+    color: #323232;
+    font-size: .36rem;
+}
+
+.mymistakes_li_div_div {
+    width: 100%;
+    overflow: hidden;
+}
+
+.mymistakes_li_div_left {
+    float: left;
+    overflow: hidden;
+}
+
+.mymistakes_li_div_left_p {
+    margin: .1rem 0;
+    font-size: .32rem;
+    color: #666666;
+}
+
+.mymistakes_li_div_left_p2 {
+    color: #666666;
+    font-size: .32rem;
+}
+
+.mymistakes_li_div_left_p2 span {
+    color: #ff7800;
+}
+
+.mymistakes_li_div_right {
+    float: right;
+    overflow: hidden;
+    font-size: .32rem;
+    margin-top: .2rem;
+}
+
+.mymistakes_li_div_right_div {
+    float: left;
+    width: 1.8rem;
+    height: .66rem;
+    border: 1px solid #666666;
+    border-radius: .1rem;
+    text-align: center;
+    line-height: .66rem;
+    color: #666666;
+    margin-right: .2rem;
+}
+.mymistakes_li_div_right_div2{
+    float: left;
+    width: 1.8rem;
+    height: .66rem;
+    border: 1px solid #0299ec;
+    border-radius: .1rem;
+    text-align: center;
+    line-height: .66rem;
+    color: #0299ec;
+}
+
+
+

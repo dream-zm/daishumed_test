@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>登录</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <script src="../../js/regular.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--登录页面公共.css-->
+    <link rel="stylesheet" href="../../css/login/login_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/login/land.css">
+
+</head>
+
+<body>
+    <div id="app_body" v-cloak>
+        <div class="nav__top">
+            <!--暂时的头部-->
+            <img v-on:click="to_back" class="nav__top_left" src="../../img/company_info/return_03.png" alt=""> 登录注册
+        </div>
+        <div class="land_head">
+            <div class="login_head_div">
+                <p v-on:click="switchs1" :class="{login_head_div_color:flag}" class="login_head_div_p">
+                    短信快捷登录
+                </p>
+                <p v-on:click="switchs2" :class="{login_head_div_color:!flag}" class="login_head_div_p2">
+                    账号密码登录
+                </p>
+            </div>
+        </div>
+        <div :class="{show_class:flag}" class="login_account">
+            <ul class="login_account_ul">
+                <li>
+                    <input v-model="type1_tel" onkeyup="value=value.replace(/[^\d]/g,'')" placeholder="手机号" type="text">
+                </li>
+                <li v-if="!is_showGetCode" class="login_account_ul_li">
+                    <div class="login_account_ul_li_div">
+                        <input v-model="graphic_code" v-on:input="g_code_change" placeholder="图形验证码" type="text">
+                    </div>
+                    <div v-on:click="change_g_code" class="login_account_ul_li_img">
+                        <canvas id="mycanvas" width='200' height='100'>
+                            您的浏览器不支持canvas，请换个浏览器试试~
+                        </canvas>
+                    </div>
+                </li>
+                <li v-if="is_showGetCode" class="login_account_ulli">
+                    <input v-model="type1_code" placeholder="验证码" type="text" class="login_account_input">
+                    <span v-bind:is-ok="is_ok" class="login_account_span" v-on:click="time">获取验证码</span>
+                </li>
+            </ul>
+            <a href="##">
+                <p v-if="is_showGetCode && click_voice" v-on:click="a_send_voice" class="login_account_p">
+                    收不到短信吗？点击发送语音验证码
+                </p>
+                <p v-if="is_showGetCode && !click_voice" class="login_account_p">
+                    请注意接听语音来电获取验证码({{time_val}})
+                </p>
+            </a>
+        </div>
+        <div :class="{show_class:!flag}" v-show="!flag" class="land_number">
+            <ul class="login_account_ul">
+                <li>
+                    <input v-model="type2_tel" placeholder="手机号" type="text">
+                </li>
+                <li>
+                    <input v-model="type2_pwd" placeholder="请输入6-16位数字和字母组合的密码" type="password">
+                </li>
+            </ul>
+            <div class="login_account_div">
+                <!--<div class="login_account__left">-->
+                <!--<div v-on:click="agree" class="login_account_left"><img src="../../img/login/xuanze_03.png" alt="">-->
+                <!--</div>-->
+                <!--<p class="login_account_div_p">记住我</p>-->
+                <!--</div>-->
+                <a href="##">
+                    <div v-on:click="to_reset_pwd" class="login_account__right">
+                        忘记密码？
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div v-on:click="total_login" class="register">
+            登录
+        </div>
+        <a v-on:click="to_resign" href="##">
+            <p class="up_login">
+                还没有账号，去注册
+            </p>
+        </a>
+        <div class="location" v-if="setPassword">
+            <!--订单删除-->
+
+                <div class="giveaway_div">
+                    <h4 class="giveaway_h4">
+                        <span class="giveaway_span">提示</span>
+                        <!--<img class="giveaway_img" src="../../img/shopcar/guanbi_img_03.png" @click="dl_Tan" alt="">-->
+                    </h4>
+                    <ul class="giveaway_div_ul">
+                        <li class="giveaway_div_ul_Tan">
+                            <!--<img class="login_account_ul_li1_img" src="../../img/shopcar/shanchu_yd_03.png" alt="" >-->
+                        </li>
+                        <li class="giveaway_div_ul_Tan Tanfont">
+                            您是否设置密码？
+                        </li>
+                        <li class="giveaway_div_ul_Tan">
+                            <div  class="giveaway_div_ul_div_Tan giveaway_div_ul_div_Tan1"  v-on:click="ensure">
+                                确定
+                            </div>
+                            <div  class="giveaway_div_ul_div_Tan"  v-on:click="abolish">
+                                取消
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+        </div>
+
+        <!--<a href="##"><p class="up_login">-->
+        <!--已有账号，马上去登录-->
+        <!--</p></a>-->
+
+        <!--<div class="third_party"><span>第三方免注册登录</span></div>-->
+        <!--<img class="third_party_img2" src="../../img/login/wexin_09.png" alt="">-->
+        <!--<img class="third_party_img" src="../../img/login/QQ_img_03.png" alt="">-->
+    </div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<!--图形验证码-->
+<script src="../../js/graphic_veriry.js"></script>
+<!--获取城市与ip-->
+<script src="https://pv.sohu.com/cityjson?ie=utf-8"></script>
+<!--本页面引入-->
+<script src="../../js/login/land.js"></script>
+
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>邮寄地址</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <!--vue框架-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--个人中心公共样式-->
+    <link rel="stylesheet" href="../../css/user_info/user_info_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/user_info/mailing_address.css">
+
+</head>
+<body>
+<div id="app_body" v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back">
+        邮寄地址
+    </div>
+    <ul class="mailing_address_ul">
+        <li class="mailing_address_li" v-for="data in data_list" @click="select(data)">
+            <div class="mailing_address_div">
+                <p class="mailing_address_div_p">
+                    {{data.consignee}}
+                </p>
+                <p class="mailing_address_div_p2">
+                    {{data.mobile}}
+                </p>
+            </div>
+            <p class="mailing_address_li_p">
+                {{data.province + data.city + data.district + data.address}}
+            </p>
+            <div class="mailing_address_li_bottom">
+                <div class="mailing_address_bottom">
+                    <div class="mailing_address_left" v-on:click.stop="a_edit_address(data)">
+                        <img src="../../img/user_info/edit_img_06.png" alt="">
+                        编辑
+                    </div>
+                    <div class="mailing_address_right" v-on:click.stop="a_delete_address(data.address_id)">
+                        <img src="../../img/user_info/delete_03.png" alt="">
+                        删除
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <div class="bottom_button_blue" v-on:click="add">
+        添加地址
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    $('.mailing_address_right').on('click', function () {
+        $(this).parents('.mailing_address_li').remove()
+    })
+</script>
+
+<script>
+    checkUserState(true);
+
+
+    var app_body = new Vue({
+        el: '#app_body',
+        data: {
+            data_list: []
+        },
+        methods: {
+
+            add(){
+                localStorage.setItem('add_address_type', "1");
+                window.location.href = "add_address.html"
+            },
+            back(){
+                union_back();
+                localStorage.removeItem('cm_mail_address_isShop');
+            }, select(data)
+            {
+
+                if (come_from_flag) {
+                    localStorage.setItem("address_info", JSON.stringify(data))
+                    if(localStorage.getItem("Goaddres") == '1'){
+                        window.location.href="../shopcar/submit_order.html"
+                    }else{
+                        return
+                    }
+
+                    //union_back();
+                }
+            },
+            //请求数据
+            a_get_data(){
+                get_data();
+            },
+            //点击删除
+            a_delete_address(address_id){
+                delete_address(address_id);
+            },
+
+            //点击编辑
+            a_edit_address(data){
+                edit_address(data);
+            }
+        }
+    })
+
+
+
+    app_body.a_get_data();
+    //请求地址数据
+    function get_data() {
+
+        yaqooNetPost('Address/index', '', function (data) {
+            if (data['code'] == 1000) {
+                console.log(data);
+                app_body.data_list = data['data'];
+            } else {
+                alert(data['message']);
+            }
+        })
+    }
+
+    //删除地址
+    function delete_address(address_id) {
+        yaqooNetPost('Address/del', {address_id: address_id}, function (data) {
+            if (data['code'] == 1000) {
+                alert('删除成功')
+                //将缓存数组中的数据删除
+                var tem_list = app_body.data_list;
+                for (var i = 0; i < tem_list.length; i++) {
+                    var data = tem_list[i]
+                    if (address_id == data.address_id) {
+                        app_body.data_list.splice(i, 1);
+                    }
+                }
+            } else {
+                alert('删除失败')
+            }
+        })
+    }
+
+    function edit_address(data) {
+        localStorage.setItem('mailing_address_addressData', JSON.stringify(data));
+        localStorage.setItem('add_address_type', '2');//传2过去是编辑  传1过去是增加
+        window.location.href = 'add_address.html'
+    }
+
+
+    var come_from_flag = localStorage.getItem("come_from_flag");
+
+    if (!isNull(come_from_flag)) {
+        app_body.come_from_flag = (come_from_flag == "submit_order");
+    } else {
+        app_body.come_from_flag = false;
+    }
+</script>
+</html>

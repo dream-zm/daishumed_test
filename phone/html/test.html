@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网络请求</title>
+</head>
+<body>
+
+</body>
+</html>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    axios.defaults.headers.post['Authorization'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9rYW5nYXJvby5kYWlzaHVtZWQuY29tIiwiYXVkIjoiaHR0cDpcL1wva2FuZ2Fyb28uZGFpc2h1bWVkLmNvbSIsImlhdCI6MTUyMjMwMzY3OSwibmJmIjoxNTIyMzAzNjc5LCJleHAiOjE1MjIzNDY4NzksInVzZXJfaW5mbyI6IntcInVzZXJfaWRcIjpcIjI3XCIsXCJ1c2VybmFtZVwiOlwiMTg1MTA0NjgwNDFcIixcInBldF9uYW1lXCI6XCIxMTFcIn0ifQ.LBs3guqkuc4yeh9DSSihVveZichlBIciyCLbITBGVhM';
+    axios.post('http://kangaroo.daishumed.com/index.php/Userinfo/one_course_record', {
+        course_id: '71',
+    })
+        .then(function (response) {
+            console.log(response);
+            alert(response['data']['code']);
+        })
+        .catch(function (error) {
+            console.log(error);
+            alert(error)
+        });
+
+
+</script>

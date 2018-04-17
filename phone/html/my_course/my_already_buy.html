@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>我的已购课程</title>
+
+    <!--无考试方向 执业医师、执业药师 -->
+
+
+    <!--flexible布局  -->
+    <script src="../../js/flexible.js"></script>
+
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/listofcourses.css">
+    <link rel="stylesheet" href="../../css/homepage/dredge.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+
+
+
+
+    <mine_top_nav init_tabs="0"></mine_top_nav>
+
+    <div v-if="isRegiste">
+        <div class="listofcourses_nav">
+            <ul class="listofcourses_nav_ul">
+                <li :class="{'listofcourses_nav_ul_li':current_tab==index}" v-on:click="tab_check(index)"
+                    v-for="(data,index) in tab_list">
+                    <p>
+                        {{data.name}}
+                    </p>
+                    <span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+        <div v-if="IsDredge">
+        <!--精品课程-->
+        <ul class="listofcourses_ul">
+            <li v-for="data in data_list_buy" @click="jump2detail(page_flag,0,data.course_id,6)">
+                <div class="listofcourses_div">
+                    <img class="listofcourses_img" :src="data.course_thumb" alt="">
+                    <div class="listofcourses_right">
+                        <h4 class="listofcourses_right_h4">
+                            {{data.course_type_name}}{{data.course_name}}
+                            <!-- 拼接课时及习题数量 -->
+                            <!-- {{(data.time_num!=0||data.question_num!=0)?'(已更新':''}}
+                            {{data.time_num!=0?formatHour(data.time_num)+'小时课':''}}
+                            {{data.question_num!=0?data.question_num+'道习题':''}}
+                            {{(data.time_num!=0||data.question_num!=0)?')':''}} -->
+                        </h4>
+                        <div class="listofcourses_divdiv" v-if="data.teacher_name">
+                            <p class="listofcourses_div_p">
+                                {{data.teacher_name}}---{{data.teacher_unit}}
+                            </p>
+                        </div>
+                        <div class="listofcourses_divdiv" v-if="data.direction_name">
+                            <p class="listofcourses_div_p">
+                                <span> 已选：</span>{{data.direction_name}}
+                            </p>
+                        </div>
+
+                        <div class="listofcourses_bottom" >
+                            <!-- <p>共有{{data.sale_num}}人在学习</p> -->
+                            <p>已含赠品</p>
+                            <span class="listofcourses_bottom_span">立即学习</span>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+           <!--  <li v-for="data in data_list_buy" @click="jump2detail(page_flag,0,data.course_id,6)">
+                <div class="listofcourses_div">
+                    <img class="listofcourses_img" :src="data.course_thumb" alt="">
+                    <div class="listofcourses_right">
+                        <h4 class="listofcourses_right_h4">
+                            {{data.course_name}}
+                        </h4>
+                        <div class="listofcourses_divdiv" v-if="data.teacher_name">
+                            <p class="listofcourses_div_p">
+                                {{data.teacher_name}}---{{data.teacher_unit}}
+                            </p>
+
+                        </div>
+                        <div class="listofcourses_divdiv">
+                            <p class="listofcourses_div_p">
+                                <span> 时长：</span>{{formatHour(data.time_num)}}小时/{{data.subject_num}}节课
+                            </p>
+                            <p class="listofcourses_div_p2">
+                                {{data.sale_num}}人购买
+                            </p>
+                        </div>
+                        <div class="listofcourses_bottom">
+                            <p>已购买</p>
+                            <span class="listofcourses_bottom_span">立即学习</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+ -->
+
+        </ul>
+        </div>
+    </div>
+
+    <is-register></is-register>
+    <div style="height:.2rem;background:#f0f0f0;width:100%" v-show="current_tab==2"></div>
+    <div style="height: 8rem;position: relative;" v-if="!IsDredge">
+        <div style="position:absolute;left:46%;top:50%;margin-top:-2.1rem;margin-left:-3rem;width: 6rem;height: 4.2rem;display: inline-block;text-align: center;">
+            <img src="../../img/course/tip.png" style="width: 4.49rem;height: 3.47rem;margin-bottom: .52rem;">
+            <p style="margin-left:.5rem;color: #a3c5e0;font-size: .48rem;">内容暂未上线</p>
+            <p style="margin-left:.3rem;font-size: .34rem;color: #a3c5e0;text-align: center;margin-top: .1rem">如有疑问请拨打 400-9001-765 咨询</p>
+        </div>
+    </div>
+    <!--底部导航-->
+    <main_bottom_nav init_tabs="2"></main_bottom_nav>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+<script type="text/javascript">
+
+
+
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            IsDredge:true,
+            isRegiste:check_user_state(),//判断是否去登录
+            page_flag: 1,//1执业医师 2执业药师 3为国医经典 4为卫生管理
+            data_list_buy: [],//已购买的数组
+            shopcar_num: 0,//购物车数量
+            data_list: [{
+
+                "course_price": "",
+                "course_thumb": "",
+                "course_type": "",
+                "course_type_describe": "",
+                "course_type_name": "",
+                "direction_name": "",
+                "price_sum": "",
+                "question_num": "",
+                "time_num": "",
+
+
+            }], tab_list: [
+                {name: "执业医师", index: 0},
+                {name: "执业药师", index: 1},
+                {name: "中医师承", index: 2},
+                // {name: "卫生管理", index: 3},
+
+            ], current_tab: 0,
+
+        },
+        methods: {
+
+            back(){
+                union_back();
+            }, tab_check(index)
+            {
+
+                this.current_tab = index;
+                switch (index) {
+                    case 0:
+                        this.init(1);
+                        this.IsDredge = true
+                        break;
+                    case 1:
+                        this.init(2);
+                        this.IsDredge = true
+                        break;
+                    case 2:
+                        // this.init(3);
+                        this.IsDredge=false
+                        break;
+                    case 3:
+                        this.init(4);
+                        break;
+                }
+                console.log(this.current_tab)
+            }, formatHour(s){
+
+                return (s / 3600).toFixed(1);
+
+            }, init(flag)
+            {
+                app.data_list_buy = []
+                yaqooNetPost('Course/purchase', {list_type: flag}, function (data) {
+
+                    if (data['code'] == 1000) {
+
+                        app.data_list_buy = data['data'];
+                        console.log(app.data_list_buy)
+                    }
+                },false)
+            }
+        }
+    });
+
+    app.page_flag = localStorage.getItem("page_jump_info");
+
+
+    if(check_user_state()){
+        if(getTempData() == '' || getTempData() ==null || JSON.parse(getTempData()) instanceof Array){
+            app.init(1);
+        } else {
+            app.current_tab = getTempData()-1;
+            app.init(Number(getTempData()))
+        }
+    };
+
+
+
+
+
+</script>
+</html>

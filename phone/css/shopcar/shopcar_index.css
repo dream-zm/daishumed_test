@@ -1,0 +1,144 @@
+/*头部*/
+body {
+    background: #eceef0;
+}
+
+.nav__top {
+    width: 100%;
+    padding: .1rem 0;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.45rem;
+    color: #333333;
+    text-align: center;
+    background: #fff;
+}
+
+.nav__top_left {
+    float: left;
+    margin: .1rem 0 0 0.32rem;
+    width: 0.29rem;
+    height: 0.54rem;
+    vertical-align: middle;
+}
+
+
+/*赠品*/
+.commodity_li_div_span {
+    margin-left: .2rem;
+    color: #fff;
+    background: #ff4e00;
+    font-size: 0.28rem;
+    padding: .1rem .2rem;
+    border-radius: .1rem;
+}
+
+/*赠品弹出层*/
+.giveaway {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(000, 000, 000, .4);
+    z-index: 1111;
+}
+
+.giveaway_h4 {
+    padding: .3rem 0;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.giveaway_div {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: .32rem;
+    background: #fff;
+}
+
+.giveaway_span {
+    float: left;
+    font-size: 0.36rem;
+    padding-left: .3rem;
+}
+
+.giveaway_img {
+    width: .36rem;
+    height: .36rem;
+    float: right;
+    margin-right: .3rem;
+}
+
+.giveaway__div {
+    padding: .2rem 0;
+    background: #fff;
+}
+
+.giveaway__div_div {
+    margin: 0 .3rem;
+    overflow: hidden;
+    line-height: 0.6rem;
+    /*min-height: 5rem;*/
+}
+
+/*赠品*/
+.giveaway {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(000, 000, 000, .4);
+    z-index: 1111;
+}
+
+.giveaway_h4 {
+    padding: .3rem 0;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.giveaway_div {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: .32rem;
+    background: #fff;
+}
+
+.giveaway_span {
+    float: left;
+    font-size: 0.36rem;
+    padding-left: .3rem;
+}
+
+.giveaway_img {
+    width: .36rem;
+    height: .36rem;
+    float: right;
+    margin-right: .3rem;
+}
+
+.giveaway__div {
+    padding: .2rem 0;
+    background: #fff;
+}
+
+.giveaway__div_div{
+    margin: 0 .3rem;
+    overflow: hidden;
+    line-height: 0.6rem;
+    /*min-height: 5rem;*/
+}
+
+
+
+
+
+

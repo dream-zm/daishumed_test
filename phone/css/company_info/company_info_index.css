@@ -1,0 +1,22 @@
+body {
+    background: #eceef0;
+}
+
+.nav__top {
+    width: 100%;
+    padding: .2rem 0;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.48rem;
+    color: #333333;
+    text-align: center;
+    background: #fff;
+}
+
+.nav__top_left {
+    float: left;
+    margin: .1rem 0 0 0.32rem;
+    width: 0.29rem;
+    height: 0.54rem;
+    vertical-align: middle;
+}

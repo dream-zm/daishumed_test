@@ -1,0 +1,739 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    background: #eceef0;
+}
+
+.testquestions {
+    width: 100%;
+    padding: .2rem 0;
+    overflow: hidden;
+    line-height: .7rem;
+    font-size: .4rem;
+    color: #333333;
+    background: -moz-linear-gradient(top, #fcfcfc, rgba(243, 243, 243, 0.5));
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#fcfcfc), to(rgba(243, 243, 243, 0.5)));
+    background: -o-linear-gradient(top, #fcfcfc, rgba(243, 243, 243, 0.5));
+    margin-top: .2rem;
+}
+
+.testquestions_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+    color: #333;
+}
+
+.testquestions_div span {
+    color: #ff6c00;
+}
+
+.chapterexercises_ul {
+    overflow: hidden;
+    padding-bottom: .2rem;
+    width: 100%;
+}
+.current_sub_bottom{
+    width: 100%;
+    height: 1rem;
+    overflow: hidden;
+}
+.chapterexerci_ul {
+    overflow: hidden;
+    width: 100%;
+}
+
+.chapterexercises__ul {
+    overflow: hidden;
+    width: 100%;
+}
+
+.chapterexerci_ul li {
+    padding: .4rem 0;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid #dcdcdc;
+    background: #fff;
+}
+
+.chapterexercises__ul li {
+    padding: .4rem 0;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid #dcdcdc;
+}
+
+.chapterexercises_ul li {
+    padding: .4rem 0;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid #dcdcdc;
+    background: #fff;
+}
+
+.chapterexercises_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+    font-size: 0.36rem;
+}
+
+.chapterexercises_xuan {
+    float: left;
+    margin-right: .2rem;
+    border: 1px solid #cdcdcd;
+    border-radius: 50%;
+    width: .666rem;
+    height: .666rem;
+    text-align: center;
+    line-height: .666rem;
+    color: #0199ec;
+}
+
+.chapterexercises_xuan_sel {
+    float: left;
+    margin-right: .2rem;
+    border: 1px solid #0199ec;
+    border-radius: 50%;
+    width: .666rem;
+    height: .666rem;
+    text-align: center;
+    line-height: .666rem;
+    background: #0299ec;
+    color: #fff;
+}
+
+.chapterexercises__xuan {
+    float: left;
+    margin-right: .2rem;
+    border: 1px solid #cdcdcd;
+    width: .666rem;
+    height: .666rem;
+    text-align: center;
+    line-height: .666rem;
+    color: #666666;
+}
+
+.chapterexercises__xuan_sel {
+    float: left;
+    margin-right: .2rem;
+    border: 1px solid #0199ec;
+    width: .666rem;
+    height: .666rem;
+    text-align: center;
+    line-height: .666rem;
+    background: #0299ec;
+    color: #fff;
+}
+
+.chapterexercises_text {
+    line-height: .8rem;
+}
+
+#app_body {
+    width: 100%;
+    height: 100%;
+    overflow: inherit;
+}
+
+.chapterexercises {
+    width: 100%;
+    position: relative;
+}
+
+.chapterexercises_bottom {
+    /*display: none;*/
+    z-index: 1111;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #cdcdcd;
+    padding: .2rem 0;
+    background: #fff;
+    overflow: hidden;
+}
+
+.chapterexercises_bottom_two {
+    /*display: none;*/
+    z-index: 1111;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: 1px solid #cdcdcd;
+    padding: .2rem 0;
+    background: #fff;
+    overflow: hidden;
+}
+
+.chapterexercises_bottom_three {
+    /*display: none;*/
+    z-index: 1111;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: .2rem 0;
+    background: #eceef0;
+    border-top: 1px solid #cdcdcd;
+    overflow: hidden;
+}
+
+.chapterexercises_bottom_three_left {
+    /*background: #0199ec;*/
+    width: 4.4rem;
+    height: .96rem;
+    border-radius: .1rem;
+    text-align: center;
+    line-height: .92rem;
+    color: #fff;
+    font-size: .4rem;
+    margin-left: .2rem;
+    float: left;
+}
+
+.chapterexercises_bottom_three_right {
+    /*background: #a9a9a9;*/
+    width: 4.4rem;
+    height: .96rem;
+    border-radius: .1rem;
+    text-align: center;
+    line-height: .92rem;
+    color: #fff;
+    font-size: .4rem;
+    margin-right: .2rem;
+    float: right;
+}
+
+.chapterexercises_left {
+    position: relative !important;
+    float: left;
+    width: 1.38rem;
+    height: .74rem;
+    text-align: center;
+    line-height: .74rem;
+    color: #fff;
+    font-size: .32rem;
+    /*background: #aaaaaa;*/
+    border-radius: .1rem;
+    margin: 0 0 0 0;
+    opacity: 1 !important;
+}
+/*上下题是否可以选择*/
+.select_able{
+    background: #0199ec;
+}
+.select_un_able{
+    background: #aaaaaa;
+}
+
+
+.chapterexercises_right {
+    position: relative !important;
+    float: right;
+    width: 1.38rem;
+    height: .74rem;
+    text-align: center;
+    line-height: .74rem;
+    color: #fff;
+    font-size: .32rem;
+    /*background: #0199ec;*/
+    border-radius: .1rem;
+    margin: 0 0 0 0;
+}
+
+.chapterexercises_in {
+    float: left;
+    margin-top: .16rem;
+    overflow: hidden;
+    position: relative;
+    margin-left: .2rem;
+}
+
+.chapterexercises_in li {
+    float: left;
+    margin-left: .4rem;
+    font-size: .32rem;
+    padding-right: .3rem;
+}
+
+.chapterexercises_in li img {
+    width: .373rem;
+    height: .373rem;
+    vertical-align: middle;
+    display: inline-block;
+    margin-right: .1rem;
+    margin-top: -.1rem;
+}
+
+.chapterexercises_inli {
+    color: #35b660;
+    border-right: 1px solid #cdcdcd;
+}
+
+.chapterexercises_inli_two {
+    color: #ff6c00;
+    border-right: 1px solid #cdcdcd;
+}
+
+.chapterexercises_inli_three {
+    color: #2a9eef;
+}
+
+.swiper-container, .swiper-wrapper {
+    width: 100%;
+    height: 100% !important;
+    overflow: visible;
+}
+
+.swiper-slide {
+    width: 100%;
+    position: relative;
+}
+
+.chapterexercises_radio {
+    height: 100% !important;
+    overflow: hidden;
+}
+
+.answer__ul_div {
+    width: 100%;
+    overflow: hidden;
+}
+
+.answer_ul {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: .2rem;
+}
+
+.answer_ul_big_li {
+    padding: .3rem 0;
+    overflow: hidden;
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd;
+    background: #fff;
+
+}
+
+.answer_li_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+    font-size: 0.4rem;
+    color: #0199ec;
+    border-bottom: 1px solid #cdcdcd;
+    padding-bottom: .2rem;
+}
+
+.answer_li_div span {
+    font-size: .72rem;
+    margin-right: .2rem;
+}
+
+.answer_ul_ul {
+    padding-top: .3rem;
+    overflow: hidden;
+    position: relative;
+    margin: 0 .8rem;
+}
+
+.answer_ul_ul_comp {
+    float: left;
+    margin-right: 1.2rem;
+    border: 1px solid #cdcdcd;
+    border-radius: 50%;
+    font-size: .36rem;
+    color: #0199ec;
+    text-align: center;
+    width: .6rem;
+    height: .6rem;
+    padding: 0 !important;
+    line-height: .6rem;
+}
+
+.answer_ul_ul_comp_sel {
+    float: left;
+    margin-right: 1.2rem;
+    border: 1px solid #0299ec;
+    border-radius: 50%;
+    font-size: .36rem;
+    text-align: center;
+    width: .6rem;
+    height: .6rem;
+    padding: 0 !important;
+    line-height: .6rem;
+    background: #0299ec;
+    color: #fff;
+}
+
+.answer_ul_ul li:last-child {
+    margin: 0;
+}
+
+.subject {
+    margin-top: .2rem;
+    padding: .4rem 0;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    font-size: 0.36rem;
+    color: #0199ec;
+}
+
+.subject p {
+    padding-left: .2rem;
+}
+
+.subject p span {
+    font-size: .72rem;
+    margin-right: .2rem;
+}
+
+.swiper-slide {
+    overflow: hidden;
+}
+
+.swiper-slide-active {
+    overflow: auto !important;
+}
+
+.analysis {
+    width: 100%;
+    padding: .2rem 0 1rem 0;
+    overflow: hidden;
+    background: #fff;
+}
+
+.analysis_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+    font-size: .32rem;
+    color: #333333;
+}
+
+.analysis_top {
+    overflow: hidden;
+    margin-bottom: .2rem;
+}
+
+.analysis_top_p {
+    float: left;
+    border-left: 2px solid #0199ec;
+    padding-left: .2rem;
+}
+
+.analysis_top_right {
+    float: right;
+    overflow: hidden;
+}
+
+.analysis_top_right img {
+    display: inline-block;
+    margin-left: .04rem;
+    width: .34rem;
+    height: .34rem;
+    vertical-align: middle;
+    margin-top: -.1rem;
+}
+
+.analysis_p {
+    color: #555555;
+    line-height: .6rem;
+    margin-bottom: .2rem;
+}
+
+.analysis_bottom_p {
+    border-left: 2px solid #0199ec;
+    font-size: .32rem;
+    padding-left: .1rem;
+    color: #333;
+    margin-bottom: .2rem;
+}
+
+.analysis_bottom_p2 {
+    color: #555555;
+}
+
+.chapterexercises_ul__div {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+/*圆框选中的效果*/
+.terexercises_ulli .chapterexercises_xuan {
+    /*background: #0299ec;*/
+    /*color: #fff;*/
+    /*border-color: #0299ec;*/
+}
+
+.terexercises_ulli p {
+    color: #0299ec;
+}
+
+.nav__top_p {
+    float: right;
+    margin-right: .2rem;
+    overflow: hidden;
+    font-size: .36rem;
+    color: #999999;
+    margin-top: .1rem;
+}
+
+.nav__top_p img {
+    vertical-align: middle;
+    margin-right: .1rem;
+    width: .37rem;
+    height: .37rem;
+    margin-top: -.1rem;
+}
+
+.answer {
+
+    float:left;
+    width: 100%;
+    padding: .3rem 0;
+    overflow: hidden;
+    position: relative;
+    margin: 0 0 .2rem;
+    background: #fff;
+}
+
+.answer_h4 {
+    width: 100%;
+    font-size: .4rem;
+    color: #ff4949;
+    text-align: center;
+}
+
+.answer_h4 img {
+    vertical-align: middle;
+    width: .54rem;
+    margin-right: .2rem;
+    margin-top: -.1rem;
+}
+
+.answer_div {
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: .2rem;
+    border-bottom: 1px solid #eeeeee;
+    margin: .2rem 0;
+}
+
+.answer_left {
+    float: left;
+    width: 49.8%;
+    border-right: 1px solid #e2e2e2;
+    padding: .2rem 0;
+    text-align: center;
+    font-size: .32rem;
+    color: #333;
+}
+
+.answer_left_p {
+    margin-top: .2rem;
+    color: #0299ec;
+}
+
+.answer_left_p2 {
+    margin-top: .2rem;
+    color: #ff4949;
+}
+
+.answer_right {
+    float: right;
+    width: 49.8%;
+    padding: .2rem 0;
+    text-align: center;
+    font-size: .32rem;
+    color: #333;
+}
+
+.answer_bottom {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    font-size: .28rem;
+    color: #fc573c;
+}
+
+.answer_bottom img {
+    vertical-align: middle;
+    width: .36rem;
+    margin: -.06rem .2rem 0 0;
+}
+
+.answerright {
+    width: 100%;
+    padding: .3rem 0;
+    overflow: hidden;
+    position: relative;
+    margin: 0 0 .2rem;
+    background: #fff;
+}
+
+.answerright2{
+    float: left;
+    width: 100%;
+    padding: .3rem 0;
+    overflow: hidden;
+    position: relative;
+    margin: .2rem 0 .2rem;
+    background: #fff;
+}
+
+.answerright_h4 {
+    width: 100%;
+    font-size: .4rem;
+    color: #0199ec;
+    text-align: center;
+}
+
+.answerright_h4 img {
+    vertical-align: middle;
+    width: .54rem;
+    margin-right: .2rem;
+    margin-top: -.1rem;
+}
+
+.errorcorrection_div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(000, 000, 000, .4);
+    width: 100%;
+    height: 100%;
+    z-index: 1111111;
+}
+
+.errorcorrection__div {
+    margin: 3rem .2rem 0;
+    background: #fff;
+    padding-bottom: .2rem;
+    background: #fff;
+    border-radius: .1rem;
+    overflow: hidden;
+}
+
+.errorcorrection__h4 {
+    padding: .2rem 0;
+    background: #f0f0f0;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    color: #333;
+    font-size: .4rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.errorcorrection__h4 img {
+    position: absolute;
+    right: .2rem;
+    top: .3rem;
+    width: .37rem;
+}
+
+.errorcorrection__textarea {
+    margin: .2rem auto;
+    display: block;
+    font-size: .32rem;
+    resize: none;
+    border: none;
+    width: 9rem;
+}
+
+.submit {
+    margin: 0 .2rem;
+    overflow: hidden;
+    text-align: center;
+    padding: .2rem 0;
+    border-radius: .2rem;
+    color: #fff;
+    font-size: .36rem;
+    background: #0199ec;
+}
+
+.prepareforsubmission {
+    /*display: none;*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(000, 000, 000, .4);
+    z-index: 111111111;
+    overflow: hidden;
+}
+
+.prepareforsubmission_div {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    font-size: .36rem;
+    color: #333;
+}
+
+.prepareforsubmission_top {
+    width: 100%;
+    background: #f0f0f0;
+    overflow: hidden;
+    padding: .2rem 0;
+
+}
+
+.prepareforsubmission_top_p {
+    padding-left: .2rem;
+    float: left;
+    font-size: .32rem;
+}
+
+.prepareforsubmission_img {
+    float: right;
+    margin-right: .2rem;
+    width: .4rem;
+}
+
+.prepareforsubmission_in {
+    width: 100%;
+    padding: 1rem 0;
+    overflow: hidden;
+    text-align: center;
+    font-size: .32rem;
+    background: #fff;
+}
+
+.prepareforsubmission_bottom {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    font-size: .32rem;
+    background: #fff;
+    border-top: 1px solid #f0f0f0;
+}
+
+.prepareforsubmission_bottom_left {
+    float: left;
+    width: 49%;
+    padding: .3rem 0;
+    color: #0199ec;
+    text-align: center;
+    font-size: .32rem;
+    border-right: 1px solid #F0F0F0;
+}
+
+.prepareforsubmission_bottom_right {
+    float: right;
+    width: 49%;
+    color: #ccc;
+    padding: .3rem 0;
+    text-align: center;
+    font-size: .32rem;
+}

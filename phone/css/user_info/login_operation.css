@@ -1,0 +1,85 @@
+.login_operation_ul {
+    width: 100%;
+    margin-top: .2rem;
+    overflow: hidden;
+    position: relative;
+    font-size: .36rem;
+}
+
+.login_operation_li {
+    padding: .2rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #dfdfdf;
+    background: #fff;
+}
+
+.login_operation_li2 {
+    padding: .3rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #dfdfdf;
+    background: #fff;
+}
+
+.login_operation_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+
+.login_operation_left {
+    float: left;
+    overflow: hidden;
+}
+
+.login_operation_left_p {
+    margin-top: .16rem;
+    font-size: .3rem;
+    color: #999999;
+}
+
+.information_right_img {
+    width: .2rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin: .3rem .2rem 0;
+    float: right;
+}
+
+.login_operation_left_div {
+    float: right;
+    color: #999999;
+}
+.login_operation_left_div2{
+    float: right;
+    color: #999999;
+    margin-right: .2rem;
+}
+
+.setup {
+    padding: .3rem 0;
+    overflow: hidden;
+    background: #fff;
+    border-bottom: 1px solid #dfdfdf;
+    font-size: .36rem;
+    margin-top: .2rem;
+}
+.setup_p{
+    float: left;
+    margin-left: .2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

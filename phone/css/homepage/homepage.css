@@ -1,0 +1,957 @@
+body {
+    background: #f0f0f0;
+}
+
+.homepage_nav {
+    width: 100%;
+    padding: .24rem 0;
+    background: #1e2028;
+    text-align: center;
+    font-size: .48rem;
+    color: #fff;
+}
+
+.homepage_nav_right_div {
+    position: absolute;
+    top: 0;
+    right: -.1rem;
+    width: .34rem;
+    height: .34rem;
+    border-radius: 50%;
+    background: #ffa800;
+    color: #fff;
+    text-align: center;
+    font-size: .28rem;
+    line-height: .34rem;
+}
+
+.homepage_nav_right {
+    float: right;
+    margin-right: .2rem;
+    position: relative;
+    font-size: .26rem;
+    color: #fff;
+}
+
+.homepage_nav_right img {
+    display: block;
+    width: .58rem;
+    height: .58rem;
+}
+
+.homepage {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: .25rem 0 .2rem 0;
+    background: #fff;
+}
+
+.swiper-slide {
+    width: 9.03rem;
+    padding: 0 1%;
+    height: 4.03rem;   
+}
+
+ .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+    bottom: -2px;
+}
+.swiper-wrapper {
+    transform: translate3d(-1131px, 0px, 0px);
+    transition-duration: 0ms;
+}
+.swiper_img {
+    width: 100%;
+    display: block;
+    height: 4.03rem;
+    -moz-box-shadow: 0px 1px 10px #ABABAB;
+    -webkit-box-shadow: 0px 1px 10px #ABABAB;
+    box-shadow: 0px 1px 10px #ABABAB;
+    margin: 0.2rem 0;
+}
+
+.homepage_div {
+    padding: .6rem 0 .3rem 0;
+    margin-top: .1rem;
+    font-size: 0.32rem;
+    color: #333333;
+    overflow: hidden;
+}
+
+.homepage_img {
+    float: left;
+    margin: .05rem .2rem 0;
+    width: .4rem;
+    height: .36rem;
+}
+
+.homepage_div_div {
+    position: relative;
+    width: 9.2rem;
+    height: .42rem;
+    font-size: .32rem;
+    color: #333333;
+    overflow: hidden;
+}
+
+.homepage_p {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: .2s;
+    -moz-transition: .2s;
+    -webkit-transition: .2s;
+    -o-transition: .2s;
+}
+
+.various {
+    width: 100%;
+    padding: .4rem 0;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    margin-top: .3rem;
+    margin-bottom: .3rem;
+}
+
+.various_ul {
+    overflow: hidden;
+    position: relative;
+    font-size: .32rem;
+    color: #444444;
+}
+
+.various_ul li {
+    margin: 0 .58rem .2rem;
+    float: left;
+    overflow: hidden;
+}
+
+.various_ul li img {
+    display: block;
+    width: 1.22rem;
+    height: 1.22rem;
+    margin-bottom: .2rem;
+}
+
+.various_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+    padding: .2rem 0;
+    background: #f9e8c5;
+    border-radius: .1rem;
+    text-align: center;
+    color: #837668;
+    font-size: .32rem;
+}
+
+.admission {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: .3rem 0;
+    background: #fff;
+    margin-bottom: .3rem;
+}
+
+.admission_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+
+.admission_div_top {
+    overflow: hidden;
+    position: relative;
+    font-size: 0.4rem;
+    color: #333333;
+}
+
+.admission_div_top_p {
+    float: left;
+    border-left: 0.08rem solid #0299ec;
+    padding-left: .2rem;
+}
+
+.admission_div_top_p2 {
+    border-color: #37af12;
+}
+
+.admission_div_top_p3 {
+    border-color: #ff714a;
+}
+
+.admission_div_right {
+    float: right;
+    color: #999999;
+    font-size: .32rem;
+}
+
+.admission_div_right_img {
+    vertical-align: middle;
+    width: .33rem;
+    height: .33rem;
+    margin-top: -.04rem;
+}
+
+.admissiondiv {
+    margin: .3rem 0 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.admissiondiv_left {
+    float: left;
+    width: 4.49rem;
+    height: 3.72rem;
+    background: #679ff4;
+    border-radius: .1rem;
+    position: relative;
+}
+
+.admissiondiv_right {
+    float: right;
+    width: 4.49rem;
+    height: 3.72rem;
+    background: #28BE5A;
+    border-radius: .1rem;
+    position: relative;
+}
+
+.admissiondiv_left_h4 {
+    text-align: center;
+    margin: .453rem 0 .16rem;
+    font-size: 0.4rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.admissiondiv_img {
+    width: 100%;
+    height: .05rem;
+    display: block;
+    margin-bottom: .16rem;
+}
+
+.admissiondiv_p {
+    text-align: center;
+    margin: 0 0.4rem;
+    font-size: .24rem;
+    color: #fff;
+
+}
+
+.admissiondiv_bottom {
+    position: absolute;
+    bottom: 0;
+    height: 1.2rem;
+    padding-top: .1rem;
+    width: 100%;
+    background: rgba(255, 255, 255, .4);
+    text-align: center;
+}
+
+.admissiondiv_right_p {
+    font-size: .32rem;
+    color: #fff;
+}
+
+.admissiondiv_bottom_div {
+    overflow: hidden;
+
+}
+
+.admissiondiv_bottom_div_p {
+    float: left;
+    color: #fff;
+    font-size: .32rem;
+    padding-right: .05rem;
+    border-right: 1px solid #fff;
+    margin-right: .05rem;
+}
+
+.admissiondiv_bottom_div img {
+    vertical-align: middle;
+    margin: -.04rem .04rem 0 0;
+    width: .3rem;
+    height: .3rem;
+}
+
+.admissiondiv_bottom_div_p2 {
+    color: #fff;
+    font-size: .32rem;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.admission_bottom {
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    font-size: .36rem;
+    color: #777777;
+    margin-top: .3rem;
+}
+
+.admission_bottom_img {
+    display: inline-block;
+    vertical-align: middle;
+    margin: -.08rem .1rem 0 0;
+    width: .44rem;
+}
+
+.pharmacist {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: .3rem 0;
+    background: #fff;
+    padding-bottom: 1.65rem;
+}
+
+.pharmacist_two {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: .3rem;
+    background: #fff;
+    padding: .3rem 0;
+}
+.pharmacist_four {
+    padding-bottom: 1.6rem;
+}
+.pharmacist_div {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    font-size: .28rem;
+    margin-top: .3rem;
+    padding-bottom: .3rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.pharmacist_left {
+    float: left;
+    width: 3.7rem;
+    height: 1.94rem;
+    border-radius: .2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.pharmacist_left_img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.pharmacist_hideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.pharmacist_hideo_h4 {
+    font-size: .33rem;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    margin: .3rem 0 .1rem;
+}
+
+.pharmacist_left_p {
+    padding: 0 .2rem;
+    font-size: .2rem;
+    text-align: center;
+    color: #fff;
+}
+
+.pharmacist_right {
+    width: 5.33rem;
+    float: left;
+    margin-left: .2rem;
+}
+
+.pharmacist_right_h4 {
+    color: #333333;
+    font-size: .36rem;
+    margin-bottom: .1rem;
+}
+
+.pharmacist_right_p {
+    color: #666666;
+    margin-bottom: .1rem;
+}
+
+.pharmacist_right_p span {
+    color: #0299ec;
+}
+
+.pharmacist_right_div {
+    overflow: hidden;
+}
+
+.pharmacist_right_div_p {
+    float: left;
+    color: #666666;
+}
+
+.pharmacist_right_div_p span {
+    color: #0299ec;
+}
+
+.pharmacist_right_div_p2 {
+    float: right;
+    color: #ff7e00;
+    font-size: 0.4rem;
+}
+
+.listofcourses_bottom {
+    overflow: hidden;
+    margin-top: .2rem;
+}
+
+.listofcourses_bottom p {
+    float: left;
+    color: #ff7e00;
+    font-size: .4rem;
+    margin-top: .2rem;
+}
+
+.listofcourses_bottom  .original_price {
+    color: #999;
+    margin-left: .2rem;
+}
+
+.listofcourses_bottom_img {
+    display: block;
+    float: right;
+    width: .86rem;
+    height: .86rem;
+}
+
+/*-------弹出框----*/
+
+.concealmentlayer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1111;
+    width: 100%;
+    height: 100%;
+    background: rgba(000, 000, 000, .4);
+}
+
+.concealmentlayer_div {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+}
+
+.concealmentlayer_h4 {
+    padding: .3rem 0;
+    overflow: hidden;
+    background: #f4f4f4;
+}
+
+.concealmentlayer_h4 p {
+    padding-left: .2rem;
+    float: left;
+    font-size: .36rem;
+}
+
+.concealmentlayer_h4 img {
+    width: .373rem;
+    float: right;
+    margin-right: .2rem;
+}
+
+.concealmentlayer_title {
+    background: #fff;
+    padding: .2rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.concealmentlayer_title_h4 {
+    padding-left: .2rem;
+    font-size: .44rem;
+    color: #1d94d9;
+    margin-bottom: .1rem;
+}
+
+.concealmentlayer_title_p {
+    padding-left: .2rem;
+    font-size: 0.32rem;
+    color: #999999;
+}
+
+.concealmentlayer_title_span {
+    margin-right: .4rem;
+}
+
+.concealmentlayer_ul {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    font-size: .36rem;
+    color: #666666;
+}
+
+.concealmentlayer_ul li {
+    padding: .2rem 0;
+    border-bottom: 1px solid #d0d0d0;
+    overflow: hidden;
+}
+
+.concealmentlayer_ullip {
+    float: left;
+}
+
+.concealmentlayer_ullip2 {
+    float: right;
+    margin-right: .2rem;
+}
+
+.concealmentlayer_ullip2 span {
+    color: #ff7e00;
+}
+
+.concealmentlayer_xuan {
+    float: left;
+    margin: 0 .2rem;
+    overflow: hidden;
+    width: .4rem;
+    height: .4rem;
+    border: 1px solid #999999;
+    background: #fff;
+}
+
+.concealmentlayer_xuan2 {
+    float: left;
+    margin: 0 .1rem;
+    overflow: hidden;
+    width: .4rem;
+    height: .4rem;
+    border: 1px solid #999999;
+}
+
+.concealmentlayer_xuan3 {
+    float: left;
+    margin: 0 .1rem;
+    overflow: hidden;
+    width: .4rem;
+    height: .4rem;
+    border: 1px solid #999999;
+    border-radius: 50%;
+}
+
+.concealmentlayer_xuan3 img {
+    display: block;
+    width: .25rem;
+    margin: .13rem auto 0;
+    height: .18rem;
+}
+
+.concealmentlayer_xuan2 img {
+    display: block;
+    width: .25rem;
+    margin: .13rem auto 0;
+    height: .18rem;
+}
+
+.concealmentlayer_xuan img {
+    display: block;
+    width: .25rem;
+    margin: .13rem auto 0;
+    height: .18rem;
+}
+
+.concealmentlayer_ulli .concealmentlayer_ullip {
+    color: #1d94d9 !important;
+}
+
+.concealmentlayer_ullip3 {
+    color: #1d94d9 !important;
+}
+
+.concealmentlayer_ulli div {
+    border-color: #1d94d9;
+    background: #1d94d9;
+
+}
+
+.concealmentlayer_ulli_p {
+    padding-left: .2rem;
+    color: #ff7e00;
+    font-size: .32rem;
+}
+
+.concealmentlayer_ulli_p span {
+    font-size: .44rem;
+}
+
+.concealmentlayer_bottom {
+    padding: .4rem 0;
+    overflow: hidden;
+}
+
+.concealmentlayer_bottom_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+
+.concealmentlayer_bottom_left {
+    float: left;
+    width: 4.4rem;
+    border-radius: .1rem;
+    padding: .2rem 0;
+    text-align: center;
+    color: #fff;
+    font-size: .36rem;
+    background: #0299ec;
+
+}
+
+.concealmentlayer_bottom_right {
+    float: right;
+    width: 4.4rem;
+    border-radius: .1rem;
+    padding: .2rem 0;
+    text-align: center;
+    color: #fff;
+    font-size: .36rem;
+    background: #ff7e00;
+}
+
+.classification {
+    width: 100%;
+    overflow: hidden;
+    padding: .2rem 0;
+    font-size: .36rem;
+}
+
+.classification p {
+    margin-bottom: .2rem;
+    padding-left: .2rem;
+    color: #333333;
+}
+
+.classification_ul {
+    overflow: hidden;
+    position: relative;
+    color: #666666;
+}
+
+.classification_ul li {
+    float: left;
+    margin-left: .2rem;
+    border: 1px solid #bbbbbb;
+    width: 3.33rem;
+    padding: .2rem 0;
+    text-align: center;
+}
+
+.classification_ulli {
+    border-color: #0299ec !important;
+    color: #0299ec;
+}
+
+.listofcourses_two {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.listofcourses_two_div {
+    margin: .2rem;
+    overflow: hidden;
+}
+
+.listofcourses_two_p {
+    float: left;
+    font-size: .36rem;
+    color: #333333;
+}
+
+.listofcourses_two_right {
+    float: right;
+    font-size: .32rem;
+}
+
+.curriculum_ul {
+    padding: .2rem 0;
+    overflow: hidden;
+    /*border-bottom: 1px solid #d0d0d0;*/
+    font-size: .32rem;
+    color: #666666;
+    margin: 0 .1rem;
+}
+
+.curriculum_ul li:nth-child(odd) {
+
+}
+
+.curriculum_ul li {
+    width: 50%;
+    float: left;
+    overflow: hidden;
+    padding-bottom: 0.2rem;
+    border-bottom: 1px solid #d0d0d0;
+    margin-bottom: 0.2rem;
+
+}
+
+.curriculum_ul .lis {
+    width: 100%; 
+}
+
+.curriculum_ul li:nth-child(even) {
+    float: right;
+}
+
+.concealmentlayer_ullidiv {
+    border-color: #1d94d9;
+    background: #1d94d9;
+}
+
+.concealmentlayer_xuan {
+    float: left;
+    margin: 0 .1rem 0 0;
+    overflow: hidden;
+    width: .4rem;
+    height: .4rem;
+    border: 1px solid #999999;
+}
+
+.concealmentlayer_xuan img {
+    display: block;
+    width: .25rem;
+    margin: .13rem auto 0;
+    height: .18rem;
+}
+
+.curriculum_ul li span {
+    color: #ff7e00;
+    display: block;
+    margin-top: 5px;
+}
+.curriculum_ul li .discount {
+    color: red;
+    font-style: normal;
+    display: inline-block;
+}
+
+.price_span{
+    padding-top: 5px !important;
+}
+
+.curriculum_twoyears {
+    color: #1d94d9;
+    font-size: .32rem;
+    overflow: hidden;
+    padding: .2rem 0 0 0;
+}
+
+.title_div_left_p2 {
+    padding-left: .2rem;
+    padding-top: .2rem;
+    font-size: .48rem;
+    color: #ff7e00;
+}
+
+.section_ul {
+    background: #F0F0F0;
+    overflow: hidden;
+    padding-top: .2rem;
+
+}
+
+.section_ul li {
+    padding: 0.46rem 0;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: .266rem;
+    background: #fff;
+}
+
+.section_li_div {
+    margin: 0 .3rem;
+    overflow: hidden;
+}
+
+.section_li_div_img {
+    display: block;
+    float: left;
+    margin-right: 0.4rem;
+    width: 2.88rem;
+    height: 2.1rem;
+}
+
+.section_li_div_right {
+    float: left;
+    overflow: hidden;
+    width: 6.1rem;
+}
+
+.section_li_div_right_div {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+}
+
+.section_li_div_right_p {
+    overflow: hidden;
+    position: relative;
+    font-size: 0.36rem;
+    color: #333333;
+    float: left;
+}
+
+.section_li_div_right_p_span {
+    font-size: 0.48rem;
+    margin-right: .2rem;
+}
+
+.section_li_div_right_p2 {
+    float: right;
+    font-size: 0.32rem;
+    color: #0199ec;
+    border: 1px solid #0199ec;
+    border-radius: .2rem;
+    padding: .1rem .2rem;
+}
+
+.section_li_div_right_p2 img {
+    vertical-align: middle;
+    margin: -1px 1px 0 0;
+    width: 0.36rem;
+}
+
+.section_li_div_right__p {
+    font-size: 0.32rem;
+    color: #666666;
+    line-height: .46rem;
+    margin-top: .8rem;
+}
+
+.threepartypurchase {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(000, 000, 000, .4);
+    z-index: 111;
+}
+
+.threepartypurchase_div {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+}
+
+.threepartypurchase_top {
+    background: #f4f4f4;
+    width: 100%;
+    padding: .3rem 0;
+    font-size: .36rem;
+    color: #333333;
+}
+
+.threepartypurchase_top_seciton {
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+
+.threepartypurchase_top_seciton_p {
+    float: left;
+}
+
+.threepartypurchase_top_seciton img {
+    float: right;
+    width: .37rem;
+    height: .37rem;
+}
+
+.threepartypurchase_bottom {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+}
+
+.threepartypurchase_bottom_ul{
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+.threepartypurchase_bottom_ulli{
+    width: 100%;
+    padding: .6rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #d6d6d6;
+}
+.threepartypurchase_bottom_ulli2{
+    width: 100%;
+    padding: .6rem 0;
+    overflow: hidden;
+}
+
+.threepartypurchase_bottom_left{
+    float: left;
+    overflow: hidden;
+    position: relative;
+}
+.threepartypurchase_bottom_left_img{
+    width: 1.17rem;
+    height: 1.17rem;
+    display: block;
+    float: left;
+    margin-right: .2rem;
+}
+
+.threepartypurchase_bottom_leftdiv{
+    float: left;
+}
+.threepartypurchase_bottom_leftdiv_p{
+    color: #333333;
+    font-size: .373rem;
+    margin-bottom: .1rem;
+    padding-top: .1rem;
+}
+
+.threepartypurchase_bottom_leftdiv_p2{
+    color: #666666;
+    font-size: .28rem;
+}
+
+.threepartypurchase_bottom_right{
+    float: right;
+    width: 2.06rem;
+    height: .76rem;
+    border-radius: .1rem;
+    background: #0299ec;
+    text-align: center;
+    line-height: .76rem;
+    font-size: .32rem;
+    color: #fff;
+    margin-top: .2rem;
+}
+
+.threepartypurchase_bottom_right_img{
+    display: inline-block;
+    vertical-align: middle;
+    width: .37rem;
+    height: .373rem;
+    margin-top: -.06rem;
+}
+
+
+
+
+

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes"/>
+    <!-- <meta name="x5-fullscreen" content="true"/> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+    <title>我的订单</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css"/>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="../../css/index.css"/>
+    <!--购物车公共-->
+    <link rel="stylesheet" href="../../css/shopcar/shopcar_index.css"/>
+    <!--我的订单-->
+    <link rel="stylesheet" href="../../css/shopcar/my_order.css"/>
+</head>
+<body>
+
+    <div v-cloak id="app_body" >
+        <div class="nav__top">
+            <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back" />
+            我的订单
+        </div>
+        <div class="order_nav">
+            <ul class="order_nav_ul">
+                <li @click="tab('all')" :class="{order_nav_ul_li:tab_num=='all'}">
+                    全部订单
+                </li>
+                <li @click="tab(0)" :class="{order_nav_ul_li:tab_num==0}">
+                    待付款
+                </li>
+                <li @click="tab(1)" :class="{order_nav_ul_li:tab_num==1}">
+                    已支付
+                </li>
+                <li @click="tab(2)" :class="{order_nav_ul_li:tab_num==2}">
+                    待收货
+                </li>
+                <li @click="tab(3)" :class="{order_nav_ul_li:tab_num==3}">
+                    已完成
+                </li>
+            </ul>
+        </div>
+        <div class="order_list_div">
+
+            <div class="order_list" v-for="datas in data_list">
+                <div class="order_list_top">
+                    <p class="order_list_top_p"><span>订单编号：</span>{{datas.order_sn}}</p>
+                    <p class="order_list_top_p2">
+                        {{getOrder_state_public(datas.order_status)}}
+                    </p>
+                </div>
+                <div class="commodity_li" v-for="data in datas.course">
+                    <div class="commodity_li_div">
+                        <img class="commodity_li_div_img" :src="data.course_thumb" alt="">
+                        <div class="commodity_li_div_right">
+                            <p class="commodity_li_div_p">
+                            <span>
+                                {{data.course_name}}
+                                {{data.spec_key_name==""?"":"("+data.spec_key_name+")"}}
+                                {{data.product_type==2?"(直播)":""}}
+                            </span>
+                                <br>
+                                <span class="commodity_li_div_span"
+                                      v-if="data.giveaway_name!=''"
+                                      @click="commodity(data.giveaway_name)">
+                                有赠品
+                            </span>
+                            </p>
+                            <p class="commodity_li_div_p2">
+                                {{data.direction_name}}
+                            </p>
+                            <p class="commodity_li_div_p3">
+                                有效期：{{data.down_time}}
+                            </p>
+                            <div class="commodity_li_divdiv">
+                                <p class="commodity_li_divdiv_p">
+                                    <span class="commodity_li_divdiv_p_span" v-if="data.discount_price == null">¥ {{data.course_price}}</span>
+                                    <span class="commodity_li_divdiv_p_span" v-if="data.discount_price != null">¥ {{data.discount_price}}</span>
+                                    <span class="commodity_li_divdiv_p_span3">单价:{{data.market_price}}</span>
+                                </p>
+                                <p class="commodity_li_divdiv_p2">
+                                    X1
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order_list_bottom">
+                    <div class="order_list_bottom_right">
+
+                        <div class="order_list_bottom_right_div2" v-on:click="detail(datas.order_id)">
+                            订单详情
+                        </div>
+                        <div class="order_list_bottom_right_div2" v-if="datas.order_status==0"
+                             v-on:click="cancle(datas.order_id)">
+                            取消订单
+                        </div>
+                        <div class="order_list_bottom_right_div2" v-if=" datas.refund_status==3 || datas.order_status==4"
+                             @click="deletes(datas.order_id)">
+                            删除订单
+                        </div>
+
+                        <div class="order_list_bottom_right_div2" v-if="datas.order_status==2"
+                             @click="detail(datas.order_id)">
+                            查看物流
+                        </div>
+                        <div class="order_list_bottom_right_div2" v-if="datas.order_status==2"
+                             @click="confirm(datas.order_id)">
+                            确认收货
+                        </div>
+                        <div @click="returned(datas)" class="order_list_bottom_right_div2" v-if="datas.is_refund == 1 && (datas.order_status==1||datas.order_status==2||datas.order_status==3)">
+                            {{datas.refund_status==0?"申请退款":""}}
+                        </div>
+                        <div @click="returned(datas)" class="order_list_bottom_right_div2" v-if="datas.is_refund == 0  && datas.order_status!=0 && (datas.order_status==1||datas.order_status==2||datas.order_status==3)">
+                            {{datas.refund_status==1?"退款审核中":(datas.refund_status==2?"等待退款":(datas.refund_status==3?"已退款":"已拒绝"))}}
+                        </div>
+                        <div class="order_list_bottom_right_div" v-if="datas.order_status==0"
+                             @click="public_gopay(datas.order_id,datas)">
+                            立即支付
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="order_list_bottom_ul" v-if="list_num > 1">
+                <li v-for="num in list_num" @click="skip(num)" class="order_list_bottom_ul_li">{{num}}</li>
+            </ul>
+        </div>
+        <!--显示赠品或退款拒绝原因-->
+        <div class="location" v-if="have_giveaway">
+            <div class="giveaway_div">
+                <h4 class="giveaway_h4">
+                    <span class="giveaway_span">{{Zpin}}</span>
+                    <img class="giveaway_img" src="../../img/shopcar/guanbi_img_03.png" @click="shut" alt="">
+                </h4>
+                <ul class="giveaway_div_ul">
+                    <li v-for="data in list" v-if="list!=''">
+                        {{data}}
+                    </li>
+                    <li v-if="Jue!=''">
+                        {{Jue}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--订单删除-->
+        <div class="location" v-if="delete_Tan">
+            <div class="giveaway_div">
+                <h4 class="giveaway_h4">
+                    <span class="giveaway_span">提示</span>
+                    <img class="giveaway_img" src="../../img/shopcar/guanbi_img_03.png" @click="dl_Tan" alt="">
+                </h4>
+                <ul class="giveaway_div_ul">
+                    <li class="giveaway_div_ul_Tan">
+                        <img class="login_account_ul_li1_img" src="../../img/shopcar/shanchu_yd_03.png" alt="" >
+                    </li>
+                    <li class="giveaway_div_ul_Tan Tanfont">
+                        您确定要删除该订单吗？
+                    </li>
+                    <li class="giveaway_div_ul_Tan Tanfonts">
+                        删除后，该订单将永久删除，请您慎重考虑
+                    </li>
+                    <li class="giveaway_div_ul_Tan">
+                        <div  class="giveaway_div_ul_div_Tan giveaway_div_ul_div_Tan1" @click="submit_Tan">
+                            确定
+                        </div>
+                        <div  class="giveaway_div_ul_div_Tan" @click="submit_Q_Tan">
+                            取消
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+
+
+<script src="../../js/shopcar/order.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script src="../../js/index_footer.js"></script>
+
+<script type="application/javascript">
+    // checkUserState(true);
+
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            data_list: '',
+            tab_num: 'all',
+            list_num: "",
+            list__num: 1,
+            have_giveaway: false,
+            Zpin: "",//显示title是有赠品还是拒绝原因
+            list: "",//赠品列表
+            Jue: "",//拒绝原因
+            delete_Tan: false,
+            Tan_order_id: "",
+        },
+        methods: {
+            commodity(list) {
+                this.Jue = "";
+                this.have_giveaway = true;
+                this.Zpin = "有赠品";
+                this.list = list;
+                console.log(list)
+            },
+            //申请退款
+            returned(data) {
+                if (data.refund_status == 0) {
+                    public_returned(data);
+                } else if (data.refund_status == 4) {
+                    this.list = "";
+                    this.have_giveaway = true;
+                    this.Zpin = "拒绝原因";
+                    this.Jue = data.refund_note;
+                } else {
+                    return
+                }
+            },
+            shut() {
+                this.have_giveaway = false;
+            },
+            skip(num) {
+                this.list__num = num;
+                app.getData()
+            },
+            tab: function (num) {
+                this.tab_num = num;
+                app.getData();
+            },
+            addremove: function (flag) {
+                this.flay = flag;
+            }, back: function () {
+                //返回
+                union_back();
+            }, getData() {
+                // if (app.tab_num==3) {
+                //     alert(3)
+                // } else {
+                yaqooNetPost("Order/index", app.tab_num == "all" ? {p: app.list__num} : {
+                    p: app.list__num,
+                    order_status: app.tab_num
+                }, function (data) {
+                    console.log(data.data)
+                    if (data['code'] == 1000) {
+                        app.data_list = data['data'];
+                        app.list_num = Math.ceil(data.other.page / 20);
+                    }
+                })
+                // }
+
+            }, // 删除
+            deletes(order_id) {
+                this.delete_Tan = true;
+                this.Tan_order_id = order_id;
+            },
+            submit_Tan() {
+                public_deletes(app.Tan_order_id, function (data) {
+                    app.getData();
+                    app.delete_Tan = false;
+                });
+            },
+            submit_Q_Tan() {
+                this.delete_Tan = false;
+            },
+            dl_Tan() {
+                this.delete_Tan = false;
+            },
+
+             init: function () {
+                app.tab_num == "all";
+                app.getData();
+            }, cancle(order_id) {//取消
+                cancle_public(order_id, function (data) {
+                    app.getData();
+                });
+
+            }, detail(order_id) {//详情
+                if (!isNull(order_id)) {
+                    localStorage.setItem("order_id", order_id);
+                    window.location.href = "orderdetails.html";
+                }
+            }, confirm(order_id) {
+
+                public_confirm(order_id, function () {
+                    app.getData();
+                })
+            },
+            back() {
+                union_back();
+            }
+        }
+    });
+
+    app.init();
+
+
+    /*
+     全部
+     未支付-立即支付、取消订单、 删除订单
+     已支付-待发货（实物）
+     已发货-确认收货（实物）
+     已完成-申请退款
+     */
+
+
+</script>
+</html>

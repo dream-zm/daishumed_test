@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>加入我们</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/company_info/company_info_index.css">
+    <!--本页引入-->
+    <link rel="stylesheet" href="../../css/company_info/join_us.css">
+</head>
+<body>
+
+<div id="app_body" v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back">
+        加入我们
+    </div>
+    <div class="section">
+        <div class="about_us_banner">
+            <img src="../../img/company_info/join_us_02.png" alt="">
+            <div class="section__above">
+                <p class="section__above_p">
+                    加入我们
+                </p>
+                <p class="section__above_p2">
+                    卓越学习体验，打造国内医学教育的旗舰品牌。  
+                </p>
+            </div>
+        </div>
+        <ul class="section_ul">
+            <li v-for="data in news_list" class="section_li">
+                <div class="section_li_top">
+                    <div class="section_li_head">
+                        <div class="section_li_head_left">
+                            <p class="section_li_head_left_p">
+                                职位名称：{{data.join_name}}
+                            </p>
+                            <p class="section_li_head_left_p2">
+                                工作地：{{data.address}}
+                            </p>
+                        </div>
+                        <img is-ok="true"  v-on:click="is_ok" class="section_li_head_right" src="../../img/company_info/slideDown_05.png"
+                             alt="">
+                    </div>
+                    <p class="section_li_head_p" v-html="data.join_content">
+                        
+                    </p>
+                </div>
+                <div class="section_li_hidden">
+                    <p class="section_li_hidden_p">
+                        职责描述：
+                    </p>
+                    <ul class="section_li_hidden_ul" v-html="data.join_obligation">
+
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+
+
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+<script>
+
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            news_list:[
+                {
+                    "create_time": "",
+                    "id": "",
+                    "description": "",
+                    "position": "",
+                    "title": "",
+                }
+            ]
+        },
+    methods: {
+            back() {
+                union_back();
+            },
+           is_ok(event){
+               var event_index = $(event.currentTarget);
+               if($(event_index).attr('is-ok')=='true'){
+                   $(event_index).attr('src','../../img/company_info/slideToggle_08.png')
+                   $(event_index).attr('is-ok','false');
+                   $(event_index).parents('.section_li').find('.section_li_hidden').slideDown();
+               }else {
+                   $(event_index).attr('src','../../img/company_info/slideDown_05.png')
+                   $(event_index).attr('is-ok','true');
+                   $(event_index).parents('.section_li').find('.section_li_hidden').slideToggle();
+               }
+    }
+        }
+    });
+
+    yaqooNetPost('Setting/join_list','',function (data) {
+        if(data['code']==1000){
+            app.news_list = data.data_list;
+            app.news_list.map((value,index)=> {
+                value.join_content =  value.join_content.replace(/\n|\r\n/g,'<br/>');
+                value.join_obligation =  value.join_obligation.replace(/\n|\r\n/g,'<br/>');
+            })
+        }
+    });
+
+</script>
+
+
+</html>

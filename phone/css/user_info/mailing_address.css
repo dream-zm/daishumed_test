@@ -1,0 +1,78 @@
+
+
+.mailing_address_ul {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.mailing_address_ul li {
+    width: 100%;
+    padding: .3rem 0;
+    background: #fff;
+    font-size: .32rem;
+    overflow: hidden;
+    position: relative;
+    margin-top: .2rem;
+    color: #333333;
+}
+
+.mailing_address_div {
+    margin: 0 .3rem .2rem;
+    overflow: hidden;
+    font-size: .36rem;
+}
+
+.mailing_address_div_p {
+    float: left;
+
+}
+
+.mailing_address_div_p2 {
+    float: right;
+}
+
+.mailing_address_li_p {
+    line-height: .44rem;
+    overflow: hidden;
+    margin: 0 .3rem;
+}
+
+.mailing_address_li_bottom {
+    overflow: hidden;
+}
+
+.mailing_address_bottom {
+    float: right;
+    overflow: hidden;
+}
+
+.mailing_address_left {
+    float: left;
+    overflow: hidden;
+    margin-right: .4rem;
+}
+.mailing_address_right{
+    float: left;
+    overflow: hidden;
+    margin-right: .4rem;
+}
+.mailing_address_right img{
+    width: .373rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin: -.1rem .1rem 0 0;
+}
+
+.mailing_address_left img {
+    width: .373rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin: -.1rem .1rem 0 0;
+
+}
+
+
+
+
+

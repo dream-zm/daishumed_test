@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>答题结果</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/answer/answer_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/answer/answer_results.css">
+</head>
+<body>
+<div id="app_body" v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img v-on:click="a_to_back" class="nav__top_left" src="../../img/company_info/return_03.png" alt="">
+        答题结果
+    </div>
+    <div :class="{section:page_type==2,section2:page_type==1}">
+        <div class="section_top">
+            <p class="section_top_p">
+                {{exam_name}}
+            </p>
+            <p class="section_top_p2">
+                <img src="../../img/answer/timer_img_03.png" alt="">
+                用时：{{use_time}}
+            </p>
+        </div>
+        <p class="section_p">
+            交卷时间：{{submit_time}} <span> 18:01</span>
+        </p>
+        <div class="fraction">
+            <p v-if="page_type==2">
+                <span> {{this_score}}</span> 分
+            </p>
+            <p v-if="page_type==1">
+                <span> {{this_score/all_grade * 100}}%</span>
+                <!--<div>正确率</div>-->
+            </p>
+        </div>
+        <p v-if="page_type==2" class="fraction_bottom_p">
+            上次得分：{{last_score}}分， 本次提升率：{{promote_rate * 100}}%
+        </p>
+        <p v-if="page_type==1" class="fraction_bottom_p">
+            答对{{right_num}}/{{sub_total_num}}题,击败{{beat_num}}个小伙伴
+        </p>
+    </div>
+    <div v-if="page_type==2" class="subject">
+        <div class="subject_left">
+            <p>
+                <span>答题时间：</span> {{use_time}}/{{total_time}}分钟
+            </p>
+            <p>
+                <span>平均分：</span> {{avg_score}}分
+            </p>
+            <p>
+                <span>排名：</span> {{rank}}
+            </p>
+        </div>
+        <div class="subject_right">
+            <p>
+                <span>答题数量：</span> {{sub_num}}/{{sub_total_num}}道
+            </p>
+            <p>
+                <span>最高分：</span> {{max_score}}分
+            </p>
+            <p>
+                <span>击败考生 ：</span> {{beat_rate * 100}}%
+            </p>
+        </div>
+    </div>
+    <div class="list_div">
+        <div class="layui-form">
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <th>考点/知识点</th>
+                    <th>出题<br>
+                        总数</th>
+                    <th>正确<br>
+                        题数</th>
+                    <th>正确率</th>
+                    <th>平均 <br>
+                        正确率</th>
+                    <th v-if="page_type==2">得分</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="point in point_list">
+                    <td>{{point.point_name}}</td>
+                    <td>{{point.item_count}}道</td>
+                    <td class="layui-table_td">{{point.right_count}}</td>
+                    <td class="layui-table_td2">{{point.accuracy * 100}}%</td>
+                    <td class="layui-table_td3">{{get_two(point.avg_accuracy * 100)}}%</td>
+                    <td v-if="page_type==2" class="layui-table_td4">{{point.point_score}}分</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--<div class="list_div_bottom">-->
+            <!--<img src="../../img/answer/answer_chakan_05.png" alt="">-->
+            <!--查看答题板-->
+        <!--</div>-->
+    </div>
+    <div class="liast_bottom">
+        <div v-on:click="a_total_analyse" class="liast_bottom_left">
+            全部解析
+        </div>
+        <div v-on:click="a_false_analyse" class="liast_bottom_in">
+            错题解析
+        </div>
+        <div v-on:click="a_false_done" class="liast_bottom_right">
+            错题重做
+        </div>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    var vm = new Vue({
+        el:'#app_body',
+        data:{
+            exam_name:'',//考试或者练习的名字
+            exam_id:'',//试卷id
+            test_id:'',//考试id
+            this_score:'',//本次得分
+            last_score:'',//上次得分
+            promote_rate:'',//提高率
+            use_time:'',//答题使用时间
+            submit_time:'',//答题提交时间
+            total_time:'',//答题总时间
+            sub_num:'',//答题数量
+            sub_total_num:'',//题目数量
+            avg_score:'',//平均分
+            max_score:'',//最高分
+            rank:'',//排名
+            beat_rate:'',//击败考生比率
+            point_list:[],//知识点数据列表
+            all_grade:'',//总分数
+            right_num:'',//正确数目
+            beat_num:'',//击败小伙伴数目
+            page_type:'',//页面类型
+            user_ans:'',
+        },
+        methods:{
+            //初始化数据
+            a_initial_data(){
+                var answerResult_info =  JSON.parse(localStorage.getItem('answerResult_info'));
+                vm.exam_id = answerResult_info.exam_id;
+                vm.test_id = answerResult_info.test_id;
+                vm.exam_name = answerResult_info.exam_name;
+                vm.page_type = answerResult_info.page_type;
+                // var sec_count = answerResult_info.use_time;
+                // var min = parseInt(sec_count / 60);
+                // var sec = sec_count % 60;
+                // vm.use_time = (min > 9 ? min : '0' + min) + ':' + (sec > 9 ? sec : '0' + sec);
+                // alert(vm.page_type)
+                get_data();
+            },
+            //全部解析
+            a_total_analyse(){
+                to_chapter(1);//去做题页面
+            },
+            //错题解析
+            a_false_analyse(){
+                to_chapter(2);//去做题页面
+            },
+            //错题重做
+            a_false_done(){
+                to_chapter(3);//去做题页面
+            },
+            //点击返回
+            a_to_back(){
+                history.go(-2);
+            }
+        }
+
+    })
+    //初始化数据
+    vm.a_initial_data()
+    //请求报告数据
+    function get_data() {
+        var para = {exam_id:vm.exam_id,test_id:vm.test_id};
+        alert(vm.exam_id);
+        yaqooNetPost('?m=home&c=Exam&a=index&method=Examination/report',para,function (data) {
+            // console.log(data);
+            if(data['code'] == '1000'){
+                var result = data['data'];
+                // console.log(result);
+                vm.test_id = result.test_id;
+                vm.this_score = result.test_score;
+                vm.last_score = result.last_score;
+                vm.promote_rate = result.elevate_rate
+                vm.use_time = result.use_time;
+                vm.submit_time = result.end_time;
+                vm.total_time = result.long_time;
+                vm.sub_num = result.test_answered_num;
+                vm.sub_total_num = result.all_topicnum;
+                vm.avg_score = result.avg;
+                vm.max_score = result.max;
+                vm.rank = result.test_ranking;
+                vm.beat_rate = result.defeat_rate;
+                vm.point_list = result.point_list;
+                vm.all_grade = result.all_grade;
+                vm.right_num = result.test_right_num;
+                vm.beat_num = result.left;
+                // for(var i=0;i<vm.point_list.length;i++){
+                //     console.log(vm.point_list[i].avg_accuracy);
+                // }
+            }else {
+                alert(data['message']);
+            }
+        })
+    }
+
+    //去做题页面
+    function to_chapter(type) {
+        var page_type = '';
+        var url_type = '';
+        var analyse_type = '';
+        if(type == 1){
+            //全部解析
+            page_type = '3';
+            url_type = '1';
+            analyse_type = '1';
+        }else if(type == 2){
+            //错题解析
+            page_type = '4';
+            url_type = '2';
+        }else if(type == 3){
+            //错题重做
+            page_type = '1';
+            url_type = '2';
+        }
+
+        var chapter_info = JSON.stringify({
+            'chapter_page_type':page_type,
+            'chapter_url_type':url_type,
+            'chapter_exam_id':vm.exam_id,
+            'chapter_test_id':vm.test_id
+        })
+        localStorage.setItem('chapter_info',chapter_info);
+        if(type == 1){
+            localStorage.setItem('user_ans',vm.user_ans);
+        }
+        window.location.href='chapterexercises.html'
+    }
+
+    //正确率截取前两位
+    function get_two(accuracy) {
+        var temp  = '' + accuracy;
+        return temp.substr(0,2)
+    }
+</script>
+</html>

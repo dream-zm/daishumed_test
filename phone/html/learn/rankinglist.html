@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fu llscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>班级</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/learning.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img v-on:click="to_back" class="nav__top_left" src="../../img/course/return_03_03.png" alt="">
+        {{course_type_name.split("|")[1]}}
+    </div>
+
+    <learn_top_nav init_tabs="3"></learn_top_nav>
+    <!-- 未上线 -->
+    <div style="height: 8rem;position: relative;">
+            <div style="height:.2rem;background:#f0f0f0;width:100%" ></div>
+            <div style="position:absolute;left:46%;top:50%;margin-top:-2.1rem;margin-left:-2.745rem;width: 5.49rem;height: 4.2rem;display: inline-block;text-align: center;">
+                    <img src="../../img/course/tip.png" style="width: 4.49rem;height: 3.47rem;margin-bottom: .52rem;">
+                    <p style="margin-left:.5rem;color: #a3c5e0;font-size: .4rem;padding-left: 1.2rem;display: inline-block;">内容暂未上线</p>
+                     <p style="margin-left:.2rem;font-size: .34rem;color: #a3c5e0;text-align: center;margin-top: .1rem">如有疑问请拨打 400-9001-765 咨询</p>
+                </div>
+        </div>
+    <!--班级-->
+    <div class="class_div" style="display:none">
+        <div class="class_banner">
+            <img class="class_banner_img" src="../../img/course/class_banner_02.png" alt="">
+            <div class="class_banner_div">
+                <div class="class_banner_left">
+                    <p class="class_banner_left_p">
+                        {{course_type_name.split("|")[1]}}
+                    </p>
+                    <p class="class_banner_left_p2">
+                        {{course_type_name.split("|")[0]}}
+                    </p>
+                </div>
+               <!--  <div class="class_banner_right">
+                    <img src="../../img/course/class_user_03.png" alt="">{{study_num}}学员在学习
+                </div> -->
+            </div>
+        </div>
+        <div class="class_nav">
+            <ul class="class_nav_ul">
+                <li class="class_nav_ulli" v-for="(rank_name,rank_index) in rank_names" v-on:click="select_rank_index(rank_index)">
+                    <p :class="{'class_nav_ul_p':rank_index==current_rank_index}">
+                        {{rank_name}}
+                    </p>
+                    <p v-if="rank_index==current_rank_index" class="class_nav_ul_p2"></p>
+                </li>
+            </ul>
+        </div>
+        <div class="ranking">
+            <p class="ranking_p">
+                您的学习时间共计 <span class="ranking_p_span">{{study_time}}分钟</span>，打败了<span>{{beat_num}}名</span>童鞋，当前排名<span>{{current_rank}}名</span>
+            </p>
+        </div>
+        <!--听课勤奋排行-->
+        <ul v-if="0==current_rank_index" class="diligence">
+            <li class="diligence_li" v-for="(rank_data,rank_index) in data_list">
+                <div class="diligence_div">
+                    <img v-if="rank_index==0" class="class_one" src="../../img/course/class_one_09.png" alt="">
+                    <img v-if="rank_index==1" class="class_one" src="../../img/course/class_two_16.png" alt="">
+                    <img v-if="rank_index==2" class="class_one" src="../../img/course/class_three_18.png" alt="">
+                    <div v-if="rank_index>2" class="class_two">
+                        {{rank_index + 1}}
+                    </div>
+                    <div class="diligence_left">
+                        <img class="diligence_left_img" :src="rank_data.head_img" alt="">
+                        <div class="diligence_left_left">
+                            <p class="diligence_left_left_p">
+                                {{rank_data.username}}
+                                <span>( 昵称：{{rank_data.nickname}} )</span>
+                            </p>
+                            <p class="diligence_left_left_p2">
+                                <img src="../../img/course/headset_03.png" alt="">听课时长： <span>{{rank_data.study_count}}</span>个小时
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+
+        <!--答题勤奋排行-->
+        <ul v-if="1==current_rank_index" class="diligence_two">
+            <li class="diligence_li" v-for="(rank_data,rank_index) in data_list">
+                <div class="diligence_div">
+                    <img v-if="rank_index==0" class="class_one" src="../../img/course/class_one_09.png" alt="">
+                    <img v-if="rank_index==1" class="class_one" src="../../img/course/class_two_16.png" alt="">
+                    <img v-if="rank_index==2" class="class_one" src="../../img/course/class_three_18.png" alt="">
+                    <div v-if="rank_index>2" class="class_two">
+                        {{rank_index + 1}}
+                    </div>
+                    <div class="diligence_left">
+                        <img class="diligence_left_img" :src="rank_data.avatar" alt="">
+                        <div class="diligence_left_left">
+                            <p class="diligence_left_left_p">
+                                {{rank_data.username}}
+                                <span>( 昵称：{{rank_data.nick_name}} )</span>
+                            </p>
+                            <div class="diligence_left_left_p2">
+                                <p class="diligence_left_left_pp">
+                                    <img src="../../img/course/modify__03.png" alt="">做题数： <span>{{rank_data.answered_num}}</span>道
+                                </p>
+                                <p class="diligence_left_left_pp2">
+                                    <img src="../../img/course/correct__05.png" alt="">正确率： <span>{{rank_data.accuracy}}%</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+
+        <!--正确率排行-->
+        <ul v-if="2==current_rank_index" class="diligence_three">
+            <li class="diligence_li" v-for="(rank_data,rank_index) in data_list">
+                <div class="diligence_div">
+                    <img v-if="rank_index==0" class="class_one" src="../../img/course/class_one_09.png" alt="">
+                    <img v-if="rank_index==1" class="class_one" src="../../img/course/class_two_16.png" alt="">
+                    <img v-if="rank_index==2" class="class_one" src="../../img/course/class_three_18.png" alt="">
+                    <div v-if="rank_index>2" class="class_two">
+                        {{rank_index + 1}}
+                    </div>
+                    <div class="diligence_left">
+                        <img class="diligence_left_img" :src="rank_data.avatar" alt="">
+                        <div class="diligence_left_left">
+                            <p class="diligence_left_left_p">
+                                {{rank_data.username}}
+                                <span>( 昵称：{{rank_data.nick_name}} )</span>
+                            </p>
+                            <div class="diligence_left_left_p2">
+                                <p class="diligence_left_left_pp3">
+                                    <img src="../../img/course/correct__05.png" alt="">正确率： <span>{{rank_data.accuracy}}%</span>
+                                </p>
+                                <p class="diligence_left_left_pp">
+                                    <img src="../../img/course/modify__03.png" alt="">做题数： <span>{{rank_data.answered_num}}</span>道
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script type="text/javascript">
+    var vm = new Vue({
+        el:'#app_body',
+        data:{
+            current_rank_index:0,//当前的排名种类
+            rank_names:['听课勤奋排行'],//排名的名字,'答题勤奋排行','正确率排行'
+            study_num:'0',//学习人数
+            study_time:'0',//学习时长
+            beat_num:'0',//打败多少同学
+            current_rank:'0',//当前排名
+            data_list:[],//排行数据
+            page:0,//当前页码
+            course_id:'1',//课程id
+            course_name:'',//课程名称
+            course_type_name:'',//课程分类名称
+        },
+        methods:{
+
+            //初始化数据
+            a_init_data(){
+                var jump_info = JSON.parse(localStorage.getItem("jump_detail_info"));
+                vm.course_id = jump_info.course_id;
+                vm.course_type = jump_info.course_type;
+                //请求课程数据
+                get_courseData()
+            },
+            //选择是哪个排行榜
+            select_rank_index(index){
+                vm.current_rank_index = index;
+                get_rank_data(index);
+            },
+            //返回
+            to_back(){
+                union_back();
+            }
+        }
+    })
+
+    //初始化数据
+    vm.a_init_data();
+
+    //请求课程数据
+    function get_courseData() {
+        var para = {course_id:vm.course_id};
+        yaqooNetPost('Course/show_detail',para,function (data) {
+            console.log(data);
+            if(data['code']=='1000'){
+                vm.course_name = data['course_name'];
+                vm.course_type_name = data['course_type_name'];
+                //请求排名数据
+                get_rank_data(0);
+            }
+        })
+    }
+
+    //请求排名数据
+    function get_rank_data(type) {
+        var url = '';
+        if(type == 0){
+            url = 'User/course_record'
+        }else if(type == '1'){
+            url = '?m=home&c=Exam&a=index&method=Ranking/diligence'
+        }else if(type == '2'){
+            url = '?m=home&c=Exam&a=index&method=Ranking/accuracy'
+        }
+
+        var para = {'course_id':vm.course_id,'page':vm.page}
+        yaqooNetPost(url,para,function (data) {
+            console.log(data);
+            //处理数据
+            if(data['code'] == 1000){
+                if(type == 0){
+                    vm.data_list = data['data_list'];
+                }else {
+                    vm.data_list = data['data'];
+                }
+            }else {
+                alert(data['message']);
+            }
+        })
+
+        get_record_data(type);
+    }
+
+
+    //请求考试记录数据
+    function get_record_data (type){
+
+        var url = '';
+        var para = {'course_id':vm.course_id}
+        if(type == 0){
+            url = 'Userinfo/one_course_record'
+        }else if(type == 1){
+            url = '?m=home&c=Exam&a=index&method=Ranking/diligence_summary'
+        }else if(type == 2){
+            url = '?m=home&c=Exam&a=index&method=Ranking/accuracy_summary'
+        }
+        yaqooNetPost(url,para,function (data) {
+            console.log(data);
+            //处理数据
+            if(data['code'] == 1000){
+                if(type == 0){
+                    vm.beat_num = data['defeat'];
+                    vm.current_rank = data['rank'];
+                    vm.study_time = data['user_study_count'];
+                }else {
+                    vm.beat_num = data['data']['total'] - data['data']['rank'];
+                    vm.current_rank = data['data']['rank'];
+                    console.log(vm.beat_num + '==' + vm.rank);
+                }
+
+            }else {
+                alert(data['message']);
+            }
+        })
+    }
+
+    //隐藏手机号中间四位
+    function secret_tel(tel) {
+        return tel.substr(0,2) + '****' + tel.substr(6,10);
+    }
+
+
+    $(function () {
+        $(".find_nav_list").css("left", sessionStorage.left + "px");
+        $(".find_nav_list li").each(function () {
+            if ($(this).find("a").text() == sessionStorage.pagecount) {
+                $(".sideline").css({left: $(this).position().left});
+                $(".sideline").css({width: $(this).outerWidth()});
+                $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+
+                return false
+            }
+            else {
+                $(".sideline").css({left: 0});
+                $(".find_nav_list li").eq(0).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+            }
+        });
+        var nav_w = $(".find_nav_list li").first().width();
+        $(".sideline").width(nav_w);
+        $(".find_nav_list li").on('click', function () {
+
+            nav_w = $(this).width();
+            $(".sideline").stop(true);
+            $(".sideline").animate({left: $(this).position().left}, 300);
+            $(".sideline").animate({width: nav_w});
+            $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+            var fn_w = ($(".find_nav").width() - nav_w) / 2;
+            var fnl_l;
+            var fnl_x = parseInt($(this).position().left);
+            if (fnl_x <= fn_w) {
+                fnl_l = 0;
+            } else if (fn_w - fnl_x <= flb_w - fl_w) {
+                fnl_l = flb_w - fl_w;
+            } else {
+                fnl_l = fn_w - fnl_x;
+            }
+            $(".find_nav_list").animate({
+                "left": fnl_l
+            }, 300);
+            sessionStorage.left = fnl_l;
+            var c_nav = $(this).find("a").text();
+
+        });
+        var fl_w = $(".find_nav_list").width();
+        var flb_w = $(".find_nav_left").width();
+        $(".find_nav_list").on('touchstart', function (e) {
+            var touch1 = e.originalEvent.targetTouches[0];
+            x1 = touch1.pageX;
+            y1 = touch1.pageY;
+            ty_left = parseInt($(this).css("left"));
+        });
+        $(".find_nav_list").on('touchmove', function (e) {
+            var touch2 = e.originalEvent.targetTouches[0];
+            var x2 = touch2.pageX;
+            var y2 = touch2.pageY;
+            if (ty_left + x2 - x1 >= 0) {
+                $(this).css("left", 0);
+            } else if (ty_left + x2 - x1 <= flb_w - fl_w) {
+                $(this).css("left", flb_w - fl_w);
+            } else {
+                $(this).css("left", ty_left + x2 - x1);
+            }
+            if (Math.abs(y2 - y1) > 0) {
+                e.preventDefault();
+            }
+        });
+    })
+</script>
+</html>

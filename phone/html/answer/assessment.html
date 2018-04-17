@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>评估</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/assessment.css">
+</head>
+<body>
+<div id="app_body" v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/course/return_03_03.png" alt="">
+        中医基础理论
+    </div>
+    <div class="assessment_div">
+        <img class="assessment_img" src="../../img/course/mymistakes_02.png" alt="">
+        <div class="assessment_top">
+            <div class="assessment_top_div">
+                <img src="../../img/course/smile.png" alt="">
+                <div class="assessment_top_left">
+                    <p class="assessment_top_left_p">您总共完成了7次章节练习
+                    </p>
+                    <p>8次模拟试卷，共答题150道，正确率为80%
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="main"></div>
+    <div class="progress">
+        <div class="progress_div">
+            <h4 class="progress_h4">
+                <p>
+                    您的知识点掌握度
+                </p>
+            </h4>
+            <div class="progress_div_div">
+                <div class="progress__div">
+                    <div class="progressbar">
+                        <div class="progressbar_div">
+                            <p class="progressbar_div_p">
+                                10%
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <p class="progressbar_p">
+
+                    100%
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="form_div">
+        <h4 class="progress_h4">
+            <p>
+                请您加强对以下考点的学习和练习
+            </p>
+        </h4>
+    </div>
+    <div class="form__div">
+        <table class="layui-table">
+            <thead>
+            <tr>
+                <th>考点/知识点</th>
+                <th>出题 <br>
+                    总数</th>
+                <th>正确<br>
+                    题数</th>
+                <th>正确率</th>
+                <th>平均 <br>
+                    正确率</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>中医基础伦理</td>
+                <td>200道</td>
+                <td class="layui-table_td form__div_table">50</td>
+                <td class="layui-table_td2 form__div_table2">50%</td>
+                <td class="layui-table_td3 form__div_table3">50%</td>
+            </tr>
+            <tr>
+                <td>中医基础伦理</td>
+                <td>200道</td>
+                <td class="layui-table_td form__div_table">50</td>
+                <td class="layui-table_td2 form__div_table2">50%</td>
+                <td class="layui-table_td3 form__div_table3">50%</td>
+
+            </tr>
+            <tr>
+                <td>中医基础伦理</td>
+                <td>200道</td>
+                <td class="layui-table_td form__div_table">50</td>
+                <td class="layui-table_td2 form__div_table2">50%</td>
+                <td class="layui-table_td3 form__div_table3">50%</td>
+            </tr>
+            <tr>
+                <td>中医基础伦理</td>
+                <td>200道</td>
+                <td class="layui-table_td form__div_table">50</td>
+                <td class="layui-table_td2 form__div_table2">50%</td>
+                <td class="layui-table_td3 form__div_table3">50%</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--echart-->
+<script src="../../js/echarts.simple.min.js"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script src="../../js/course/assessment.js"></script>
+
+<script type="text/javascript">
+
+    //checkUserState(true);
+
+</script>
+</html>

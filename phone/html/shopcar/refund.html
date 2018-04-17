@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>申请退款</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--购物车公共.css-->
+    <link rel="stylesheet" href="../../css/shopcar/shopcar_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/shopcar/applicationrefund.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back">
+        申请退款
+    </div>
+    <ul class="login_account_ul">
+        <li>
+            <input placeholder="手机号" type="text" disabled v-model="phone" >
+        </li>
+        <li v-if="!is_showGetCode" class="login_account_ul_li">
+
+            <div class="login_account_ul_li_div">
+                <input v-model="graphic_code" v-on:input="g_code_change" placeholder="图形验证码" type="text">
+            </div>
+
+            <div v-on:click="change_g_code" class="login_account_ul_li_img">
+                <canvas id="mycanvas" width='200' height='100'>
+                    您的浏览器不支持canvas，请换个浏览器试试~
+                </canvas>
+            </div>
+        </li>
+        <textarea class="textarea" placeholder="退款理由，不少于10字"  v-model.trim="reason" name="" cols="10" rows="10" id="back_des"></textarea>
+        <div class="submit" v-on:click="commit">
+            提交申请
+        </div>
+    </ul>
+
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<!--验证码.js-->
+<script src="../../js/graphic_veriry.js"></script>
+<script type="application/javascript">
+    //checkUserState(true);
+    var vm = new Vue({
+        el:'#app_body',
+        data:{
+            is_showGetCode:0,//是否显示获取验证码
+            graphic_code:'',//输入的图形验证码
+            phone:'',
+            reason:''
+        },
+        methods:{
+            //监听图形验证码输入变化
+            g_code_change(){
+                        if(vm.graphic_code.length == 4){
+                            if(get_g_v_code() == vm.graphic_code){
+                                //输入正确
+                                vm.is_showGetCode = 1;
+                            }else {
+                                //输入错误
+                                vm.is_showGetCode = 0;
+                                get_random_g_v();
+                            }
+                }
+            },
+            //点击图形验证码
+            change_g_code(){
+                get_random_g_v();
+            },init()
+            {
+                this.phone=getTel();
+            },back(){
+              union_back();
+            },commit()
+            {
+                var order_id=localStorage.getItem("order_id");
+
+                if(isNull(this.reason)||this.reason.length<10){
+                    alert("请输入退款理由,不少于10字")
+                    return;
+
+                }
+                if(!isNull(this.phone)&&!isNull(order_id))
+                {
+                    if(this.is_showGetCode==0)
+                    {
+                        alert("请输入验证码")
+                    }else{
+                        yaqooNetPost("Refund/add", {order_id: order_id,refund_reason:this.reason}, function (data) {
+                            if (data['code'] == 1000) {
+                                alert(data['message']);
+                                union_back();
+
+                            }
+                        })
+                    }
+
+                }
+
+            }
+        }
+    })
+    vm.init();
+
+
+
+</script>
+</html>

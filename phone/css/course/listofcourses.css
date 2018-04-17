@@ -1,0 +1,637 @@
+body {
+    background: #fff;
+}
+
+.nav__top {
+    background: #1e2028;
+    color: #fff;
+    padding: .2rem 0;
+}
+
+.nav__top_right {
+    float: right;
+    position: relative;
+    margin-right: .2rem;
+}
+
+.nav__top_right img {
+    display: block;
+    width: .6rem;
+}
+
+.nav__top_right span {
+    position: absolute;
+    top: 0;
+    right: -.1rem;
+    width: .34rem;
+    height: .34rem;
+    border-radius: 50%;
+    background: #ffa800;
+    color: #fff;
+    text-align: center;
+    font-size: .28rem;
+    line-height: .34rem;
+}
+
+.listofcourses_banner {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 4rem;
+}
+
+.listofcourses_banner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.listofcourses_nav {
+    width: 100%;
+    padding-top: .2rem;
+    font-size: .36rem;
+    color: #555555;
+    background: #fff;
+}
+
+.listofcourses_nav_ul {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.listofcourses_nav_ul li {
+    float: left;
+    width: 25%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.listofcourses_nav_ul li:last-child {
+    margin: 0;
+}
+
+.listofcourses_nav_ul li p {
+    padding-bottom: .2rem;
+}
+
+.listofcourses_nav_ul li span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+}
+
+.listofcourses_nav_ul_li {
+    color: #0299ec !important;
+}
+
+.listofcourses_nav_ul_li span {
+    background: #0299ec !important;
+}
+
+.listofcourses_ul {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #f0f0f0;
+    padding-top: .2rem;
+
+}
+.listofcourses_ul li {
+    padding: .3rem 0 0;
+    overflow: hidden;
+    background: #fff;
+}
+.listofcourses_ul li:last-child{
+    padding-bottom: 2rem;
+}
+
+
+
+
+
+.listofcourses_div {
+    margin: 0 .2rem;
+    padding-bottom: .3rem;
+    overflow: hidden;
+    border-bottom: 1px solid #d2d2d2;
+}
+
+.listofcourses_img {
+    display: block;
+    float: left;
+    margin-right: .2rem;
+    width: 2.9rem;
+    height: 1.7rem;
+}
+
+.listofcourses_right {
+    width: 6.5rem;
+    float: left;
+    overflow: hidden;
+}
+
+.listofcourses_right_h4 {
+    font-size: .36rem;
+    color: #333333;
+}
+
+.listofcourses_right_h4 span {
+    font-size: .28rem;
+    color: #666666;
+}
+
+.listofcourses_divdiv {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: .1rem;
+}
+
+.listofcourses_div_p {
+    float: left;
+    font-size: .28rem;
+    color: #666666;
+}
+
+.listofcourses_div_p2 {
+    float: right;
+    font-size: .28rem;
+    color: #666666;
+}
+
+.listofcourses_div_p span {
+    color: #0299ec;
+}
+
+.listofcourses_bottom {
+    overflow: hidden;
+    margin-top: .2rem;
+}
+
+.listofcourses_bottom p {
+    float: left;
+    color: #ff7e00;
+    font-size: .4rem;
+}
+
+.listofcourses_bottom .original_price {
+    color: #999;
+    margin-left: .2rem;
+}
+
+.listofcourses_bottom_img {
+    display: block;
+    float: right;
+    width: .86rem;
+    height: .86rem;
+}
+
+.listofcourses_bottom_span {
+    width: 2.06rem;
+    padding: .2rem 0;
+    border-radius: .1rem;
+    color: #fff;
+    float: right;
+    font-size: .32rem;
+    text-align: center;
+    background: #0299ec;
+}
+
+.concealmentlayer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1111;
+    width: 100%;
+    height: 100%;
+    background: rgba(000, 000, 000, .4);
+}
+
+.concealmentlayer_div {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #fff;
+    font-size: .32rem;
+}
+
+.concealmentlayer_h4 {
+    padding: .2rem 0;
+    overflow: hidden;
+    background: #f4f4f4;
+}
+
+.concealmentlayer_h4 p {
+    padding-left: .2rem;
+    float: left;
+    font-size: .36rem;
+}
+
+.concealmentlayer_h4 img {
+    width: .373rem;
+    float: right;
+    margin-right: .2rem;
+}
+
+.concealmentlayer_title {
+    background: #fff;
+    padding: .2rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.concealmentlayer_title_h4 {
+    padding-left: .2rem;
+    font-size: .44rem;
+    color: #1d94d9;
+    margin-bottom: .1rem;
+}
+
+.concealmentlayer_title_p {
+    padding-left: .2rem;
+    font-size: 0.32rem;
+    color: #999999;
+}
+
+.concealmentlayer_title_span {
+    margin-right: .4rem;
+}
+
+.concealmentlayer_ul {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    font-size: .36rem;
+    color: #666666;
+}
+
+.concealmentlayer_ul li {
+    padding: .2rem 0;
+    border-bottom: 1px solid #d0d0d0;
+    overflow: hidden;
+}
+
+.concealmentlayer_xuan {
+    float: left;
+    margin: 0 .2rem;
+    overflow: hidden;
+    width: .4rem;
+    height: .4rem;
+    border: 1px solid #999999;
+    background: #fff;
+}
+
+.concealmentlayer_xuan2 {
+    float: left;
+    margin: 0 .2rem;
+    overflow: hidden;
+    width: .4rem;
+    height: .4rem;
+    border: 1px solid #999999;
+}
+
+.concealmentlayer_xuan2 img {
+    display: block;
+    width: .25rem;
+    margin: .13rem auto 0;
+    height: .18rem;
+}
+
+.concealmentlayer_xuan img {
+    display: block;
+    width: .25rem;
+    margin: .13rem auto 0;
+    height: .18rem;
+}
+
+.concealmentlayer_ulli {
+    color: #1d94d9 !important;
+}
+
+.concealmentlayer_ulli div {
+    border-color: #1d94d9;
+    background: #1d94d9;
+
+}
+
+.concealmentlayer_ulli_p {
+    padding-left: .2rem;
+    color: #ff7e00;
+    font-size: .32rem;
+}
+
+.concealmentlayer_ulli_p span {
+    font-size: .44rem;
+}
+
+.concealmentlayer_bottom {
+    padding: .4rem 0;
+    overflow: hidden;
+}
+
+.concealmentlayer_bottom_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+
+.concealmentlayer_bottom_left {
+    float: left;
+    width: 4.4rem;
+    border-radius: .1rem;
+    padding: .2rem 0;
+    text-align: center;
+    color: #fff;
+    font-size: .36rem;
+    background: #0299ec;
+
+}
+
+.concealmentlayer_bottom_right {
+    float: right;
+    width: 4.4rem;
+    border-radius: .1rem;
+    padding: .2rem 0;
+    text-align: center;
+    color: #fff;
+    font-size: .36rem;
+    background: #ff7e00;
+}
+
+.curriculum_ul {
+    padding: .2rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #d0d0d0;
+    font-size: .32rem;
+    color: #666666;
+    margin: 0 .1rem;
+}
+
+.curriculum_ul li:nth-child(odd) {
+    margin-right: .1rem;
+}
+
+.curriculum_ul li {
+    float: left;
+    overflow: hidden;
+}
+
+.curriculum_ul li:nth-child(even) {
+    float: right;
+}
+
+.concealmentlayer_ullidiv {
+    border-color: #1d94d9;
+    background: #1d94d9;
+}
+
+.concealmentlayer_xuan {
+    float: left;
+    margin: 0 .1rem 0 0;
+    overflow: hidden;
+    width: .4rem;
+    height: .4rem;
+    border: 1px solid #999999;
+}
+
+.concealmentlayer_xuan img {
+    display: block;
+    width: .25rem;
+    margin: .13rem auto 0;
+    height: .18rem;
+}
+
+.curriculum_ul li span {
+    color: #ff7e00;
+}
+
+.curriculum_twoyears {
+    color: #1d94d9;
+    font-size: .32rem;
+    overflow: hidden;
+    padding: .2rem 0 0 0;
+}
+
+.title_div_left_p2 {
+    padding-left: .2rem;
+    padding-top: .2rem;
+    font-size: .48rem;
+    color: #ff7e00;
+}
+
+.classification p {
+    margin-bottom: .2rem;
+    padding-left: .2rem;
+    color: #333333;
+}
+
+.classification_ul {
+    overflow: hidden;
+    position: relative;
+    color: #666666;
+}
+
+.classification_ul li {
+    float: left;
+    margin-left: .2rem;
+    border: 1px solid #bbbbbb;
+    width: 3.33rem;
+    padding: .2rem 0;
+    text-align: center;
+}
+
+.classification_ulli {
+    border-color: #0299ec !important;
+    color: #0299ec;
+}
+
+.listofcourses_two {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.listofcourses_two_div {
+    margin: .2rem;
+    overflow: hidden;
+}
+.listofcourses_two_p {
+    float: left;
+    font-size: .36rem;
+    color: #333333;
+}
+.listofcourses_two_right {
+    float: right;
+    font-size: .32rem;
+}
+
+
+.section_ul {
+    background: #F0F0F0;
+    overflow: hidden;
+    padding-top: .2rem;
+
+}
+
+.section_ul li {
+    padding: 0.46rem 0;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: .266rem;
+    background: #fff;
+}
+
+.section_li_div {
+    margin: 0 .3rem;
+    overflow: hidden;
+}
+
+.section_li_div_img {
+    display: block;
+    float: left;
+    margin-right: 0.4rem;
+    width: 2.88rem;
+    height: 2.1rem;
+}
+
+.section_li_div_right {
+    float: left;
+    overflow: hidden;
+    width: 6.1rem;
+}
+
+.section_li_div_right_div {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+}
+
+.section_li_div_right_p {
+    overflow: hidden;
+    position: relative;
+    font-size: 0.36rem;
+    color: #333333;
+    float: left;
+}
+
+.section_li_div_right_p_span {
+    font-size: 0.48rem;
+    margin-right: .2rem;
+}
+
+.section_li_div_right_p2 {
+    float: right;
+    font-size: 0.32rem;
+    color: #0199ec;
+    border: 1px solid #0199ec;
+    border-radius: .2rem;
+    padding: .1rem .2rem;
+}
+
+.section_li_div_right_p2 img {
+    vertical-align: middle;
+    margin: -1px 1px 0 0;
+    width: 0.36rem;
+}
+
+.section_li_div_right__p {
+    font-size: 0.32rem;
+    color: #666666;
+    line-height: .46rem;
+    margin-top: .8rem;
+}
+
+/*设置密码弹框*/
+.location {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(000, 000, 000, .4);
+    z-index: 1111;
+}
+
+.giveaway_h4 {
+    padding: .3rem 0;
+    overflow: hidden;
+    background: #f0f0f0;
+}
+
+.giveaway_div {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: .32rem;
+    background: #fff;
+}
+
+.giveaway_span {
+    float: left;
+    font-size: 0.36rem;
+    padding-left: .3rem;
+}
+
+.giveaway_img {
+    width: .36rem;
+    height: .36rem;
+    float: right;
+    margin-right: .3rem;
+}
+
+.giveaway_div_ul {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    overflow-y: scroll;
+    max-height: 8.4rem;
+    /*min-height: 3.4rem;*/
+}
+
+.giveaway_div_ul li {
+    padding: .3rem 0;
+    overflow-y: hidden;
+    /*border-bottom: 1px solid #d0d0d0;*/
+}
+/*订单弹框*/
+.login_account_ul_li1_img{
+    width: 2.4rem;
+    height: 2.4rem;
+}
+.giveaway_div_ul_Tan{
+    text-align: center;
+}
+.giveaway_div_ul_div_Tan{
+    width: 2.54rem;
+    height: .95rem;
+    border-radius: .1rem;
+    float: left;
+    line-height: .95rem;
+    background: #e2e2e2;
+    color: #000;
+    margin: .3rem 0 1.1rem .52rem;
+    font-size: .37rem;
+}
+.giveaway_div_ul_div_Tan1{
+    margin-left: 2.2rem;
+    background: #0299ec;
+    color: #fff;
+}
+.Tanfont{
+    font-size: .45rem;
+    color: #333333;
+}
+.Tanfonts{
+    font-size: .37rem;
+    color: #666666;
+}
+
+
+
+
+

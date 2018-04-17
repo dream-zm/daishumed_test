@@ -1,0 +1,163 @@
+
+.Coupon_ul {
+    width: 100%;
+    background: #eceef0;
+    overflow: hidden;
+    padding: .3rem 0 3rem;
+}
+
+.Coupon_li {
+    margin: 0 .3rem .3rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.Coupon_li_div {
+    width: 2.57rem;
+    height: 2rem;
+    overflow: hidden;
+    position: relative;
+    float: left;
+}
+.Coupon_li_div img{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.Coupon_li_div_sh {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #fff;
+}
+
+.Coupon_li_div_sh_p {
+    padding: .26rem 0 0 0;
+    font-weight: bold;
+    font-size: 0.4rem;
+}
+
+.Coupon_li_div_sh_p_span {
+    font-size: 0.72rem;
+
+}
+
+.Coupon_li_div_sh_p2 {
+    font-size: 0.4rem;
+}
+
+.Coupon_title {
+    width: 6.7rem;
+    float: left;
+    height: 1.95rem;
+    border: 1px solid #fff;
+    border-left: none;
+    background: #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.Coupon_title_p {
+    font-size: .32rem;
+    color: #666666;
+    padding: .2666rem 0 .2rem;
+    margin-left: .2rem;
+}
+
+.Coupon_title_p2 {
+    font-size: .32rem;
+    color: #999999;
+    line-height: .46rem;
+    margin-left: .2rem;
+}
+
+.Coupon_title_img {
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: .826rem;
+    height: .826rem;
+}
+
+.Coupon_li2 .Coupon_title1 {
+    border-color: #0199ec;
+}
+
+.Coupon_li2 .Coupon_title_img {
+    display: block;
+}
+
+.Coupon_li_two {
+    margin: 0 .3rem .3rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.Coupon_li_two .Coupon_title {
+    color: #999 !important;
+}
+
+.Coupon_bottom {
+    /*position: fixed;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*width: 100%;*/
+    /*background: #fff;*/
+    /*overflow: hidden;*/
+    /*height: 1.28rem;*/
+    /*-moz-box-shadow: 0px -1px 5px #D9D9D9;*/
+    /*-webkit-box-shadow: 0px -1px 5px #D9D9D9;*/
+    /*box-shadow: 0px -1px 5px #D9D9D9;*/
+    background: #0299ec;
+    text-align: center;
+    width: 100%;
+    border-radius: .1rem;
+    padding: .4rem 0;
+    font-size: 0.4rem;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+}
+/*.Coupon_bottom__div{*/
+    /*margin: 0 auto .4rem;*/
+    /*width: 80%;*/
+    /*!*height: 100%;*!*/
+    /*padding: .2rem 0;*/
+    /*border-radius: 1rem;*/
+    /*background: #0199ec;*/
+    /*text-align: center;*/
+    /*!*line-height: 1.28rem;*!*/
+    /*font-size: .32rem;*/
+    /*color: #fff;*/
+/*}*/
+
+.Coupon_bottom_p {
+    float: left;
+    padding-left: .3rem;
+    font-size: .32rem;
+    line-height: 1.28rem;
+}
+
+.Coupon_bottom_p span {
+    color: #ff4e00;
+    font-size: .4rem;
+}
+
+.Coupon_bottom_div {
+    height: 100%;
+    text-align: center;
+    padding: 0 1rem;
+    font-size: .32rem;
+    color: #fff;
+    float: right;
+    background: #0299ec;
+    line-height: 1.28rem;
+}
+
+
+

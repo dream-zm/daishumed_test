@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>发现</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/company_info/company_info_index.css">
+    <link rel="stylesheet" href="../../css/company_info/discovery.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        发现
+    </div>
+    <div class="discovery">
+        <ul class="discovery_ul">
+            <a href="news_list.html">
+                <li>
+                    <img src="../../img/company_info/Journalism_03.png" alt="">
+                    新闻资讯
+                </li>
+            </a>
+            <a href="teacher.html">
+                <li>
+                    <img src="../../img/company_info/teacher_07.png" alt="">
+                    师资力量
+                </li>
+            </a>
+            <a href="cooperativepartner.html">
+                <li>
+                    <img src="../../img/company_info/cooperation_11.png" alt="">
+                    合作伙伴
+                </li>
+            </a>
+
+        </ul>
+    </div>
+    <div class="discovery">
+        <ul class="discovery_ul">
+            <a href="about_us.html">
+                <li>
+                    <img src="../../img/company_info/about_14.png" alt="">
+                    关于我们
+                </li>
+            </a>
+            <a href="con_us.html">
+                <li>
+                    <img src="../../img/company_info/Contact_17.png" alt="">
+                    联系我们
+                </li>
+            </a>
+            <a href="join_us.html">
+                <li>
+                    <img src="../../img/company_info/join_20.png" alt="">
+                    加入我们
+                </li>
+            </a>
+
+        </ul>
+    </div>
+
+    <!--底部导航-->
+    <main_bottom_nav init_tabs="3"></main_bottom_nav>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+
+<script type="text/javascript">
+    var app = new Vue({
+        el:"#app_body"
+    });
+
+    //checkUserState(true);
+
+</script>
+
+<!--插入页面元素统一JS-->
+<!-- <script src="../../js/index_bottom.js"></script> -->
+
+</html>

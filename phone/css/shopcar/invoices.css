@@ -1,0 +1,177 @@
+
+.reimbursement {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: .2rem;
+}
+
+.reimbursement_div {
+    width: 100%;
+    padding: .2rem 0;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+}
+
+.reimbursement_div_p {
+    padding-left: .3rem;
+    color: #1d94d9;
+    font-size: .36rem;
+}
+
+.reimbursement_txt {
+    border-top: 1px solid #d0d0d0;
+    border-bottom: 1px solid #d0d0d0;
+    padding: .2rem 0;
+    background: #fffbf0;
+}
+
+.reimbursement_txt p {
+    margin: 0 .3rem;
+    overflow: hidden;
+    line-height: .54rem;
+    font-size: .32rem;
+    color: #666666;
+}
+
+.invoicesareraised {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin: .2rem 0;
+    background: #fff;
+}
+
+.invoicesareraised_h4 {
+    padding: .3rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #d0d0d0;
+    font-size: .36rem;
+    color: #333;
+}
+
+.invoicesareraised_p {
+    padding-left: .3rem;
+}
+
+.invoicesareraised_div {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+}
+
+.invoicesareraised_ul {
+    padding-left: .3rem;
+    overflow: hidden;
+}
+
+.invoicesareraised_ul li {
+    padding: .3rem 0;
+    font-size: .3rem;
+    color: #333333;
+}
+
+.invoicesareraised_li {
+    border-bottom: 1px solid #dedede;
+    overflow: hidden;
+}
+
+.invoicesareraised_li_div {
+    border: 1px solid #999999;
+    border-radius: 50%;
+    width: 0.41rem;
+    height: .41rem;
+    background: #fff;
+    float: left;
+    margin-right: .2rem;
+}
+
+.invoicesareraised_li_div img {
+    vertical-align: middle;
+    margin: .12rem auto 0;
+    display: block;
+}
+
+.invoicesareraised_li_input {
+    border: none;
+    background: #f2f2f2;
+    padding: .1rem .2rem;
+    border-radius: .1rem;
+    margin-left: .2rem;
+}
+
+.invoicesareraised_li_div2 {
+    border-color: #1d94d9;
+    background: #1d94d9;
+}
+
+.recognition {
+    width: 100%;
+    padding: .3rem 0;
+    background: #fff;
+    overflow: hidden;
+}
+
+.recognition_p {
+    font-size: .36rem;
+    color: #333;
+    float: left;
+    margin-left: .3rem;
+}
+
+.recognition_input {
+    float: right;
+    background: #fff;
+    border: none;
+    font-size: .32rem;
+    margin-right: .3rem;
+}
+
+.invoicesareraised_li_p {
+    float: left;
+    font-size: .36rem;
+    color: #333;
+}
+
+.invoicesareraised_li_p span {
+    color: #ff0000;
+    font-size: .32rem;
+}
+
+.invoicesareraised_li_p2 {
+    float: left;
+    font-size: .32rem;
+    color: #999999;
+    margin: .1rem .3rem 0 .6rem;
+    border: none;
+    width: 3rem;
+
+}
+.invoicesareraised_li_p3{
+    float: left;
+    font-size: .32rem;
+    color: #999999;
+    margin: .1rem .3rem 0 .6rem;
+    border: none;
+    width: 4rem;
+}
+
+.invoicesareraised_li_two {
+    border: none;
+}
+
+.invoicesareraised_bottom {
+    padding-bottom: 2rem;
+}
+
+.fixed {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: .3rem 0;
+    text-align: center;
+    color: #fff;
+    font-size: .36rem;
+    background: #0299ec;
+}

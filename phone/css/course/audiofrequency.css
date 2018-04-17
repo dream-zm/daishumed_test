@@ -1,0 +1,403 @@
+.video_div {
+    width: 100%;
+    height: 5.54rem;
+    background: url("../../img/course/video_div_01.png") no-repeat center;
+    background-size: 100% 100%;
+    overflow: hidden;
+    position: relative;
+}
+.nav__top{
+    background: transparent;
+    color: #fff;
+}
+
+.curriculum_title {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    padding: .2rem 0 .4rem;
+    border-bottom: 1px solid #eceef0;
+}
+
+.curriculum_title_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+
+.curriculum_title_h4 {
+    font-size: .4rem;
+    color: #333333;
+    line-height: .56rem;
+}
+
+.title_div {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: .2rem;
+}
+
+.title_div_left {
+    float: left;
+}
+
+.title_div_left_p {
+    margin-bottom: .1rem;
+    font-size: .32rem;
+    color: #eb3939;
+}
+
+.title_div_left_p2 {
+    font-size: .48rem;
+    color: #ff7e00;
+}
+
+.title_div_right {
+    float: right;
+    width: 2.96rem;
+    height: 1.02rem;
+    background: #ff7e00;
+    border-radius: .1rem;
+    text-align: center;
+    font-size: .36rem;
+    color: #fff;
+    line-height: 1.02rem;
+}
+
+.optional {
+    width: 100%;
+    padding: .2rem 0;
+    background: #fff;
+    overflow: hidden;
+    border-bottom: 1px solid #eceef0;
+}
+
+.optional_div {
+    margin: 0 .2rem;
+    font-size: 0.32rem;
+    color: #666666;
+    line-height: .56rem;
+}
+
+.optional_div span {
+    color: #0299ec;
+}
+
+.curriculum_nav {
+    width: 100%;
+    margin: .2rem 0;
+    border-bottom: 1px solid #dee0e2;
+    padding: .2rem 0 0 0;
+    background: #fff;
+}
+
+.curriculum_nav_ul {
+    margin: 0 .4rem;
+    overflow: hidden;
+    font-size: .36rem;
+    color: #333333;
+}
+
+.curriculum_nav_ul li {
+    float: left;
+    width: 2.26rem;
+    text-align: center;
+}
+
+.curriculum_nav_p {
+    padding-bottom: .2rem;
+}
+
+.curriculum_nav_p2 {
+    width: 100%;
+    height: 2px;
+    background: transparent;
+}
+
+.curriculum_nav_ulli {
+    margin: 0 1.2rem;
+}
+
+.content {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    color: #666666;
+    font-size: .32rem;
+    background: #fff;
+    margin-top: .2rem;
+}
+
+.content_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+
+.content__div {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.content__h4 {
+    border-bottom: 1px solid #d6d6d6;
+    padding: .2rem 0;
+    font-size: .36rem;
+    color: #333333;
+}
+
+.content__i {
+    display: inline-block;
+    border-radius: 50%;
+    background: #0299ec;
+    width: .21rem;
+    height: .21rem;
+    margin-right: .2rem;
+}
+
+.content__p {
+    line-height: .7rem;
+    padding-bottom: .2rem;
+}
+
+.content__divdiv {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.content__divdivul {
+    overflow: hidden;
+    position: relative;
+}
+
+.content__divdivul li {
+    float: left;
+    margin-left: .4rem;
+    overflow: hidden;
+    font-size: 0.28rem;
+    color: #666666;
+    padding: .2rem 0;
+}
+
+.content__divdivul li img {
+    float: left;
+    width: 1.25rem;
+    height: 1.25rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: .2rem;
+}
+
+.content__divdivul_div {
+    float: left;
+}
+
+.content__divdivul_div_p {
+    margin: .2rem 0 .1rem;
+    font-size: .32rem;
+    color: #0299ec;
+}
+
+.information {
+    width: 100%;
+    padding: .2rem 0;
+    background: #fff;
+    overflow: hidden;
+}
+
+.information_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+    font-size: 0.36rem;
+}
+
+.information_left {
+    float: left;
+    color: #666666;
+}
+
+.information_left img {
+    vertical-align: middle;
+    width: .46rem;
+    margin-right: .1rem;
+    margin-top: -.1rem;
+}
+
+.information_right img {
+    vertical-align: middle;
+    width: .45rem;
+    margin-right: .1rem;
+
+}
+
+.information_left span {
+    color: #0299ec;
+}
+
+.information_right {
+    color: #4fb437;
+    float: right;
+    margin-right: .2rem;
+}
+
+.information_right2 {
+    color: #0299ec;
+    float: right;
+    margin-right: .4rem;
+}
+
+.information_right2 img {
+    vertical-align: middle;
+    width: .45rem;
+    margin-right: .1rem;
+}
+
+.curriculum_nav_ulli2 {
+    color: #0299ec;
+}
+
+.curriculum_nav_ulli2 .curriculum_nav_p2 {
+    background: #0299ec;
+}
+
+.contentdiv {
+    display: none;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+}
+
+.catalog {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    margin-top: -.2rem;
+}
+
+.catalog_ul {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+}
+
+.catalog_li {
+    width: 100%;
+    overflow: hidden;
+    font-size: .28rem;
+    position: relative;
+}
+
+.catalog_li_div {
+    width: 100%;
+    padding: .3rem 0;
+    overflow: hidden;
+    position: relative;
+    background: #f0f0f0;
+}
+
+.catalog_li_div_p {
+    float: left;
+    padding-left: .2rem;
+    color: #333333;
+    font-size: .33rem;
+}
+
+.catalog_li_div_p span {
+    display: inline-block;
+    text-align: center;
+    line-height: .49rem;
+    width: .49rem;
+    height: .49rem;
+    background: #0299ec;
+    color: #fff;
+    border-radius: 50%;
+    margin-right: .2rem;
+    margin-top: -.04rem;
+}
+
+.catalog_li_div_img {
+    float: right;
+    width: .44rem;
+    height: .266rem;
+    margin-right: .2rem;
+    margin-top: .1rem;
+}
+
+.layui-timeline-axis {
+    color: #0199ec;
+}
+
+.catalog_text {
+    margin-right: .2rem;
+    padding: 0 0 .2rem 0;
+    border-bottom: 1px dashed #e8e8e8;
+    font-size: 0.28rem;
+    overflow: hidden;
+}
+
+.catalog_text_p {
+    float: left;
+    color: #666666;
+}
+
+.catalog_text_p2 {
+    float: right;
+
+}
+
+.catalog_text_p2_span {
+    margin-right: .2rem;
+    color: #0199ec;
+}
+
+.catalog_text_p2_span2 {
+    color: #ff7e00;
+}
+
+.layui-timeline-item {
+    padding-bottom: 0;
+    margin-bottom: .2rem;
+}
+
+.layui-timeline {
+    padding-top: .2rem;
+}
+
+.layui-timeline li:last-child {
+    margin-bottom: 0;
+}
+
+.layui-timeline li:last-child .catalog_text {
+    border: none;
+}
+
+.audio_btn {
+    margin-top: .6rem;
+}
+
+#time_cur {
+    color: #ffffff;
+    font-size: 0.32rem;
+}
+
+.time2 {
+    font-size: 0.32rem;
+    color: #8791da;
+}
+
+.audio_title {
+    font-size: .48rem;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+

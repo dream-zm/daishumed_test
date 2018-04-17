@@ -1,0 +1,79 @@
+.contro_ul {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: .2rem;
+    padding-bottom: 1rem;
+
+}
+
+.contro_ul li {
+    padding: .2rem 0;
+    overflow: hidden;
+    background: #fff;
+    margin-bottom: .2rem;
+}
+
+.contro_ul_div {
+    margin: 0 .2rem .2rem;
+    overflow: hidden;
+}
+
+.contro_ul_p {
+    float: left;
+    font-size: .36rem;
+    color: #333333;
+}
+
+.contro_ul_p2 {
+    float: right;
+    font-size: .36rem;
+    color: #333333;
+}
+.contro_ul__p{
+    font-size: .32rem;
+    color: #666666;
+    padding-left: .2rem;
+    line-height: .7rem;
+}
+.contro_li_bottom{
+    width: 100%;
+    border-top: 1px solid #dfdfdf;
+    padding-top: .2rem;
+}
+
+.contro_li_bottom_p{
+    float: right;
+    font-size: .32rem;
+    color: #333333;
+    margin-right: .2rem;
+}
+.contro_li_bottom_p img{
+    vertical-align: middle;
+    width: .4rem;
+    height: .42rem;
+    margin-top: -.1rem;
+}
+.addto{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: .2rem;
+    background: #0299ec;
+    text-align: center;
+    font-size: 0.4rem;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

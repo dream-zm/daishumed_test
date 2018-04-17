@@ -1,0 +1,141 @@
+
+.section {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.32rem;
+    color: #555555;
+    line-height: .46rem;
+
+}
+
+.section__div {
+    width: 100%;
+    height: 3.546rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.about_us_banner img {
+    width: 100%;
+    display: block;
+    height: 100%;
+}
+
+.section__above {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.about_us_banner {
+    display: block;
+    width: 100%;
+    height: 3.546rem;
+    position: relative;
+}
+
+.section_div {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    margin-bottom: .2rem;
+}
+.section___div{
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+}
+
+.section_div_div {
+    margin: 0.6rem 0.3rem .4rem;
+    overflow: hidden;
+    line-height: .56rem;
+}
+
+.section__above_p {
+    font-size: 0.56rem;
+    margin: 1.2rem 0 .5rem 0;
+
+}
+
+.section__above_p2 {
+    font-size: 0.36rem;
+}
+
+.section_div_p {
+    font-size: 0.4rem;
+    color: #333333;
+    margin-bottom: 0.1rem;
+    text-align: center;
+}
+
+.section_div__p {
+    font-size: 0.4rem;
+    color: #333333;
+    margin-bottom: 0.6rem;
+    text-align: center;
+}
+
+.section_div_div_img {
+    display: block;
+    margin: .4rem auto 0;
+    width: 9.36rem;
+}
+
+.section_div_div_ul {
+    overflow: hidden;
+    position: relative;
+}
+
+.section_div_div_ul li {
+    width: 4.17rem;
+    height: 4rem;
+    border: 1px solid #e4e4e4;
+    margin-bottom: .2rem;
+    text-align: center;
+    font-size: 0.28rem;
+    color: #666666;
+    line-height: .5rem;
+}
+
+.section_div_div_ul li:nth-child(odd) {
+    float: left;
+}
+
+.section_div_div_ul li:nth-child(even) {
+    float: right;
+}
+
+.section_div_div_ul li img {
+    display: block;
+    width: 1.02rem;
+    height: 1.02rem;
+    margin: 0.48rem auto 0.24rem;
+}
+.section_div_div_ul_p{
+    font-size: 0.4rem;
+    color: #333333;
+    margin-bottom: .2rem;
+}
+.section_div_div_ul_p2{
+    font-size: 0.26rem;
+}
+
+
+
+
+
+
+
+
+
+
+

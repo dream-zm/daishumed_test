@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>个人信息</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <script src="../../js/regular.js"></script>
+     <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <!--vue框架-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <!--个人中心公共样式-->
+    <link rel="stylesheet" href="../../css/user_info/user_info_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/user_info/personal_information.css">
+</head>
+<body>
+<div id="app_body" v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img v-on:click.stop="to_back" class="nav__top_left" src="../../img/company_info/return_03.png" alt="">
+        个人信息
+        <span v-on:click="save_click" class="nav__top_span">保存</span>
+    </div>
+    <div class="information">
+        <ul class="information_ul">
+            <li class="information_li">
+                <p class="information_li_p">头像</p>
+                <div class="information_li__div">
+                    <input type="file" id="file" name="file" class="information_li_img" alt="">
+                    <img :src="user_info.head_img" alt="">
+                </div>
+
+            </li>
+            <li>
+                <p class="information_li_p2">登录名</p>
+                <div class="information_right">
+                    <input v-model="user_info.username" class="information_input" type="text" disabled="1">
+                    <img class="information_right_img" src="" alt="">
+                </div>
+            </li>
+            <!--<li>-->
+            <!--<p class="information_li_p2">手机</p>-->
+            <!--<div class="information_right">-->
+            <!--<input v-model="user_info.phone_number" class="information_input" type="text" disabled="1">-->
+            <!--<img class="information_right_img" src="" alt="">-->
+            <!--</div>-->
+            <!--</li>-->
+            <li>
+                <p class="information_li_p2">邮箱</p>
+                <div class="information_right">
+                    <input v-model="user_info.email" class="information_input" type="text" disabled="1">
+                    <img class="information_right_img" src="" alt="">
+                </div>
+            </li>
+            <li>
+                <p class="information_li_p2">真实姓名</p>
+                <div class="information_right">
+                    <input v-model="user_info.real_name" class="information_input" type="text" disabled="1">
+                    <img class="information_right_img" src="" alt="">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="information">
+        <ul class="information__ul">
+            <li>
+                <p class="information_li_p2">昵称</p>
+                <div class="information_right">
+                    <input v-model="user_info.pet_name" class="information_input" type="text">
+                    <img class="information_right_img" src="" alt="">
+                </div>
+            </li>
+            <li>
+                <p class="information_li_p2 information_li_p3">性别</p>
+                <div class="information_right">
+                    <ul class="curriculum__ul">
+                        <li v-on:click="click_sex(1)">
+                            <div class="concealmentlayer_xuan3" :class="{concealmentlayer_ullidiv:user_info.sex==1}">
+                                <img src="../../img/course/concealmentlayer_xuan_03.png" alt=""></div>
+                            男
+                        </li>
+                        <li v-on:click="click_sex(2)">
+                            <div class="concealmentlayer_xuan3" :class="{concealmentlayer_ullidiv:user_info.sex==2}">
+                                <img src="../../img/course/concealmentlayer_xuan_03.png" alt=""></div>
+                            女
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <p class="information_li_p2 information_li_p4">生日</p>
+                <div class="information_right">
+                    <div class="layui-form">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <input v-model="user_info.birthday" type="text" class="layui-input" id="test1"
+                                           :placeholder="user_info.birthday">
+                                </div>
+                                <img class="information_right_img information_right_img_two" src="" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+            <li>
+                <p class="information_li_p2">所在地</p>
+                <div class="information_right">
+                    <input v-model="user_info.seat" class="information_input" type="text">
+                    <img class="information_right_img" src="" alt="">
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate;
+        var laydate = layui.laydate;
+
+        // alert(form.sex.value())
+        //常规用法
+        laydate.render({
+            elem: '#test1'
+            , done: function (value, date, endDate) {
+                app_body.user_info.birthday = value;
+            }
+        });
+    })
+
+    $('.information_ul li:last').css('border', 'none');
+    $('.information__ul li:last').css('border', 'none');
+
+    //创建vue对象
+    var app_body = new Vue({
+        el: "#app_body",
+        data: {
+            user_info: {},
+        },
+        methods: {
+            //获取用户信息
+            a_get_userInfo() {
+                get_userInfo()
+            },
+            //点击保存
+            save_click() {
+                save_info();
+            },
+
+            //返回上个界面
+            to_back() {
+
+
+                union_back();
+
+            },
+            //点击性别
+            click_sex(sex) {
+                app_body.user_info.sex = sex;
+            }
+        }
+    })
+
+    //上传头像
+    //    var imgs = [];//存储图片链接
+    //为文件上传添加change事件
+    var fileM = document.querySelector("#file");
+    $("#file").on("change", function () {
+        //获取文件对象，files是文件选取控件的属性，存储的是文件选取控件选取的文件对象，类型是一个数组
+        var fileObj = fileM.files[0];
+        //创建formdata对象，formData用来存储表单的数据，表单数据时以键值对形式存储的。
+        var formData = new FormData();
+        //后台需要的参数
+        formData.append('user_image', fileObj);
+        formData.append('type', '1')//type1是上传头像 2是上传其他图片
+
+        //发送网络请求
+        yaqooNetFile("http://kangaroo.daishumed.com/index.php/Userinfo/edit_photo", formData, function (data) {
+            alert(data['message'])
+            console.log(data);
+            app_body.user_info.head_img = data['head_img'];
+            // alert(data['head_img']);
+            // console.log(data);
+        });
+    });
+
+
+    //获取用户信息
+    function get_userInfo() {
+        yaqooNetPost('Userinfo/user_mess', '', function (data) {
+            // console.log(data);
+            if (data['code'] == 1000) {
+                console.log(data);
+                app_body.user_info = data['data_list'];
+            } else {
+                alert(data['message']);
+            }
+        })
+    }
+
+    //调用获取用户信息
+    app_body.a_get_userInfo();
+
+    //修改用户信息
+    function save_info() {
+        //    获取男女
+        $('[type="radio"]').each(function (index, item) {
+            if ($(item).prop('checked')) {
+                app_body.user_info.sex = $(item).attr('value');
+            }
+        })
+        var content = {
+            pet_name: app_body.user_info.pet_name,
+            sex: app_body.user_info.sex,
+            birthday: app_body.user_info.birthday,
+            seat: app_body.user_info.seat
+        };
+        yaqooNetPost('Userinfo/edit_user', content, function (data) {
+            if (data['code'] == '1000') {
+                alert('修改成功');
+                window.location.href = '../user_info/personal_center.html'
+            } else {
+                alert(data['message'])
+            }
+        })
+    }
+
+
+</script>
+</html>

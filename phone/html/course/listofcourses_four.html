@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>课程列表</title>
+
+    <!--无考试方向 执业医师、执业药师 -->
+
+
+    <!--flexible布局  -->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/listofcourses.css">
+
+    <link rel="stylesheet" href="../../css/homepage/dredge.css">
+</head>
+<body>
+<!--未开通-->
+    <div class="isDredges" style="display: none">
+        <div class="isDredge">
+            <div class="isDredge_top">
+                提示
+                <div  class="isDredge_top_img">
+                    <img style="width:100%" src="../../img/user_info/cha_03.png" alt="">
+                </div>
+
+            </div>
+            <div class="isDredge_bottom">
+                <div class="isDredge_bottom_img">
+                    <img style="width:100%" src="../../img/user_info/weikaitong_03.png" alt="">
+                </div>
+                <div class="isDredge_bottom_text">
+                    <p style="font-size: .48rem;text-align: center;width: 100%;">服务暂未开通</p>
+                    <p style="font-size: .34rem;text-align: center;width: 100%;">如有疑问请拨打 400-9001-765 咨询</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+<!--原页面-->
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+         <img class="nav__top_left" src="../../img/course/return_03_03.png" alt="" @click="back">
+        {{page_flag==3?"中医师承":""}}
+        <div class="nav__top_right" @click="jump2shopCar">
+            <img src="../../img/course/ShoppingCart_03.png" alt="">
+            <span>{{shopcar_num}}</span>
+        </div>
+    </div>
+
+        <div class="listofcourses_banner">
+            <img src="../../img/course/kecheng_img_06.jpg" alt="">
+        </div>
+    <div style="display: none;">
+        <div class="listofcourses_nav">
+            <ul class="listofcourses_nav_ul">
+                <li :class="{'listofcourses_nav_ul_li':current_tab==index}" v-on:click="tab_check(index)"
+                    v-for="(data,index) in tab_list">
+                    <p>
+                        {{data.name}}
+                    </p>
+                    <span>
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <!--精品课程-->
+        <ul class="listofcourses_ul" v-if="current_tab==0">
+            <li v-for="data in data_list" @click="jump2detail(page_flag,0,data.course_id,data.is_free)">
+                <div class="listofcourses_div">
+                    <img class="listofcourses_img" :src="data.course_thumb" alt="">
+                    <div class="listofcourses_right">
+                        <h4 class="listofcourses_right_h4">
+                            {{data.course_name}}
+                        </h4>
+                        <div class="listofcourses_divdiv">
+                            <p class="listofcourses_div_p">
+                                {{data.teacher_name}}---{{data.teacher_unit}}
+                            </p>
+
+                        </div>
+                        <div class="listofcourses_divdiv">
+                            <!-- <p class="listofcourses_div_p">
+                                <span> 时长：</span>已更新{{formatHour(data.time_num)}}小时/{{data.subject_num}}节课
+                            </p> -->
+                            <p class="listofcourses_div_p2">
+                                {{data.sale_num}}人购买
+                            </p>
+                        </div>
+                        <div class="listofcourses_bottom" v-if="data.is_free==0">
+                            <p v-if="data.d_course_price != null">¥{{data.course_price}}</p>
+                            <p v-if="data.d_course_price != null" class="original_price">¥{{data.d_course_price}}</p>
+                            <p v-if="data.d_course_price == null">¥{{data.course_price}}</p>
+
+
+                            <img class="listofcourses_bottom_img" src="../../img/course/gouwuche_13.png" alt=""
+                                v-on:click.stop="to_buy(data.course_id)">
+                        </div>
+                        <div class="listofcourses_bottom" v-if="data.is_free==1">
+                            <p>免费</p>
+                            <span class="listofcourses_bottom_span">立即学习</span>
+                        </div>
+
+
+                    </div>
+                </div>
+            </li>
+
+            <li v-for="data in data_list_buy" @click="jump2detail(page_flag,0,data.course_id,6)">
+                <div class="listofcourses_div">
+                    <img class="listofcourses_img" :src="data.course_thumb" alt="">
+                    <div class="listofcourses_right">
+                        <h4 class="listofcourses_right_h4">
+                            {{data.course_name}}
+                        </h4>
+                        <div class="listofcourses_divdiv">
+                            <p class="listofcourses_div_p">
+                                {{data.teacher_name}}---{{data.teacher_unit}}
+                            </p>
+
+                        </div>
+                        <div class="listofcourses_divdiv">
+                            <!-- <p class="listofcourses_div_p">
+                                <span> 时长：</span>已更新{{formatHour(data.time_num)}}小时/{{data.subject_num}}节课
+                            </p> -->
+                            <p class="listofcourses_div_p2">
+                                {{data.sale_num}}人购买
+                            </p>
+                        </div>
+                        <div class="listofcourses_bottom">
+                            <p>已购买</p>
+                            <span class="listofcourses_bottom_span">立即学习</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+
+        </ul>
+
+
+        <!--免费讲座-->
+        <ul class="listofcourses_ul" v-if="current_tab==1">
+
+            <li v-for="data in data_list_free" @click="jump2detail(page_flag,0,data.course_id,1)">
+                <div class="listofcourses_div">
+                    <img class="listofcourses_img" :src="data.course_thumb" alt="">
+                    <div class="listofcourses_right">
+                        <h4 class="listofcourses_right_h4">
+                            {{data.course_name}}
+                        </h4>
+                        <div class="listofcourses_divdiv">
+                            <p class="listofcourses_div_p">
+                                {{data.teacher_name}}---{{data.teacher_unit}}
+                            </p>
+
+                        </div>
+                        <div class="listofcourses_divdiv">
+                            <!-- <p class="listofcourses_div_p">
+                                <span> 时长：</span>已更新{{formatHour(data.time_num)}}小时/{{data.subject_num}}节课
+                            </p> -->
+                            <p class="listofcourses_div_p2">
+                                {{data.sale_num}}人购买
+                            </p>
+                        </div>
+                        <div class="listofcourses_bottom">
+                            <p>免费</p>
+                            <span class="listofcourses_bottom_span">立即学习</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+
+        </ul>
+
+
+        <!--师资-->
+        <ul class="section_ul" v-if="current_tab==2">
+            <li v-for="data in teacher_list" @click="jump2teacher(data.teacher_id)">
+                <div class="section_li_div">
+                    <img class="section_li_div_img" :src="data.teacher_photo" alt="">
+                    <div class="section_li_div_right">
+                        <div class="section_li_div_right_div">
+                            <p class="section_li_div_right_p">
+                                <span class="section_li_div_right_p_span">{{data.teacher_name}}</span>{{data.education}}
+                            </p>
+                            <p class="section_li_div_right_p2">
+                                <img src="../../img/company_info/audition_11.png" alt="">试听
+                            </p>
+                        </div>
+                        <p class="section_li_div_right__p">
+                            {{data.introduce}}
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+<script type="text/javascript">
+
+    // checkUserState(true);
+
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            page_flag: 3,//3为国医经典，4为卫生管理
+            data_list_buy: [],//已购买的数组
+            shopcar_num: 0,//购物车数量
+            data_list: [{
+
+                "course_price": "",
+                "course_thumb": "",
+                "course_type": "",
+                "course_type_describe": "",
+                "course_type_name": "",
+                "direction_name": "",
+                "price_sum": "",
+                "question_num": "",
+                "time_num": "",
+
+
+            }], tab_list: [
+                {name: "精品课程", index: 0},
+                {name: "免费讲座", index: 1},
+                {name: "专家介绍", index: 2},
+
+            ], current_tab: 0,
+            data_list_free: [],//免费课程
+            teacher_list: [
+                {
+                    teacher_name: "",
+                    education: "",
+                    position: "",
+                    teacher_photo: ""
+                }
+            ]
+        },
+        methods: {
+            back(){
+                union_back();
+            }, tab_check(index)
+            {
+                this.current_tab = index;
+                switch (index) {
+                    case 0:
+                        this.init(0);
+                        break;
+                    case 1:
+                        this.init(1);
+                        break;
+                    case 2:
+                        this.init(2);
+                        break;
+
+                }
+                // console.log(this.current_tab)
+            }, jump2teacher(id){
+
+                localStorage.setItem('teacher_id', id);
+                window.location.href = "../else/teacher_details.html";
+
+            },
+            to_buy(id){
+                if (!check_user_state()) {
+                alert('请先登录')
+                window.location.href = '../login/land.html'
+                return
+              }
+                yaqooNetPost("Cart/add", {
+                    "course_id": id,
+                    "spec_key": 1
+                }, function (data) {
+                    if ( data.code == 1000) {
+                        if (data.data.repeat == 0) {//是否加入购物车
+                            alert(data['message'])
+                            GouNum();
+
+                        } else {   
+                            alert('该商品已在购物车')
+                        }
+                        /*console.log(data.data.cart_id)
+                        var ID=data.data.cart_id;
+                        yaqooNetPost("Cart/index", {}, function (data) {
+                            if (data.code == 1000) {
+                                for(x in data.data){
+                                    if(data.data[x].cart_id==ID){
+                                        var tempArray=[];
+                                        tempArray.push(data.data[x]);
+                                        setTempData(JSON.stringify(tempArray));
+                                        console.log(tempArray)
+                                        window.location.href = "../shopcar/submit_order.html"
+                                    }
+                                }
+                            }
+                        })*/
+                        // window.location.href = "../shopcar/submit_order.html"
+                    } else {
+                        alert(data.message)
+                    }
+                }, false)
+
+            }, formatHour(s){
+
+                return (s / 3600).toFixed(1);
+
+            }, init(flag)
+            {
+                switch (flag) {
+                    case 0:
+                        yaqooNetPost('https://kangaroo.daishumed.com/index.php/Course/index', {list_type: app.page_flag}, function (data) {
+
+                            if (data['code'] == 1000) {
+                                app.data_list = data['data'];
+                                // console.log(app.data_list)
+                                app.data_list_buy = data['purchase'];
+                            }
+                        })
+                        break;
+                    case 1:
+                        yaqooNetPost('https://kangaroo.daishumed.com/index.php/Course/index', {
+                            list_type: app.page_flag,
+                            is_free: 1
+                        }, function (data) {
+
+                            if (data['code'] == 1000) {
+                                app.data_list_free = data['data'];
+                            }
+                        })
+                        break;
+                    case 2:
+                        yaqooNetPost('Teacher/teacher_list', {t_id: app.page_flag == 1 ? 11989 : 11991}, function (data) {
+                            app.teacher_list ="";
+                            if (data['code'] == 1000) {
+                                app.teacher_list = data['data'];
+                                // console.log(data['data'])
+                            }
+                        });
+                        break;
+
+                }
+
+            }
+        }
+    });
+
+    app.page_flag = localStorage.getItem("page_jump_info");
+    app.init(0);
+
+
+    //购物车数量
+    function GouNum(){
+        yaqooNetPost('Cart/index', '', function (data) {
+            if (data['code'] == 1000) {
+                for(i in data['data']){
+                    if(data['data'][i].product_type != 2){
+                        app.shopcar_num += 1
+                    }
+                }
+            }
+        })
+    }
+    if (check_user_state()) {
+        GouNum();
+    }
+    
+
+
+</script>
+</html>

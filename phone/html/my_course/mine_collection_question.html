@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>我的收藏题</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/mymistakes.css">
+    <style type="text/css">
+        html,body {
+            height: 100%
+        }
+    </style>
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+</head>
+<body>
+<div id="app_body"  v-cloak style="height: 100%">
+
+    <mine_top_nav init_tabs="5"></mine_top_nav>
+    <div style="display: none;">
+        <div class="mymistakes">
+            <img src="../../img/course/mymistakes_02.png" alt="">
+            <div class="mymistakes_div">
+                <p class="mymistakes_div_p">您目前收藏了{{collect_num}}道题</p>
+            </div>
+
+        </div>
+        <div class="mymistakes_nav">
+            <div v-on:click="a_tap_page_type(1)" class="mymistakes_left" :class="{mymistakes_left2:page_type==1}">
+                <p class="mymistakes_left_p">
+                    章节练习
+                </p>
+                <p class="mymistakes_left_p2"></p>
+            </div>
+            <div v-on:click="a_tap_page_type(2)" class="mymistakes_left" :class="{mymistakes_left2:page_type==2}">
+                <p class="mymistakes_left_p">
+                    模拟考试
+                </p>
+                <p class="mymistakes_left_p2"></p>
+            </div>
+        </div>
+        <div v-if="page_type==1" class="mymistakes_ul_div">
+            <ul class="mymistakes_ul">
+                <li class="mymistakes_li" v-for="(chap,index) in data_list">
+                    <div class="mymistakes_li_div">
+                        <p class="mymistakes_li_div_p">
+                            {{chap.test_name}}
+                        </p>
+                        <div class="mymistakes_li_div_div">
+                            <div class="mymistakes_li_div_left">
+                                <p class="mymistakes_li_div_left_p">
+                                    涉及考点：{{chap.point}}个
+                                </p>
+                                <p class="mymistakes_li_div_left_p2">
+                                    收藏题数：<span>{{chap.fav_item_num}}道</span>
+                                </p>
+                            </div>
+                            <div class="mymistakes_li_div_right">
+                                <div v-on:click="a_chap_delete(chap.test_id)" class="mymistakes_li_div_right_div">
+                                    删除
+                                </div>
+                                <div v-on:click="a_chap_redo(chap.test_id)" class="mymistakes_li_div_right_div2">
+                                    立即重做
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div v-if="page_type==2" class="mymistakes_ul_div">
+            <ul class="mymistakes_ul">
+                <li class="mymistakes_li" v-for="(exam,index) in data_list">
+                    <div class="mymistakes_li_div">
+                        <p class="mymistakes_li_div_p">
+                            {{exam.test_name}}
+                        </p>
+                        <div class="mymistakes_li_div_div">
+                            <div class="mymistakes_li_div_left">
+                                <p class="mymistakes_li_div_left_p">
+                                    涉及考点：{{exam.point}}个
+                                </p>
+                                <p class="mymistakes_li_div_left_p2">
+                                    收藏题数：<span>{{exam.fav_item_num}}道</span>
+                                </p>
+                            </div>
+                            <div class="mymistakes_li_div_right">
+                                <div v-on:click="a_exam_delete(exam.test_id)" class="mymistakes_li_div_right_div">
+                                    删除
+                                </div>
+                                <div v-on:click="a_exam_redo(exam.test_id)" class="mymistakes_li_div_right_div2">
+                                    立即重做
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- <is-register></is-register> -->
+    <!--底部导航-->
+     <div style="height: 63.75%;position: relative;">
+         <div style="position:absolute;left:46%;top:50%;margin-top:-2.1rem;margin-left:-3rem;width: 6rem;height: 4.2rem;display: inline-block;text-align: center;">
+                <img src="../../img/course/tip.png" style="width: 4.49rem;height: 3.47rem;margin-bottom: .52rem;">
+                <p style="color: #a3c5e0;font-size: .4rem;display: inline-block;">内容暂未上线</p>
+                 <p style="font-size: .34rem;color: #a3c5e0;text-align: center;margin-top: .1rem">如有疑问请拨打 400-9001-765 咨询</p>
+            </div>
+    </div>
+    <main_bottom_nav init_tabs="2"></main_bottom_nav>
+
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+<script type="text/javascript">
+
+    var vm = new Vue({
+        el: "#app_body",
+        data:{
+            isRegiste:check_user_state(),//判断是否去登录
+            page_type:'1',//1是章节练习 2是模拟考试
+            data_list:[],
+            collect_num:'0'
+        },
+        methods:{
+
+            //请求汇总数据
+            a_get_total_data(){
+                get_total_data();
+            },
+            //请求数据列表数据
+            a_get_list_data(){
+                get_list_data();
+            },
+            //点击切换
+            a_tap_page_type(page_type){
+                vm.page_type = page_type;
+                vm.a_get_total_data();
+            },
+            //章节练习收藏删除
+            a_chap_delete(test_id){
+                collect_delete(test_id);
+            },
+            //章节练习收藏重做
+            a_chap_redo(test_id){
+                collect_redo(test_id);
+            },
+            //试卷收藏删除
+            a_exam_delete(test_id){
+                collect_delete(test_id);
+            },
+            //试卷收藏重做
+            a_exam_redo(test_id){
+                collect_redo(test_id);
+            },
+        }
+    });
+
+    //请求汇总数据
+    function get_total_data() {
+        var para= {'paper_type':vm.page_type};
+        yaqooNetPost('?m=home&c=Exam&a=index&method=Favorite/summary',para,function (data) {
+            console.log(data)
+            if(data['code']==1000){
+                //请求成功
+                vm.collect_num = data['data'];
+                vm.a_get_list_data();
+            }else {
+                alert(data['message'])
+            }
+        })
+    }
+    if(check_user_state()){
+        vm.a_get_total_data()
+    }
+
+
+    //请求列表数据
+    function get_list_data(){
+        var para= {'paper_type':vm.page_type};
+        yaqooNetPost('?m=home&c=Exam&a=index&method=Favorite/lists',para,function (data) {
+            console.log(data)
+            if(data['code']==1000){
+                //请求成功
+                vm.data_list = data['data']['list'];
+            }else {
+                alert(data['message'])
+            }
+        })
+    }
+
+    //收藏删除
+    function collect_delete(test_id) {
+        var para = {'test_id':test_id};
+        yaqooNetPost('?m=home&c=Exam&a=index&method=Favorite/delete',para,function (data) {
+            if(data['code']==1000){
+                //请求成功
+                alert('删除成功')
+                get_list_data();
+            }else {
+                alert(data['message'])
+            }
+        })
+    }
+    //收藏点击重做
+    function collect_redo(test_id) {
+        //请求成功
+        var chapter_info = JSON.stringify({
+            'chapter_page_type':'1',
+            'chapter_url_type':'3',
+            'chapter_test_id':test_id
+        })
+        localStorage.setItem('chapter_info',chapter_info);
+        window.location.href = '../answer/chapterexercises.html';
+    }
+
+    $(function () {
+        $(".find_nav_list").css("left", sessionStorage.left + "px");
+        $(".find_nav_list li").each(function () {
+            if ($(this).find("a").text() == sessionStorage.pagecount) {
+                $(".sideline").css({left: $(this).position().left});
+                $(".sideline").css({width: $(this).outerWidth()});
+                $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+
+                return false
+            }
+            else {
+                $(".sideline").css({left: 0});
+                $(".find_nav_list li").eq(0).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+            }
+        });
+        var nav_w = $(".find_nav_list li").first().width();
+        $(".sideline").width(nav_w);
+        var fl_w = $(".find_nav_list").width();
+        var flb_w = $(".find_nav_left").width();
+        $(".find_nav_list").on('touchstart', function (e) {
+            var touch1 = e.originalEvent.targetTouches[0];
+            x1 = touch1.pageX;
+            y1 = touch1.pageY;
+            ty_left = parseInt($(this).css("left"));
+        });
+        $(".find_nav_list").on('touchmove', function (e) {
+            var touch2 = e.originalEvent.targetTouches[0];
+            var x2 = touch2.pageX;
+            var y2 = touch2.pageY;
+            if (ty_left + x2 - x1 >= 0) {
+                $(this).css("left", 0);
+            } else if (ty_left + x2 - x1 <= flb_w - fl_w) {
+                $(this).css("left", flb_w - fl_w);
+            } else {
+                $(this).css("left", ty_left + x2 - x1);
+            }
+            if (Math.abs(y2 - y1) > 0) {
+                e.preventDefault();
+            }
+        });
+    })
+
+</script>
+</html>

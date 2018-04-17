@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>申请发票</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <script src="../../js/regular.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--购物车公共.css-->
+    <link rel="stylesheet" href="../../css/shopcar/shopcar_index.css">
+    <link rel="stylesheet" href="../../css/shopcar/invoices.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" v-on:click="back">
+        申请发票
+    </div>
+    <div class="reimbursement">
+        <div class="reimbursement_div">
+            <p class="reimbursement_div_p">
+                我社仅提供电子普通发票，您下载后可打印作为报销凭证。
+            </p>
+        </div>
+        <div class="reimbursement_txt">
+            <p>
+                电子普通发票是税务机关认可的有效收付款凭证，其法律效力、基本用途及使用规定同纸质普通发票，可用于报销入账、售后维权等。如需纸质发票可自行下载打印。电子普通发票相关信息>>如商品由第三方卖家销售，发票类型及内容将由该卖家决定，发票由卖家开具并提供。发票信息相关问题>>
+            </p>
+        </div>
+    </div>
+    <div class="invoicesareraised">
+        <h4 class="invoicesareraised_h4">
+            <p class="invoicesareraised_p">发票抬头</p>
+        </h4>
+        <div class="invoicesareraised_div">
+            <ul class="invoicesareraised_ul">
+                <li class="invoicesareraised_li">
+                    <div v-on:click="addremove(true)" :class="{invoicesareraised_li_div2:flay}"
+                         class="invoicesareraised_li_div">
+                        <img src="../../img/shopcar/Checkmark_11.png" alt="">
+                    </div>
+                    个人
+                </li>
+                <li class="invoicesareraised_li invoicesareraised_li_two">
+                    <div v-on:click="addremove(false)" :class="{invoicesareraised_li_div2:!flay}"
+                         class="invoicesareraised_li_div">
+                        <img src="../../img/shopcar/Checkmark_11.png" alt="">
+                    </div>
+                    公司<input class="invoicesareraised_li_input" v-model.trim="company" type="text">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="recognition">
+        <p class="recognition_p">
+            纳税人识别号
+        </p>
+        <input placeholder="请填写纳税人识别号" class="recognition_input" v-model.trim="tax" type="text">
+    </div>
+    <div class="invoicesareraised">
+        <h4 class="invoicesareraised_h4">
+            <p class="invoicesareraised_p">发票内容</p>
+        </h4>
+        <div class="invoicesareraised_div">
+            <ul class="invoicesareraised_ul">
+                <li class="invoicesareraised_li">
+                    <div v-on:click="methodss(true)" :class="{invoicesareraised_li_div2:flayed}"
+                         class="invoicesareraised_li_div">
+                        <img src="../../img/shopcar/Checkmark_11.png" alt="">
+                    </div>
+                    商品明细
+                </li>
+                <li class="invoicesareraised_li invoicesareraised_li_two">
+                    <div v-on:click="methodss(false)" :class="{invoicesareraised_li_div2:!flayed}"
+                         class="invoicesareraised_li_div">
+                        <img src="../../img/shopcar/Checkmark_11.png" alt="">
+                    </div>
+                    商品分类
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="invoicesareraised invoicesareraised_bottom">
+        <div class="invoicesareraised_div">
+            <ul class="invoicesareraised_ul">
+                <li class="invoicesareraised_li">
+                    <p class="invoicesareraised_li_p">
+                        <span>*</span> 收票人手机
+                    </p>
+                    <input class="invoicesareraised_li_p2" v-model.number.trim="phone"
+                           type="number" onkeyup="value=value.replace(/[^0123456789]/g,'')">
+                </li>
+                <li class="invoicesareraised_li invoicesareraised_li_two">
+                    <p class="invoicesareraised_li_p">
+                        <span>*</span> 收票人邮箱
+                    </p>
+                    <input class="invoicesareraised_li_p3" type="text" v-model.trim="email">
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="fixed" v-on:click="commit">
+        确定
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+
+
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            isAdd: true,
+            flay: true,
+            flayed: true,
+            phone: '',
+            email: '',
+            tax: '',
+            company: '',
+            invoice_id: 0,
+            data_list: ''
+
+        },
+        methods: {
+            addremove: function (flag) {
+                this.flay = flag;
+            },
+            methodss: function (flag) {
+                this.flayed = flag;
+            }, back: function () {
+                //返回
+                localStorage.setItem('invoice_data', "");
+                localStorage.setItem('invoice_data_type', "");
+                union_back();
+            },
+            commit: function () {
+
+                if (!checkTel(this.phone)) {
+                    alert("您输入的手机号不合法")
+                    return;
+                }
+                if (!Validator_Email(this.email)) {
+                    alert("您输入的邮箱不合法")
+                    return;
+                }
+                if (!this.flay) {
+                    if (this.company == "") {
+                        alert("请输入公司名称")
+                        return;
+                    }
+                    if (this.tax == "") {
+                        alert("请输入纳税人识别号")
+                        return;
+                    }
+                }
+
+                var invoice_content = {
+                    invoice_title: this.flay ? "个人" : this.company,
+                    taxpayer: this.flay ? "" : this.tax,
+                    invoice_desc: this.flayed ? "明细" : "类别",
+                    email: this.email,
+                    mobile: this.phone,
+                    invoice_id: this.invoice_id
+                }
+
+                var url = this.isAdd ? "Invoice/add" : "Invoice/edit";
+
+                yaqooNetPost(url, invoice_content, function (data) {
+                    if (data['code'] == 1000) {
+                        alert(data["message"]);
+                        localStorage.setItem('invoice_data', "");
+                        localStorage.setItem('invoice_data_type', "");
+                       // union_back();
+                        console.log(data)
+                        window.location.href="invoices_manager.html"
+                    }
+                })
+
+            }
+        }
+
+    });
+
+    function init() {
+
+        if (localStorage.getItem('invoice_data_type') == "") {
+            window.location.href = "invoices_manager.html";
+        }
+
+        app.isAdd = localStorage.getItem('invoice_data_type') == 1;
+
+        if (!app.isAdd) {//编辑
+            var data = localStorage.getItem('invoice_data');
+            var datas = JSON.parse(data);
+            //初始化
+            app.flay = datas.invoice_title == "个人";
+            app.flayed = datas.invoice_desc == "明细";
+            app.phone = datas.mobile;
+            app.email = datas.email;
+            app.tax = datas.taxpayer;
+            if (app.flay) {
+                app.company = "";
+                app.invoice_id = datas.invoice_id;
+            } else {
+                app.company = datas.invoice_title;
+                app.invoice_id = datas.invoice_id;
+            }
+        }
+    }
+    init();
+
+</script>
+</html>

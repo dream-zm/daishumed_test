@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>公共模板</title>
+    <!--flexible布局-->
+    <!--公共引用-->
+    <script src="../../js/flexible.js"></script>
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+</head>
+<body>
+头像：
+
+<input type="file" id="file" name="file"/>
+
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+<script type="application/javascript">
+
+
+    //为文件上传添加change事件
+    var fileM = document.querySelector("#file");
+    $("#file").on("change", function () {
+        //获取文件对象，files是文件选取控件的属性，存储的是文件选取控件选取的文件对象，类型是一个数组
+        var fileObj = fileM.files[0];
+        //创建formdata对象，formData用来存储表单的数据，表单数据时以键值对形式存储的。
+        var formData = new FormData();
+        //后台需要的参数
+        formData.append('user_image', fileObj);
+        formData.append("user_id", "14");
+
+        //发送网络请求
+        yaqooNetFile("http://customer.daishumed.com/index.php/Home/User/edit_photo", formData, function (data) {
+            alert(data['code'])
+            alert(data['message'])
+            alert(data['head_img'])
+        });
+    });
+
+</script>
+
+</html>

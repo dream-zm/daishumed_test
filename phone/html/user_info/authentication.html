@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>实名认证</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <script src="../../js/regular.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/user_info/user_info_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/user_info/authentication.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img v-on:click="to_back" class="nav__top_left" src="../../img/company_info/return_03.png" alt="">
+        实名认证
+    </div>
+    <div class="section_head">
+        <div v-on:click="fn" class="section_left" :class="{section_head_color:flag}">
+            申请认证
+        </div>
+        <div v-on:click="fn" :class="{section_head_color:!flag}" class="section_right">
+            通过蚂蚁金服实名认证
+        </div>
+    </div>
+
+    <div :class="{show_class:flag}" class="authentication">
+        <div class="information">
+            <ul class="information_ul">
+                <li>
+                    <input v-model="real_name" placeholder="真实姓名" type="text">
+                    <img class="placeholder_img" src="../../img/user_info/placeholder_03.png" alt="">
+                </li>
+                <li>
+                    <input v-model="identity_card" placeholder="身份证号" type="text"> <img class="placeholder_img"
+                                                                src="../../img/user_info/placeholder_03.png" alt="">
+                </li>
+            </ul>
+        </div>
+        <div class="identity">
+            <h4 class="identity_h4">
+                <p>
+                    上传身份证
+                </p>
+            </h4>
+            <div class="identity_div">
+                <div v-on:change="a_upload_left" class="identity_left_div">
+                    <div class="identity_left">
+                        <img class="identity_leftimg" src="../../img/user_info/tianjia_07.png" alt="">
+                        <input id="file_left" type="file">
+                        <img v-if="is_show_left" class="identity_left_img" :src="left_img" alt="">
+                        <p>添加图片</p>
+                    </div>
+                    <p>身份证正面</p>
+                </div>
+                <div v-on:change="a_upload_right" class="identity_left_div2">
+                    <div class="identity_left">
+                        <img class="identity_leftimg" src="../../img/user_info/tianjia_07.png" alt="">
+                        <input id="file_right" type="file">
+                        <img v-if="is_show_right" class="identity_left_img" :src="right_img" alt="">
+                        <!--"-->
+                        <p>添加图片</p>
+                    </div>
+                    <p>身份证反面</p>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div :class="{show_class:!flag}" class="sesame">
+        <div class="sesame_head">
+            <div class="sesame_div">
+                <div class="diamond">
+                    <p> 1</p>
+                </div>
+                <p>
+                    填写基本信息
+                </p>
+            </div>
+        </div>
+        <div class="information">
+            <ul class="information_ul">
+                <li>
+                    <input placeholder="真实姓名" type="text">
+                    <img class="placeholder_img" src="../../img/user_info/placeholder_03.png" alt="">
+                </li>
+                <li>
+                    <input placeholder="身份证号" type="text"> <img class="placeholder_img"
+                                                                src="../../img/user_info/placeholder_03.png" alt="">
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div v-on:click="a_submit" class="toexamine">
+        提交审核
+    </div>
+    <div class="standard">
+        <p class="standard_p">
+            认证须知
+        </p>
+        <p>
+            1、实名认证可以提升你在慕课网的个人信息及虚拟财产的安全等级，同时也能够更好的体验慕课网的各项虚拟服务；
+        </p>
+        <p>
+            2、我们将在你提交身份证信息后的5个工作日（不包含节假日）内完成审核，审核结果将会以短信和系统通知的形式发送给你；
+        </p>
+        <p>
+            3、如若账号还未绑定手机，建议你提前绑定手机；
+        </p>
+        <p>
+            4、实名认证审核完成后，将无法修改和删除，请谨慎填写；
+        </p>
+        <p>
+            5、实名认证审核完成后，系统将自动发放10个积分作为奖励；查看积分
+        </p>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app_body',
+        data: {
+            flag: true,
+            real_name:'',
+            identity_card:'',
+            left_img:'',
+            right_img:'',
+            is_show_left:0,//是否显示身份证img标签
+            is_show_right:0//是否显示身份证img标签
+        },
+        methods: {
+            fn(){
+                this.flag = !this.flag;
+            },
+            to_back(){
+                union_back();
+            },
+            //上传左侧图片
+            a_upload_left(){
+                upload_left();
+            },
+            //上传右侧图片
+            a_upload_right(){
+                upload_right();
+            },
+            //提交
+            a_submit(){
+                submit();
+            }
+        }
+    })
+
+
+    //左侧上传图片
+    var fileL = document.querySelector("#file_left");
+    function upload_left() {
+        //获取文件对象，files是文件选取控件的属性，存储的是文件选取控件选取的文件对象，类型是一个数组
+        var fileObj = fileL.files[0];
+        //创建formdata对象，formData用来存储表单的数据，表单数据时以键值对形式存储的。
+        var formData = new FormData();
+        //后台需要的参数
+        formData.append('user_image', fileObj);
+        formData.append('type','2')//type1是上传头像 2是上传其他图片
+        //发送网络请求
+        yaqooNetFile("http://kangaroo.daishumed.com/index.php/Userinfo/edit_photo", formData, function (data) {
+            if (data['code'] == '1000') {
+                vm.left_img = data['head_img'];
+                vm.is_show_left = 1;
+            }
+        });
+    }
+    //右侧上传图片
+    var fileR = document.querySelector("#file_right");
+    function upload_right() {
+        //获取文件对象，files是文件选取控件的属性，存储的是文件选取控件选取的文件对象，类型是一个数组
+        var fileObj = fileR.files[0];
+        //创建formdata对象，formData用来存储表单的数据，表单数据时以键值对形式存储的。
+        var formData = new FormData();
+        //后台需要的参数
+        formData.append('user_image', fileObj);
+        formData.append('type','2')//type1是上传头像 2是上传其他图片
+        //发送网络请求
+        yaqooNetFile("http://kangaroo.daishumed.com/index.php/Userinfo/edit_photo", formData, function (data) {
+            console.log(data['message'])
+            if (data['code'] == '1000') {
+                vm.is_show_right = 1;
+                vm.right_img = data['head_img'];
+            }
+        });
+    }
+
+
+    //提交
+    function submit() {
+
+        if(!check_realName(vm.real_name)){
+            alert('请输入真实姓名');
+            return;
+        }
+        if(!check_cerID(vm.identity_card)){
+            alert(vm.identity_card);
+            alert('请输入真实的身份证号');
+            return;
+        }
+        if(vm.left_img == ''){
+            alert('请上传身份证正面');
+            return;
+        }
+        if(vm.right_img == ''){
+            alert('请上传身份证背面');
+            return;
+        }
+
+        var para = {
+            real_name:vm.real_name,
+            identity_card:vm.identity_card,
+            identity_front_phone:vm.left_img,
+            identity_back_phone:vm.right_img
+        }
+        yaqooNetPost('Userinfo/Certification',para,function (data) {
+            if(data['code']=='1000'){
+                alert('提交成功，等待审核');
+            }else {
+                alert(data['message'])
+            }
+        })
+    }
+
+</script>
+</html>

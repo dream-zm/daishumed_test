@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>袋鼠医学-国家中医药管理局直属单位中国中医药出版社旗下专业医学知识服务提供商，国家中医医师资格考试技能操作规范化视频唯一授权发布平台，国家执业医师资格考试、国家执业药师资格考试、中医师承与确有专长考试考核培训辅导机构。</title>
+    <!--flexible布局-->
+    <script src="../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../js/jquery-2.1.4.js"></script>
+    <script src="../js/index_top.js"></script>
+    <link rel="stylesheet" href="../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../css/index.css">
+    <!--swiper-->
+    <link rel="stylesheet" href="../css/swiper/swiper.min.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../css/homepage/homepage.css">
+    <link rel="stylesheet" href="../css/homepage/dredge.css">
+</head>
+<body>
+<div id="app_body" v-cloak>
+    <!--未开通弹框-->
+    <div class="isDredges" v-if="IsDredge">
+        <div class="isDredge">
+            <div class="isDredge_top">
+                提示
+                <div  class="isDredge_top_img">
+                    <img style="width:100%" src="../img/user_info/cha_03.png" alt="" @click="FDredge">
+                </div>
+
+            </div>
+            <div class="isDredge_bottom">
+                <div class="isDredge_bottom_img">
+                    <img style="width:100%" src="../img/user_info/weikaitong_03.png" alt="">
+                </div>
+                <div class="isDredge_bottom_text">
+                    <p style="font-size: .48rem;text-align: center;width: 100%;">服务暂未开通</p>
+                    <p style="font-size: .34rem;text-align: center;width: 100%;margin-top: .1rem;">如有疑问请拨打 400-9001-765 咨询</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!--原页-->
+    <nav class="homepage_nav">
+        首页
+        <div class="homepage_nav_right" @click="jump2shopCars">
+            <img src="../img/course/ShoppingCart_03.png" alt="">
+            <span class="homepage_nav_right_div">{{shopcar_num}}</span>
+        </div>
+    </nav>
+
+
+    <!--轮播图-->
+    <div class="homepage">
+        <div class="swiper-container" style="overflow: visible">
+            <div class="swiper-wrapper">
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination" style=""></div>
+        </div>
+
+
+        <div class="homepage_div" @click="to_message">
+            <img class="homepage_img" src="../img/homepage/homepage_03.png" alt="">
+            <div class="homepage_div_div">
+                <p class="homepage_p">
+                    {{message_info.message_info}} {{message_info.inputtime}}
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!--跳转功能-->
+    <div class="various">
+        <ul class="various_ul">
+            <li>
+                <img src="../img/homepage/Subject1_07.png" alt="" @click="jump_tab(0)">
+                <p>执业医师</p>
+            </li>
+            <li>
+                <img src="../img/homepage/Subject2_09.png" alt="" @click="jump_tab(1)">
+                <p>执业药师</p>
+            </li>
+            <li>
+                <img src="../img/homepage/Subject3_11.png" alt="" @click="jump_tab(2)">
+                <p>中医师承</p>
+            </li>
+            <li>
+                <img src="../img/homepage/Subject4_13.png" alt="" @click="jump_tab(3)">
+                <p>精品音频</p>
+            </li>
+
+            <li>
+                <img src="../img/homepage/Subject5_20.png" alt="" @click="jump_tab(4)">
+                <p>免费课程</p>
+            </li>
+            <li>
+                <img src="../img/homepage/Subject6_21.png" alt="" @click="jump_tab(5)">
+                <p>精选图书</p>
+            </li>
+            <li>
+                <img src="../img/homepage/Subject7_22.png" alt="" @click="jump_tab(6)">
+                <p>卡券激活</p>
+            </li>
+            <li>
+                <img src="../img/homepage/Subject8_07.png" alt="" @click="jump_tab(7)">
+                <p>袋鼠商城</p>
+            </li>
+        </ul>
+        <div class="various_div" v-if="course_id_near!=undefined" @click="jump_buyed">
+            最近购买： {{course_name_near}}>>
+        </div>
+    </div>
+    <!--免费专区-->
+   <!--  <div class="admission">
+        <div class="admission_div">
+            <div class="admission_div_top">
+                <p class="admission_div_top_p">
+                    免费专区
+                </p>
+                <div class="admission_div_right" @click="jump_tab(4)">
+                    查看全部
+                    <img class="admission_div_right_img" src="../../img/homepage/youkuohao_29.png" alt="">
+                </div>
+            </div>
+            <div class="admissiondiv">
+                <div :class="{admissiondiv_left:index==0,admissiondiv_right:index==1}"
+                     v-for="(data,index) in course_data0" @click="jump2detail(0,0,data.course_id,6)">
+                    <h4 class="admissiondiv_left_h4">
+                        {{data.course_type_name}}
+                    </h4>
+                    <img class="admissiondiv_img" src="../../img/company_info/teacher_xian_07.png" alt="">
+                    <p class="admissiondiv_p">
+                        {{data.course_type_describe}}
+                    </p>
+                    <div class="admissiondiv_bottom">
+                        <p class="admissiondiv_right_p">
+                            {{data.course_name}}
+                        </p>
+                        <div class="admissiondiv_bottom_div">
+                            <p class="admissiondiv_bottom_div_p">
+                                <img src="../../img/homepage/teacher_33.png" alt="">
+                                {{data.teacher_name}}
+                            </p>
+                            <p class="admissiondiv_bottom_div_p2">
+                                {{data.teacher_unit}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="admission_bottom" @click="getCourseData(0)">
+                <p>
+                    <img class="admission_bottom_img" src="../../img/homepage/huanyipi_37.png" alt="">换一批
+                </p>
+            </div>
+        </div>
+    </div> -->
+    <!--执业医师-->
+    <div class="pharmacist">
+        <div class="admission_div">
+            <div class="admission_div_top">
+                <p class="admission_div_top_p admission_div_top_p2">
+                    执业医师
+                </p>
+                <div class="admission_div_right" @click="jump_tab(0)">
+                    查看全部
+                    <img class="admission_div_right_img" src="../img/homepage/youkuohao_29.png" alt="">
+                </div>
+            </div>
+            <div class="pharmacist_div" v-for="data in course_data1" @click="jump2details(1,data.course_type,0)">
+                <div class="pharmacist_left">
+                    <img class="pharmacist_left_img" :src="data.course_thumb" alt="">
+                </div>
+                <div class="pharmacist_right">
+                    <h4 class="pharmacist_right_h4">
+                       {{data.course_type_name}}{{data.course_type_describe}}
+                        <!-- {{(data.time_num!=0||data.question_num!=0)?'(已更新':''}}
+                        {{data.time_num!=0?formatHour(data.time_num)+'小时课':''}}
+                        {{data.question_num!=0?data.question_num+'道习题':''}}
+                        {{(data.time_num!=0||data.question_num!=0)?')':''}}  -->
+
+                    </h4>
+                    <p class="pharmacist_right_p">
+                        <span>可选：</span>{{data.direction_name}}
+                    </p>
+                    <div class="listofcourses_bottom">
+                        <p v-if="data.d_course_price != null">¥{{data.d_course_price}}</p>
+                        <p v-if="data.d_course_price != null" class="original_price"><del>¥{{data.course_price}}</del></p>
+                        <p v-if="data.d_course_price == null">¥{{data.course_price}}</p>
+                        <img
+                            src="../img/course/gouwuche_13.png" alt="" class="listofcourses_bottom_img"
+                            v-on:click.stop="to_buy(data.course_type,false,data.course_thumb)"></div>
+                </div>
+            </div>
+
+           <!--  <div class="admission_bottom" @click="getCourseData(1)">
+                <p>
+                    <img class="admission_bottom_img" src="../../img/homepage/huanyipi_37.png" alt="">换一批
+                </p>
+            </div> -->
+        </div>
+    </div>
+    <!--执业药师-->
+    <!-- <div class="pharmacist_two">
+        <div class="admission_div">
+            <div class="admission_div_top">
+                <p class="admission_div_top_p admission_div_top_p3">
+                    执业药师
+                </p>
+                <div class="admission_div_right" @click="jump_tab(1)">
+                    查看全部
+                    <img class="admission_div_right_img" src="../../img/homepage/youkuohao_29.png" alt="">
+                </div>
+            </div>
+            <div class="pharmacist_div" v-for="data in course_data2" @click="jump2detail(2,data.course_type,0)">
+                <div class="pharmacist_left">
+                    <img class="pharmacist_left_img" :src="data.course_thumb" alt="">
+                </div>
+                <div class="pharmacist_right">
+                    <h4 class="pharmacist_right_h4">
+                        【{{data.course_type_name}}】{{data.course_type_describe}}
+                        {{(data.time_num!=0||data.question_num!=0)?'(':''}}
+                        {{data.time_num!=0?formatHour(data.time_num)+'小时课':''}}
+                        {{data.question_num!=0?data.question_num+'道习题':''}}
+                        {{(data.time_num!=0||data.question_num!=0)?')':''}}
+                    </h4>
+                    <p class="pharmacist_right_p">
+                        <span>可选：</span>{{data.direction_name}}
+                    </p>
+                    <div class="listofcourses_bottom">
+                        <p v-if="data.d_course_price != null">¥{{data.d_course_price}}</p>
+                        <p v-if="data.d_course_price != null" class="original_price"><del>¥{{data.course_price}}</del></p>
+                        <p v-if="data.d_course_price == null">¥{{data.course_price}}</p>
+                        <img src="../../img/course/gouwuche_13.png" alt="" class="listofcourses_bottom_img"
+                            v-on:click.stop="to_buy(data.course_type,true,data.course_thumb)"></div>
+                </div>
+            </div>
+
+            <div class="admission_bottom" @click="getCourseData(2)">
+                <p>
+                    <img class="admission_bottom_img" src="../../img/homepage/huanyipi_37.png" alt="">换一批
+                </p>
+            </div>
+        </div>
+    </div> -->
+
+    <!--国医经典-->
+   <!--  <div class="pharmacist_two pharmacist_four">
+        <div class="admission_div">
+            <div class="admission_div_top">
+                <p class="admission_div_top_p admission_div_top_p3">
+                    中医师承
+                </p>
+                <div class="admission_div_right" @click="jump_tab(2)">
+                    查看全部
+                    <img class="admission_div_right_img" src="../../img/homepage/youkuohao_29.png" alt="">
+                </div>
+            </div>
+            <div class="pharmacist_div" v-for="data in course_data3" @click="jump2detail(3,0,data.course_id,data.is_free)">
+                <div class="pharmacist_left">
+                    <img class="pharmacist_left_img" :src="data.course_thumb" alt="">
+                </div>
+                <div class="pharmacist_right">
+                    <h4 class="pharmacist_right_h4">
+                        {{data.course_name}}
+                    </h4>
+                    <p class="pharmacist_right_p">
+                        {{data.teacher_name}}---{{data.teacher_unit}}
+                    </p>
+                    <p class="pharmacist_right_p">
+                        <span>时长：</span>
+                        {{formatHour(data.time_num)}}小时/{{data.subject_num}}节课
+                    </p>
+                    <div class="listofcourses_bottom">
+                        <p v-if="data.d_course_price != null">¥{{data.course_price}}</p>
+                        <p v-if="data.d_course_price != null" class="original_price">¥{{data.d_course_price}}</p>
+                        <p v-if="data.d_course_price == null">¥{{data.course_price}}</p>
+                        <img src="../../img/course/gouwuche_13.png" alt="" class="listofcourses_bottom_img"
+                            v-on:click.stop="buy_other(data.course_id, data.isbuy)"></div>
+                </div>
+            </div>
+
+            <div class="admission_bottom" @click="getCourseData(3)">
+                <p>
+                    <img class="admission_bottom_img" src="../../img/homepage/huanyipi_37.png" alt="">换一批
+                </p>
+            </div>
+        </div>
+    </div> -->
+
+    <!--卫生管理-->
+    <!--<div class="pharmacist_two pharmacist_four">-->
+        <!--<div class="admission_div">-->
+            <!--<div class="admission_div_top">-->
+                <!--<p class="admission_div_top_p admission_div_top_p3">-->
+                    <!--卫生管理-->
+                <!--</p>-->
+                <!--<div class="admission_div_right" @click="jump_tab(3)">-->
+                    <!--查看全部-->
+                    <!--<img class="admission_div_right_img" src="../../img/homepage/youkuohao_29.png" alt="">-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="pharmacist_div" v-for="data in course_data4" @click="jump2detail(4,0,data.course_id,data.is_free)">-->
+                <!--<div class="pharmacist_left">-->
+                    <!--<img class="pharmacist_left_img" :src="data.course_thumb" alt="">-->
+                <!--</div>-->
+                <!--<div class="pharmacist_right">-->
+                    <!--<h4 class="pharmacist_right_h4">-->
+                        <!--{{data.course_name}}-->
+                    <!--</h4>-->
+                    <!--<p class="pharmacist_right_p">-->
+                        <!--{{data.teacher_name}}-&#45;&#45;{{data.teacher_unit}}-->
+                    <!--</p>-->
+                    <!--<p class="pharmacist_right_p">-->
+                        <!--<span>时长：</span>-->
+                        <!--{{formatHour(data.time_num)}}小时/{{data.subject_num}}节课-->
+                    <!--</p>-->
+                    <!--<div class="listofcourses_bottom">-->
+                        <!--<p v-if="data.d_course_price != null">¥{{data.course_price}}</p>-->
+                        <!--<p v-if="data.d_course_price != null" class="original_price">¥{{data.d_course_price}}</p>-->
+                        <!--<p v-if="data.d_course_price == null">¥{{data.course_price}}</p>-->
+                        <!--<img src="../../img/course/gouwuche_13.png" alt="" class="listofcourses_bottom_img"-->
+                            <!--v-on:click.stop="buy_other(data.course_id, data.isbuy)"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="admission_bottom" @click="getCourseData(4)">-->
+                <!--<p>-->
+                    <!--<img class="admission_bottom_img" src="../../img/homepage/huanyipi_37.png" alt="">换一批-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--广告-->
+    <!--<div class="floating_live" v-if="ad_show&&ad_info.name!=undefined" @click="ad_click">-->
+        <!--<img class="floating_live_img" src="../../img/homepage/guanbi_44.png" alt="" @click.stop="close_ad">-->
+        <!--<div class="floating_live_div">-->
+            <!--<img class="floating_live_div_igm" :src="ad_info.img">-->
+            <!--<div class="floating_live_div_right">-->
+                <!--<p class="floating_live_div_right_p">-->
+                    <!--{{ad_info.name}}-->
+                <!--</p>-->
+                <!--<p class="floating_live_div_right_p2">-->
+                    <!--{{ad_info.synopsis}}-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <!--点击购买-非套包-->
+    <div class="concealmentlayer" v-if="showbuy1">
+        <div class="concealmentlayer_div">
+            <h4 class="concealmentlayer_h4">
+                <p>请选择考试方向</p>
+                <img src="../img/user_info/placeholder_03.png" alt="" @click="close">
+            </h4>
+            <div class="concealmentlayer_title">
+                <h4 class="concealmentlayer_title_h4">
+                    {{popupwindow_data[current_buy].course_type_name}}
+                </h4>
+                <p class="concealmentlayer_title_p">
+                    <span class="concealmentlayer_title_span">有效期： {{popupwindow_data[current_buy].spec[buy_two_years_flag?1:0].down_time}} </span>
+                    <span> 上线时间：{{popupwindow_data[current_buy].class_time}} </span>
+                </p>
+            </div>
+            <div class="listofcourses_two">
+                <div class="listofcourses_two">
+                    <div class="listofcourses_two_div">
+                        <p class="listofcourses_two_p">
+                            本班次课程
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <ul class="curriculum_ul">
+                <!--套包里面是多选，普通的里面是单选-->
+                <li v-for="(data,class_index) in popupwindow_data" :class="{lis:data.course_id==179}" @click="check_class(class_index)">
+                    <div class="concealmentlayer_xuan3" :class="{concealmentlayer_ullidiv:class_index==current_buy}"
+                    >
+                        <img src="../img/course/concealmentlayer_xuan_03.png" alt="">
+                    </div>
+                    {{data.direction_name}}
+                    <span v-if="data.spec[0].discount_price == null">（￥{{data.spec[0].price}}）</span>
+                    <span v-if="data.spec[0].discount_price != null">（￥{{data.spec[0].discount_price}}）
+                        <span  class="discount" v-if="data.spec[0].discount_val != null">限时优惠{{data.spec[0].discount_val}}折</span>
+                    </span>
+                </li>
+            </ul>
+            <div class="curriculum_twoyears" v-if="popupwindow_data[current_buy].spec[1]!=null"
+                 @click="buy_two_years(!buy_two_years_flag,false)">
+                <div class="concealmentlayer_xuan2" :class="{concealmentlayer_ullidiv:buy_two_years_flag}"
+                >
+                    <img src="../img/course/concealmentlayer_xuan_03.png" alt="">
+                </div>
+                两年期课程保障
+            </div>
+            <p class="title_div_left_p2" v-if="popupwindow_data[current_buy].spec[buy_two_years_flag?1:0].discount_price == null">
+                ¥ {{popupwindow_data[current_buy].spec[buy_two_years_flag?1:0].price}}
+            </p>
+            <p class="title_div_left_p2"  v-if="popupwindow_data[current_buy].spec[buy_two_years_flag?1:0].discount_price != null">
+                ¥ {{popupwindow_data[current_buy].spec[buy_two_years_flag?1:0].discount_price}}
+            </p>
+            <div class="concealmentlayer_bottom">
+                <div class="concealmentlayer_bottom_div">
+
+                    <div class="concealmentlayer_bottom_left"
+                         @click="buy(popupwindow_data[current_buy].course_id,false,popupwindow_data[current_buy].isbuy,true,popupwindow_data[current_buy].spec)">
+                        加入购物车
+                    </div>
+                    <div class="concealmentlayer_bottom_right"
+                         @click="buy(popupwindow_data[current_buy].course_id,true,popupwindow_data[current_buy].isbuy,false,popupwindow_data[current_buy].spec)">
+                        立即购买
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--点击购买-套包-->
+    <div class="concealmentlayer" v-if="showbuy2">
+        <div class="concealmentlayer_div">
+            <h4 class="concealmentlayer_h4">
+                <p>请选择考试方向</p>
+                <img src="../img/user_info/placeholder_03.png" alt="" @click="close">
+            </h4>
+            <div class="concealmentlayer_title">
+                <h4 class="concealmentlayer_title_h4">
+                    {{popupwindow_data_collar[current_type].course_type_name}}
+                </h4>
+                <p class="concealmentlayer_title_p">
+                    <span class="concealmentlayer_title_span">有效期： {{popupwindow_data_collar[current_type].spec[buy_two_years_flag?1:0].down_time}} </span>
+                    <span> 上线时间：{{popupwindow_data_collar[current_type].class_time}} </span>
+                </p>
+            </div>
+
+            <div class="classification">
+                <p>
+                    请选择分类
+                </p>
+                <ul class="classification_ul">
+                    <li :class="{classification_ulli:type_index==current_type}"
+                        v-for="(data,type_index) in popupwindow_data_collar" @click="check_type(type_index)">
+                        {{data.direction_name}}
+                    </li>
+                </ul>
+            </div>
+
+            <div class="listofcourses_two">
+                <div class="listofcourses_two">
+                    <div class="listofcourses_two_div">
+                        <p class="listofcourses_two_p">
+                            本班次课程
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <ul class="curriculum_ul">
+                <!--套包里面是多选，普通的里面是单选-->
+                <li v-for="(data,class_index) in popupwindow_data_collar[current_type].course_list"
+                    @click="check_class_collar(class_index)">
+                    <div class="concealmentlayer_xuan" :class="{concealmentlayer_ullidiv:data.checks=='True'}">
+                        <img src="../img/course/concealmentlayer_xuan_03.png" alt="">
+                    </div>
+                    {{data.direction_name}}
+                    <span class="price_span" v-if="data.spec[0].discount_price == null">（￥{{data.spec[0].price}}）</span>
+                    <span  v-if="data.spec[0].discount_price != null">（￥{{data.spec[0].discount_price}}）
+                        <span  class="discount" v-if="data.spec[0].discount_val != null">限时优惠{{data.spec[0].discount_val}}折</span>
+                    </span>
+                </li>
+            </ul>
+
+            <div class="curriculum_twoyears" v-if="popupwindow_data_collar[current_type].spec[1]!=null"
+                 @click="buy_two_years(!buy_two_years_flag,true)">
+                <div class="concealmentlayer_xuan2" :class="{concealmentlayer_ullidiv:buy_two_years_flag}">
+                    <img src="../img/course/concealmentlayer_xuan_03.png" alt="">
+                </div>
+                两年期课程保障
+            </div>
+            <p class="title_div_left_p2">
+                ¥ {{collar_price}}
+            </p>
+            <div class="concealmentlayer_bottom">
+                <div class="concealmentlayer_bottom_div">
+
+                    <div class="concealmentlayer_bottom_left"
+                         @click="buy('',false,'',true,popupwindow_data_collar[current_type].spec)">
+                        加入购物车
+                    </div>
+                    <div class="concealmentlayer_bottom_right"
+                         @click="buy('',true,'',false,popupwindow_data_collar[current_type].spec)">
+                        立即购买
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 精选图书 -->
+    <div class="threepartypurchase" v-show="show_book">
+        <div class="threepartypurchase_div">
+            <div class="threepartypurchase_top">
+                <div class="threepartypurchase_top_seciton">
+                    <p class="threepartypurchase_top_seciton_p">
+                        精选图书
+                    </p>
+                    <img src="../img/homepage/threepartypurchase_guanbi_03.png" alt="" @click="close_book">
+                </div>
+            </div>
+            <div class="threepartypurchase_bottom">
+                <ul class="threepartypurchase_bottom_ul">
+                    <li class="threepartypurchase_bottom_ulli" v-for="data in books">
+                        <div class="threepartypurchase_bottom_left">
+                            <img class="threepartypurchase_bottom_left_img" :src="data.img"
+                                 alt="">
+                            <div class="threepartypurchase_bottom_leftdiv">
+                                <p class="threepartypurchase_bottom_leftdiv_p">{{data.title}}</p>
+                                <p class="threepartypurchase_bottom_leftdiv_p2">
+                                    {{data.resourse}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="threepartypurchase_bottom_right" @click="to_page(data.url)">
+                            <img class="threepartypurchase_bottom_right_img" src="../img/homepage/Shopping2_10.png"
+                                 alt="">
+                            去购书
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 袋鼠商城 -->
+    <div class="threepartypurchase" v-show="show_shop">
+        <div class="threepartypurchase_div">
+            <div class="threepartypurchase_top">
+                <div class="threepartypurchase_top_seciton">
+                    <p class="threepartypurchase_top_seciton_p">
+                        袋鼠商城
+                    </p>
+                    <img src="../img/homepage/threepartypurchase_guanbi_03.png" alt="" @click="close_shop">
+                </div>
+            </div>
+            <div class="threepartypurchase_bottom">
+                <ul class="threepartypurchase_bottom_ul">
+                    <li class="threepartypurchase_bottom_ulli" v-for="data in shops">
+                        <div class="threepartypurchase_bottom_left">
+                            <img class="threepartypurchase_bottom_left_img" :src="data.img"
+                                 alt="">
+                            <div class="threepartypurchase_bottom_leftdiv">
+                                <p class="threepartypurchase_bottom_leftdiv_p">{{data.title}}</p>
+                                <p class="threepartypurchase_bottom_leftdiv_p2">
+                                    {{data.resourse}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="threepartypurchase_bottom_right" @click="to_page(data.url, data.flag)">
+                            <img class="threepartypurchase_bottom_right_img" src="../img/homepage/Shopping2_10.png"
+                                 alt="">
+                            去购课
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- <toast ref="toast"></toast> -->
+    <!--底部导航-->
+    <main_bottom_navs init_tabs="0"></main_bottom_navs>
+
+</div>
+</body>
+
+
+<!--layui框架.js-->
+<script src="../plug/layui/layui.js"></script>
+<!--swiper-->
+<script src="../js/swiper/swiper.min.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../js/index_footer.js"></script>
+<script src="../js/homepage/homepage.js"></script>
+
+<script>
+    var getCookie = function (name) {
+        var arr;
+        var reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg)){
+            return unescape(arr[2]);
+        } else {
+            return null;
+        }
+    };
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            ad_show: true,
+            course_data0: '',
+            course_data1: '',
+            course_data2: '',
+            course_data3: [],
+            course_data4: [],
+            course_id_near: '',//最近购买的id
+            course_name_near: '',//最近购买的名字
+            banner_list: '',
+            cart_num: 0,
+            showbuy1: false,
+            showbuy2: false,
+            popupwindow_data: [//非套包
+                {
+                    "class_time": "",
+                    "course_id": "",
+                    "course_type": "",
+                    "course_type_name": "",
+                    "direction_name": "",
+                    "spec": [
+                        {
+                            "down_time": "",
+                            "key": "",
+                            "key_name": "",
+                            "original_price": "",
+                            "price": ""
+                        }
+                    ]
+                }
+            ], popupwindow_data_collar: [//套包
+                {//分类
+                    "class_time": "",
+                    "course_id": "",
+                    "isbuy": "",
+                    "course_list": [
+                        {
+                            "isbuy": "",
+                            "checks": "False",
+                            "class_time": "",
+                            "course_id": "",
+                            "course_type": "",
+                            "course_type_name": "",
+                            "direction_name": "",
+                            "spec": [
+                                {
+                                    "down_time": "",
+                                    "key": "",
+                                    "key_name": "",
+                                    "original_price": "",
+                                    "price": ""
+                                }
+                            ]
+                        }
+                    ], "spec": [
+                        {
+                            "down_time": "",
+                            "key": "",
+                            "key_name": "",
+                            "original_price": "",
+                            "price": ""
+                        }],
+                }
+            ],
+            current_buy: 0,//当前购买的
+            current_type: 0,//套包中选择的类型
+            buy_two_years_flag: false,//是不是两年期
+            collar_price: 0,//套包弹框中的价格
+            shopcar_num: 0,//购物车数量
+            message_info: {},//公告
+            ad_info: {},//广告信息
+            current_course_imf: "",//当前选中的图片
+            show_book: false,
+            books: [{
+                title: '中国中医药出版社',
+                img: '../img/homepage/Tmall_03.png',
+                resourse: '天猫官方旗舰店',
+                url: 'https://zgzyycbs.tmall.com/'
+            }, {
+                title: '中国中医药出版社',
+                img: '../img/homepage/JD_07.png',
+                resourse: '天猫官方旗舰店',
+                url: 'https://mall.jd.com/index-1000086304.html'
+            }],
+            show_shop: false,
+            shops: [{
+                title: '执业医师',
+                img: '../img/homepage/Subject1_07.png',
+                resourse: '让您可以随时随地的学习',
+                url: './course/listofcourses_six.html',
+                flag: 1
+            },{
+                title: '执业药师',
+                img: '../img/homepage/Subject2_09.png',
+                resourse: '让您可以随时随地的学习',
+                url: './course/listofcourses_six.html',
+                flag: 2
+            },{
+                title: '中医师承',
+                img: '../img/homepage/Subject3_11.png',
+                resourse: '让您可以随时随地的学习',
+                url: './course/listofcourses_four.html',
+                flag: 3
+            },
+            //     {
+            //     title: '卫生管理',
+            //     img: '../../img/homepage/Subject4_13.png',
+            //     resourse: '让您可以随时随地的学习',
+            //     url: '../course/listofcourses_four.html',
+            //     flag: 4
+            // }
+            ],
+            list_num:0,//存储非购买的数量
+            dataCode:false,//判断 code值为1001是
+            IsDredge:false,//是否开通
+        },
+        methods: {
+            FDredge(){
+              this.IsDredge = false;
+            },
+            back() {
+                union_back();
+            }, close_ad() {
+                this.ad_show = false;
+                var date=new Date(); 
+                date.setTime(date.getTime()+30*60*1000); //设置date为当前时间+30分
+                document.cookie="daishumedtime=daishumedtime; expires="+date.toGMTString(); //将date赋值给expires
+            }, ad_click() {
+                window.location.href = this.ad_info.link;
+            }, getCourseData(flag) {
+                //推荐位 0、免费专区 1、执业医师 2、执业药师
+                yaqooNetPost('Course/recommended', {
+                    list_type: flag,
+                    rand_num:10
+                }, function (data) {
+                    if (data['code'] == 1000) {
+                        switch (flag) {
+                            case 0:
+                                // console.log(data['data'])
+                                app.course_data0 = data['data'];
+                                break;
+                            case 1:
+                                app.course_data1 = data['data'];
+                                break;
+                            case 2:
+                                app.course_data2 = data['data'];
+                                break;
+                            case 3:
+                                app.course_data3 = data['data']
+                                // console.log( data, '国医经典')
+                                break
+                            case 4:
+                                app.course_data4 = data['data']
+                                // console.log(data,'卫生管理')
+                                break
+                        }
+                    }
+                })
+            }, formatHour(s) {
+
+                return (s / 3600).toFixed(1);
+
+            }, jump_tab(flag) {
+                //tab页面跳转
+
+                switch (flag) {
+                    case 0:
+                        //执业医师
+                        window.location.href = "./course/listofcourses_six.html";
+                        localStorage.setItem("page_jump_info", 1);
+                        break;
+                    case 1:
+                        //执业药师
+                        window.location.href = "./course/listofcourses_six.html";
+                        localStorage.setItem("page_jump_info", 2);
+                        break;
+                    case 2:
+                        //中医师承
+                        // window.location.href = "../course/listofcourses_four.html";
+                        // localStorage.setItem("page_jump_info", 3);
+                        app.IsDredge = true;
+                        break;
+                    case 3:
+                        //卫生管理
+                        // window.location.href = "../course/listofcourses_four.html";
+                        // localStorage.setItem("page_jump_info", 4);
+                        app.IsDredge = true;
+                        break;
+                    case 4:
+                        //免费课程
+                        window.location.href = "./course/listofcourses_free.html";
+                        break;
+                    case 5:
+                        this.show_book = true
+                        break;
+                    case 6:
+                        if (!check_user_state()) {
+                            // this.$refs.toast.toastShow('请先登录')
+                            alert('请先登录')
+                            return
+                        }
+                        window.location.href = "./shopcar/active_coupon.html"
+                        break;
+                    case 7:
+                        this.show_shop = true
+                        break;
+                }
+            }, check_class(index) {
+                //选择课程(非套包)
+                this.current_buy = index;
+                this.buy_two_years_flag = false;
+            }, check_type(index) {
+                //选择套包的分类
+                this.current_type = index;
+                this.current_buy = 0;
+                this.buy_two_years_flag = false;
+
+
+                var tempData = this.popupwindow_data_collar[this.current_type].course_list;
+                //计算价格
+                this.conput_price(tempData);
+            }, check_class_collar(index) {
+                var tempData = this.popupwindow_data_collar[this.current_type].course_list;
+                // console.log(tempData)
+                //选择课程（套包）
+                if(tempData[index].checks == 'True'){
+                    tempData[index].checks ='False'
+                    this.list_num--
+                }else{
+                    tempData[index].checks ='True'
+                    this.list_num++
+                }
+                // console.log(this.list_num)
+                // console.log(tempData)
+                //计算价格
+                this.conput_price(tempData);
+
+            }, conput_price(tempData) {
+                this.collar_price = 0;
+                var x = 0;
+                for (var i = 0; i < tempData.length; i++) {
+                    if (tempData[i].checks == 'True') {
+                        if(tempData[i].spec[this.buy_two_years_flag ? 1 : 0].discount_price == null){
+                            this.collar_price += parseFloat(tempData[i].spec[this.buy_two_years_flag ? 1 : 0].price);
+                        }else{
+                            this.collar_price += parseFloat(tempData[i].spec[this.buy_two_years_flag ? 1 : 0].discount_price);
+                        }
+
+                        x++;
+                    }
+                }
+
+                if (x != tempData.length) {//零售价格
+                    this.collar_price = this.collar_price.toFixed(2);
+                } else {//套包价格
+                    if(this.popupwindow_data_collar[this.current_type].spec[this.buy_two_years_flag ? 1 : 0].discount_price == null){
+                        this.collar_price = this.popupwindow_data_collar[this.current_type].spec[this.buy_two_years_flag ? 1 : 0].price;
+                    }else{
+                        this.collar_price = this.popupwindow_data_collar[this.current_type].spec[this.buy_two_years_flag ? 1 : 0].discount_price;
+                    }
+                }
+            }, to_buy(id, flag, img) {
+                this.current_course_imf = img;
+                //打开弹窗去购买.
+                if (flag) {
+                    this.showbuy2 = true;
+                    this.page_flag = 2;
+                } else {
+                    this.showbuy1 = true;
+                    this.page_flag = 1;
+                }
+
+                // console.log(this.showbuy1)
+                this.buy_two_years_flag = false;
+                yaqooNetPost('Course/class_course', {course_type: id}, function (data) {
+
+                    if (data['code'] == 1000) {
+                        if (!flag) {
+                            //非套包
+                            app.popupwindow_data = data['data'];
+                        } else {
+                            //套包
+                            app.popupwindow_data_collar = data['data'];
+
+                        }
+                    }
+                });
+            }, close() {
+
+                this.showbuy1 = false;
+                this.showbuy2 = false;
+
+            }, buy_two_years(flag, isCollar) {
+                //购买两年
+                this.buy_two_years_flag = flag;
+                //非套包直接绑定的价格计算，此处不需要处理
+
+
+                if (isCollar) {
+                    //套包时，进行处理
+                    var tempData = this.popupwindow_data_collar[this.current_type].course_list;
+                    this.conput_price(tempData)
+
+                }
+
+
+            },
+            buy(id, jump2shopcar, isbuy, Gobuy,spec) {
+
+                //添加购物车与立即购买（即购买后跳转购物车）
+                // console.log(this.page_flag + "----" + id + "--" + jump2shopcar)
+                //1为职业医师，
+                if (!check_user_state()) {
+                    alert('请先登录')
+                    window.location.href = './login/land.html'
+                    return
+                }
+                if (this.page_flag == 1) {
+                    if (isbuy == 0) {//判断是否购买过
+                        if (!jump2shopcar) {//判断 是否 立即购买
+                            yaqooNetPost("Cart/add", {
+                                "course_id": id,
+                                "spec_key": app.buy_two_years_flag ? spec[1].key : spec[0].key
+                            }, function (data) {
+                                if (data.code == 1000) {
+                                    if (data.data.repeat == 0) {//是否加入购物车
+
+                                        alert(data['message'])
+                                        GouNum();
+                                    } else {
+                                        alert("商品已加入购物车")
+                                    }
+
+                                }else{
+                                    alert(data.message);
+                                    app.dataCode=true;
+                                }
+
+                            }, false)
+
+                        }
+
+                        //是立即购买而且选中了课程才可以跳转
+                        if (jump2shopcar) {
+                            yaqooNetPost("Cart/add", {
+                                "course_id": id,
+                                "spec_key": app.buy_two_years_flag ? spec[1].key : spec[0].key
+                            }, function (data) {
+
+
+                                if (data.code == 1000) {
+
+                                    GouNum();
+
+                                    var data_list = app.popupwindow_data[app.current_buy];
+                                    var temArray = []
+                                    // 初始化参数
+                                    var obj = {
+                                        cart_id: data.data.cart_id,
+                                        checks: data_list.checks,
+                                        class_time: data_list.class_time,
+                                        course_id: data_list.course_id,
+                                        course_type: data_list.course_type,
+                                        course_name: data_list.course_type_name,
+                                        direction_name: data_list.direction_name,
+                                        isbuy: data_list.isbuy,
+                                        down_time: '',
+                                        cart_num: '',
+                                        spec_key_name: '',
+                                        market_price: '',
+                                        course_price: '',
+                                        course_thumb: app.current_course_imf,
+                                        discount_price:"",
+                                    }
+                                    // console.log(data_list.spec)
+                                    var x=app.buy_two_years_flag ? 1 : 0;
+                                        obj.down_time = data_list.spec[x].down_time;
+                                        obj.cart_num = data_list.spec[x].key;
+                                        obj.spec_key_name = data_list.spec[x].key_name;
+                                        obj.market_price = data_list.spec[x].original_price;
+                                        obj.discount_price = data_list.spec[x].discount_price;
+                                        obj.course_price = data_list.spec[x].price;
+
+                                    temArray.push(obj) //存入数组
+                                    // return
+                                    setTempData(JSON.stringify(temArray));//动态传参
+                                    window.location.href = "./shopcar/submit_order.html"//跳转页面
+
+
+                                }else{
+                                    alert(data.message);
+                                    app.dataCode=true;
+                                }
+
+
+                            })
+                        }
+                    } else {
+
+                        alert("商品已购买")
+
+                    }
+                } else {
+                    //2为职业药师  ,套包
+                    var datas = this.popupwindow_data_collar[this.current_type];
+
+                    //购买标志，未购买的数量
+                    var temArray = [];
+                    var course_list_buy_flags = 0;
+
+
+                    // 判断购买了多少个 是否是全部购买
+                    for (index in datas.course_list) {
+                        var dataz = datas.course_list[index];
+                        if (dataz.checks == 'True') {
+                            course_list_buy_flags++;
+                        }
+                    }
+                        //是否 购买全部套包
+                    if (course_list_buy_flags == datas.course_list.length) {
+
+                        if (datas.isbuy == 0) {
+                            //全部选中---购买整个套包
+                            yaqooNetPost("Cart/add", {
+                                "course_id": datas.course_id,
+                                "spec_key": app.buy_two_years_flag ? spec[1].key : spec[0].key
+                            }, function (data) {
+
+                                if (data.code == 1000) {
+                                    //是否加入购物车
+                                    if (data.data.repeat == 0) {
+
+                                        GouNum();
+
+                                    } else {
+                                       // alert("商品已加入购物车")
+                                    }
+                                    //拼接整体的数据  datas
+                                    // console.log("----------")
+                                    // console.log(datas)
+                                    var a = app.buy_two_years_flag ? 2 : 1;
+                                    var obj1={
+                                        cart_id:data.data.cart_id,
+                                        checks:datas.checks,
+                                        class_time:datas.class_time,
+                                        course_id:datas.course_id,
+                                        course_list:datas.course_list,
+                                        course_type:datas.course_type,
+                                        course_name:datas.course_type_name,
+                                        direction_name:datas.direction_name,
+                                        isbuy:datas.isbuy,
+                                        spec:datas.spec,
+                                        course_thumb: app.current_course_imf,
+                                        down_time: '',
+                                        cart_num: '',
+                                        spec_key_name: '',
+                                        market_price: '',
+                                        course_price: '',
+                                        discount_price:"",
+                                    }
+                                    obj1.down_time = dataz.spec[a - 1].down_time;
+                                    obj1.cart_num = 1;
+                                    obj1.spec_key_name = dataz.spec[a - 1].key_name;
+                                    obj1.market_price = dataz.spec[a - 1].original_price;
+                                    obj1.discount_price = dataz.spec[a - 1].discount_price;
+                                    obj1.course_price = dataz.spec[a - 1].price;
+                                    temArray.push(obj1)
+
+
+
+                                    // return;
+                                }else{
+                                    alert(data.message);
+                                    app.dataCode=true;
+                                }
+                            }, false)
+                        } else {
+                            alert("商品已购买")
+                        }
+
+
+
+                    } else
+                        {//非全部购买
+                            var course_list_num=0
+                        for (index in datas.course_list) {
+                            var dataz = datas.course_list[index];// 获取到 每个被 选中的套包
+                            // console.log(dataz)
+                            if (dataz.checks == 'True') {
+                                //当前选中的 套包
+                                if (dataz.isbuy == 0) {  //未购买
+                                    yaqooNetPost("Cart/add", {
+                                        "course_id": dataz.course_id,
+                                        "spec_key": app.buy_two_years_flag ?  spec[1].key : spec[0].key
+                                    }, function (data) {
+                                        //获取 购买 期限
+                                        var a = app.buy_two_years_flag ? 2 : 1;
+                                        if (data.code == 1000) {
+                                            if (data.data.repeat == 0) {
+                                                GouNum();
+                                            }
+
+
+                                            //初始化参数 （未购买过的）
+                                            var obj = {
+                                                cart_id: data.data.cart_id,
+                                                checks: dataz.checks,
+                                                class_time: dataz.class_time,
+                                                course_id: dataz.course_id,
+                                                course_type: dataz.course_type,
+                                                course_name: dataz.course_type_name,
+                                                direction_name: dataz.direction_name,
+                                                isbuy: dataz.isbuy,
+                                                down_time: '',
+                                                cart_num: '',
+                                                spec_key_name: '',
+                                                market_price: '',
+                                                course_price: '',
+                                                course_thumb: app.current_course_imf,
+                                                discount_price:"",
+                                            }
+                                            obj.down_time = dataz.spec[a - 1].down_time;
+                                            obj.cart_num = dataz.spec[a - 1].key;
+                                            obj.spec_key_name = dataz.spec[a - 1].key_name;
+                                            obj.market_price = dataz.spec[a - 1].original_price;
+                                            obj.discount_price = dataz.spec[a - 1].discount_price;
+                                            obj.course_price = dataz.spec[a - 1].price;
+
+
+                                            //存入数组
+                                            temArray.push(obj)
+                                            console.log(temArray)
+                                         }else{
+                                            alert(data.message);
+                                            app.dataCode=true;
+                                        }
+                                    }, false)
+
+                                }else{
+                                    course_list_num++;
+                                }
+
+
+
+                            }
+                        }
+                    }
+                    //data.code返回1001时，return
+                    if(app.dataCode){
+                        return
+                    }
+
+                    if(course_list_num==app.list_num){
+                        alert("已购买过该商品");
+                        return;
+                    }
+
+                    if (course_list_buy_flags != 0) {//说明有未购买的
+                        if(Gobuy){
+                            alert("商品已加入购物车");
+                        }
+
+
+                        //是立即购买而且选中了课程才可以跳转
+                        if (jump2shopcar && this.collar_price != 0) {
+                            // return;
+                            setTempData(JSON.stringify(temArray));
+                            window.location.href = "./shopcar/submit_order.html";
+                        }
+                    } else {
+                        alert("已购买过该商品");
+                    }
+
+                }
+
+
+            },
+            init() {
+                var key = getCookie('daishumedtime')
+                if (key==null) {
+                    app.ad_show = true
+                } else {
+                    app.ad_show = false
+                }
+                //获取轮播图等信息
+                yaqooNetPost('Web/home', '', function (data) {
+                    if (data['code'] == 1000) {
+                        var dataz = data['data'];
+
+                        // app.shopcar_num = dataz.cart_num == undefined ? 0 : dataz.cart_num;
+
+                        app.course_id_near = dataz.course_id;
+                        app.course_name_near = dataz.course_name;
+
+                        app.message_info = dataz.message;
+                        app.ad_info = dataz.advert;
+
+                        // console.log(dataz)
+                        for (var item in dataz.banner) {
+                            $(".swiper-wrapper").append(`<div class="swiper-slide" onclick="app.jump('${dataz.banner[item].link}')"><img class="swiper_img" src="${dataz.banner[item].img}" alt="'"></div>`);
+                        }
+                    }
+                }, false);
+
+                //获取免费课程
+                this.getCourseData(0);
+                //获取职业医师
+                this.getCourseData(1);
+                //获取职业药师
+                this.getCourseData(2);
+                //获取国医经典
+                this.getCourseData(3);
+                //获取卫生管理
+                this.getCourseData(4);
+
+            },
+            jump (link) {
+                var course_id = link.split('?')[1].split('=')[1]
+                var tempInfo = {
+                    flag: 1,
+                    course_type: 11999,
+                    course_id: 0,
+                    is_question:0
+                }
+                localStorage.setItem("jump_detail_info", JSON.stringify(tempInfo));
+                window.location.href = 'course/detail.html'
+            }, jump_buyed() {
+                window.location.href = './my_course/my_already_buy.html'
+            }, to_message() {
+                if (!check_user_state()) {
+                    alert('请先登录')
+                    window.location.href = './login/land.html'
+                    return
+                }
+                window.location.href = './user_info/message_center.html'
+            }, close_book() {
+                this.show_book = false
+            }, to_page (url, flag) {
+                if(flag == 3){
+                    this.IsDredge = true;
+                    return;
+                }
+                window.location.href = url
+                localStorage.setItem("page_jump_info", flag)
+            }, close_shop () {
+                this.show_shop = false
+            }, buy_other (id, isbuy) {
+                if (!check_user_state()) {
+                    alert('请先登录')
+                    window.location.href = './login/land.html'
+                    return
+                }
+                if (isbuy) {
+                    alert('商品已购买')
+                    return
+                } else {
+                    yaqooNetPost("Cart/add", {"course_id": id,"spec_key": 1}, function (data) {
+                        if (data['code'] == 1000) {
+                            if (data.data.repeat) {
+                                alert('该商品已在购物车中')
+                            } else {
+                                alert('添加购物车成功')
+                            }
+                        } else {
+                            alert(data['message'])
+                        }
+                    }) 
+                }   
+            }
+        }
+    });
+
+    app.init();
+
+
+    //初始化Swiper
+    var mySwiper = new Swiper('.swiper-container', {
+        roundLengths: true,
+        initialSlide: 2,
+        speed: 600,
+        loop: true,
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        slidesPerView: 'auto',
+        centeredSlides: true,
+        followFinger: false,
+        initialSlide: 0
+
+    });
+
+    //购物车数量
+    function GouNum(){
+        yaqooNetPost('Cart/index', '', function (data) {
+            if (data['code'] == 1000) {
+                for(i in data['data']){
+                    if(data['data'][i].product_type != 2){
+                        app.shopcar_num += 1
+                    }
+                }
+            }
+        })
+    }
+    if (check_user_state()) {
+        GouNum();
+    }
+    // $(".isDredges").css("height",$("#app_body").height()+"px")
+
+</script>
+
+
+<!--插入页面元素统一JS-->
+<!-- <script src="../../js/index_bottom.js"></script> -->
+</html>

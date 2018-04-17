@@ -1,0 +1,1488 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>答题页面</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../css/swiper/swiper.min.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/answer/answer_index.css">
+    <link rel="stylesheet" href="../../css/answer/chapterexercises.css">
+    <link rel="stylesheet" href="../../css/answer/answer_board.css">
+</head>
+<body>
+<div id="app_body" v-cloak>
+    <!--<div class="swiper-container">-->
+    <!--<div class="swiper-wrapper">-->
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img v-on:click="a_back_click" class="nav__top_left" src="../../img/company_info/return_03.png" alt="">
+        {{sub_info.examination_name}}
+        <p class="nav__top_p">
+            <img src="../../img/answer/timer_031_03.png" alt="">{{min_time}}:{{sec_time}}
+        </p>
+    </div>
+    <!--<div v-for="(sub,index) in sub_list">-->
+
+    <!--单选题-->
+    <!--<div class="swiper-slide chapterexercises">-->
+    <div v-if="!is_board">
+        <div v-if="current_sub.class == 1">
+            <div class="testquestions">
+                <div class="testquestions_div">
+                    <span>【单选题{{current_index + 1}}/{{small_sub_num}}】</span>{{current_sub.checklist}}
+                </div>
+            </div>
+            <ul class="chapterexercises_ul">
+                <li v-on:click="a_single_sel(radio_index)" class="terexercises_ulli"
+                    v-for="(radio,radio_index) in current_sub.checkradio" :j-index="radio_index">
+                    <div class="chapterexercises_div">
+                        <div :class="{chapterexercises_xuan:current_ans!=change_num(radio_index),chapterexercises_xuan_sel:current_ans==change_num(radio_index)}">
+                            {{change_num(radio_index)}}
+                        </div>
+                        <p class="chapterexercises_text">
+                            {{radio}}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <!--正误判断-->
+            <!--正确-->
+            <div v-if="is_analyse && user_ans[current_index]==current_sub.answer" class="answerright">
+                <h4 class="answerright_h4">
+                    <img src="../../img/answer/error_correctionc_03.png" alt="">恭喜您，您答对了！
+                </h4>
+                <div class="answer_div">
+                    <div class="answer_left">
+                        <p>
+                            正确答案
+                        </p>
+                        <p class="answer_left_p">
+                            {{current_sub.answer}}
+                        </p>
+                    </div>
+                    <div class="answer_right">
+                        <p>
+                            您的答案
+                        </p>
+                        <p v-if="page_type==4" class="answer_left_p2">
+                            {{current_sub.user_answer}}
+                        </p>
+                        <p v-if="page_type!=4" class="answer_left_p2">
+                            {{user_ans[current_index]}}
+                        </p>
+                    </div>
+                </div>
+                <div class="answer_bottom">
+                    <img v-on:click="a_find_mistake_click" src="../../img/answer/error_correction_07.png" alt="">纠错
+                </div>
+            </div>
+            <!--错误-->
+            <div v-if="is_analyse && user_ans[current_index]!=current_sub.answer" class="answer">
+                <h4 class="answer_h4">
+                    <img src="../../img/answer/answer_cuowu_03.png" alt="">很遗憾，您答错了！
+                </h4>
+                <div class="answer_div">
+                    <div class="answer_left">
+                        <p>
+                            正确答案
+                        </p>
+                        <p class="answer_left_p">
+                            {{current_sub.answer}}
+                        </p>
+                    </div>
+                    <div class="answer_right">
+                        <p>
+                            您的答案
+                        </p>
+                        <p v-if="page_type==4" class="answer_left_p2">
+                            {{current_sub.user_answer}}
+                        </p>
+                        <p v-if="page_type!=4" class="answer_left_p2">
+                            {{user_ans[current_index]}}
+                        </p>
+                    </div>
+                </div>
+                <div v-on:click="a_find_mistake_click" class="answer_bottom">
+                    <img src="../../img/answer/error_correction_07.png" alt="">纠错
+                </div>
+            </div>
+
+            <!--解析-->
+            <div v-if="is_analyse" class="analysis">
+                <div class="analysis_div">
+                    <div class="analysis_top">
+                        <p class="analysis_top_p">
+                            答案解析
+                        </p>
+                        <div class="analysis_top_right">
+                            <span>难度系数：</span>
+                            <div style="display: inline" v-for="n in Str_to_num(current_sub.problem)">
+                                <img src="../../img/answer/stars_l_03.png" alt="">
+                            </div>
+                            <div style="display: inline" v-for="n in (5-Str_to_num(current_sub.problem))">
+                                <img src="../../img/answer/stars_05.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="analysis_p">
+                        {{current_sub.analysis}}
+                    </p>
+                    <div class="analysis_bottom">
+                        <p class="analysis_bottom_p">
+                            涉及考点
+                        </p>
+                        <p class="analysis_bottom_p2">
+                            {{current_sub.point_name}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="current_sub_bottom"></div>
+        </div>
+        <!--</div>-->
+
+        <!--多选题-->
+        <!--<div class="swiper-slide chapterexercises">-->
+        <div v-if="current_sub.class == 2">
+            <div class="testquestions">
+                <div class="testquestions_div">
+                    <span>【多选题{{current_index + 1}}/{{small_sub_num}}】</span>
+                    {{current_sub.checklist}}
+                </div>
+            </div>
+            <ul class="chapterexercises_ul">
+                <li v-on:click="a_multi_sel(radio_index)" class="terexercises_ulli"
+                    v-for="(radio,radio_index) in current_sub.checkradio">
+                    <div class="chapterexercises_div">
+                        <div :class="{chapterexercises__xuan_sel:is_content_str(current_ans,change_num(radio_index)),chapterexercises__xuan:!(is_content_str(current_ans,change_num(radio_index)))}">
+                            {{change_num(radio_index)}}
+                        </div>
+                        <p class="chapterexercises_text">
+                            {{radio}}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <!--正误判断-->
+            <!--答题错误-->
+            <div v-if="is_analyse && user_ans[current_index]!=current_sub.answer" class="answer">
+                <h4 class="answer_h4">
+                    <img src="../../img/answer/answer_cuowu_03.png" alt="">很遗憾，您答错了！
+                </h4>
+                <div class="answer_div">
+                    <div class="answer_left">
+                        <p>
+                            正确答案
+                        </p>
+                        <p class="answer_left_p">
+                            {{current_sub.answer}}
+                        </p>
+                    </div>
+                    <div class="answer_right">
+                        <p>
+                            您的答案
+                        </p>
+                        <p v-if="page_type==4" class="answer_left_p2">
+                            {{current_sub.user_answer}}
+                        </p>
+                        <p v-if="page_type!=4" class="answer_left_p2">
+                            {{user_ans[current_index]}}
+                        </p>
+                    </div>
+                </div>
+                <div v-on:click="a_find_mistake_click" class="answer_bottom">
+                    <img src="../../img/answer/error_correction_07.png" alt="">纠错
+                </div>
+            </div>
+            <!--答题正确-->
+            <div v-if="is_analyse && user_ans[current_index]==current_sub.answer" class="answerright">
+                <h4 class="answerright_h4">
+                    <img src="../../img/answer/error_correctionc_03.png" alt="">恭喜您，您答对了！
+                </h4>
+                <div class="answer_div">
+                    <div class="answer_left">
+                        <p>
+                            正确答案
+                        </p>
+                        <p class="answer_left_p">
+                            {{current_sub.answer}}
+                        </p>
+                    </div>
+                    <div class="answer_right">
+                        <p>
+                            您的答案
+                        </p>
+                        <p v-if="page_type==4" class="answer_left_p2">
+                            {{current_sub.user_answer}}
+                        </p>
+                        <p v-if="page_type!=4" class="answer_left_p2">
+                            {{user_ans[current_index]}}
+                        </p>
+                    </div>
+                </div>
+                <div v-on:click="a_find_mistake_click" class="answer_bottom">
+                    <img src="../../img/answer/error_correction_07.png" alt="">纠错
+                </div>
+            </div>
+            <div v-if="is_analyse" class="analysis">
+                <div class="analysis_div">
+                    <div class="analysis_top">
+                        <p class="analysis_top_p">
+                            答案解析
+                        </p>
+                        <div class="analysis_top_right">
+                            <span>难度系数：</span>
+                            <div style="display: inline" v-for="n in Str_to_num(current_sub.problem)">
+                                <img src="../../img/answer/stars_l_03.png" alt="">
+                            </div>
+                            <div style="display: inline" v-for="n in (5-Str_to_num(current_sub.problem))">
+                                <img src="../../img/answer/stars_05.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <p class="analysis_p">
+                        {{current_sub.analysis}}
+                    </p>
+                    <div class="analysis_bottom">
+                        <p class="analysis_bottom_p">
+                            涉及考点
+                        </p>
+                        <p class="analysis_bottom_p2">
+                            {{current_sub.point_name}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--</div>-->
+
+        <!--配伍题-->
+        <!--<div class="swiper-slide chapterexercises">-->
+        <div v-if="current_sub.class == 3">
+            <div class="testquestions">
+                <div class="testquestions_div">
+                    <span>【配伍题{{current_small_index + 1}}-{{current_small_index+current_sub.sub_items.length}}/{{small_sub_num}}】</span>
+                    {{current_sub.checklist}}
+                </div>
+            </div>
+            <!--配伍total选项-->
+            <ul class="chapterexercises__ul">
+                <li v-for="(p_checkradio,p_checkradio_index) in current_sub.checkradio">
+                    <div class="chapterexercises_div">
+                        <div class="chapterexercises__xuan">
+                            {{change_num(p_checkradio_index)}}
+                        </div>
+                        <p class="chapterexercises_text">
+                            {{p_checkradio}}
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <!--配伍小题和选项-->
+            <div class="answer__ul_div">
+                <ul class="answer_ul" v-for="(p_sub_item,p_sub_item_index) in current_sub.sub_items">
+                    <li class="answer_ul_big_li">
+                        <div class="answer_li_div">
+                            <!--<span>{{p_sub_item_index}}</span>-->
+                            {{p_sub_item.checklist}}
+                        </div>
+                        <ul class="answer_ul_ul">
+                            <li :class="{answer_ul_ul_comp_sel:current_ans[p_sub_item_index]==change_num(p_check_radio_index-1),answer_ul_ul_comp:true}"
+                                v-on:click="a_comp_sel(p_sub_item_index,p_check_radio_index-1)"
+                                v-for="p_check_radio_index in (current_sub.checkradio.length)">
+                                {{change_num(p_check_radio_index - 1)}}
+                            </li>
+
+                        </ul>
+                    </li>
+                    <!--配伍正误判断-->
+                    <!--错误-->
+                    <div v-if="is_analyse && user_ans[current_index][p_sub_item_index]!=p_sub_item.answer"
+                         class="answer2">
+                        <h4 class="answer_h4">
+                            <img src="../../img/answer/answer_cuowu_03.png" alt="">很遗憾，您答错了！
+                        </h4>
+                        <div class="answer_div">
+                            <div class="answer_left">
+                                <p>
+                                    正确答案
+                                </p>
+                                <p class="answer_left_p">
+                                    {{p_sub_item.answer}}
+                                </p>
+                            </div>
+                            <div class="answer_right">
+                                <p>
+                                    您的答案
+                                </p>
+                                <p v-if="page_type==4" class="answer_left_p2">
+                                    {{p_sub_item.user_answer}}
+                                </p>
+                                <p v-if="page_type!=4" class="answer_left_p2">
+                                    {{user_ans[current_index][p_sub_item_index]}}
+                                </p>
+                            </div>
+                        </div>
+                        <div v-on:click="a_find_mistake_click" class="answer_bottom">
+                            <img src="../../img/answer/error_correction_07.png" alt="">纠错
+                        </div>
+                    </div>
+                    <!--正确-->
+                    <div v-if="is_analyse && user_ans[current_index][p_sub_item_index]==p_sub_item.answer"
+                         class="answerright2">
+                        <h4 class="answerright_h4">
+                            <img src="../../img/answer/error_correctionc_03.png" alt="">恭喜您，您答对了！
+                        </h4>
+                        <div class="answer_div">
+                            <div class="answer_left">
+                                <p>
+                                    正确答案
+                                </p>
+                                <p class="answer_left_p">
+                                    {{p_sub_item.answer}}
+                                </p>
+                            </div>
+                            <div class="answer_right">
+                                <p>
+                                    您的答案
+                                </p>
+                                <p v-if="page_type==4" class="answer_left_p2">
+                                    {{sub_item.user_answer}}
+                                </p>
+                                <p v-if="page_type!=4" class="answer_left_p2">
+                                    {{user_ans[current_index][p_sub_item_index]}}
+                                </p>
+                            </div>
+                        </div>
+                        <div v-on:click="a_find_mistake_click" class="answer_bottom">
+                            <img src="../../img/answer/error_correction_07.png" alt="">纠错
+                        </div>
+                    </div>
+                    <!--配伍难度和解析-->
+                    <div v-if="is_analyse" class="analysis">
+                        <div class="analysis_div">
+                            <div class="analysis_top">
+                                <p class="analysis_top_p">
+                                    答案解析
+                                </p>
+                                <div class="analysis_top_right">
+                                    <span>难度系数：</span>
+                                    <div style="display: inline" v-for="n in Str_to_num(p_sub_item.problem)">
+                                        <img src="../../img/answer/stars_l_03.png" alt="">
+                                    </div>
+                                    <div style="display: inline" v-for="n in (5-Str_to_num(p_sub_item.problem))">
+                                        <img src="../../img/answer/stars_05.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="analysis_p">
+                                {{p_sub_item.analysis}}
+                            </p>
+                            <div class="analysis_bottom">
+                                <p class="analysis_bottom_p">
+                                    涉及考点
+                                </p>
+                                <p class="analysis_bottom_p2">
+                                    {{p_sub_item.point_name}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </ul>
+            </div>
+            <div class="current_sub_bottom"></div>
+        </div>
+        <!--</div>-->
+
+        <!--综合题-->
+        <!--<div class="swiper-slide chapterexercises">-->
+        <div v-if="current_sub.class == 4">
+            <div class="testquestions">
+                <div class="testquestions_div">
+                    <span>【综合题{{current_small_index + 1}}-{{current_small_index+current_sub.sub_items.length}}/{{small_sub_num}}】</span>{{current_sub.checklist}}
+                </div>
+            </div>
+            <div class="chapterexercises_ul__div" v-for="(sub_item,sub_item_index) in current_sub.sub_items">
+                <div class="subject">
+                    <p>
+                        <!--综合题小题编号-->
+                        <!--<span>{{sub_item_index}}</span>-->
+                        {{sub_item.checklist}}
+                    </p>
+                </div>
+                <ul class="chapterexerci_ul" >
+                    <li v-for="(z_radio,z_radio_index) in sub_item.checkradio" v-on:click="a_case_sel(sub_item_index,z_radio_index)" class="terexercises_ulli">
+                        <div class="chapterexercises_div">
+                            <div :class="{chapterexercises_xuan_sel:current_ans[sub_item_index]==change_num(z_radio_index),chapterexercises_xuan:true}">
+                                {{change_num(z_radio_index)}}
+                            </div>
+                            <p class="chapterexercises_text">
+                                {{z_radio}}
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+                <!--正误判断-->
+                <!--错误-->
+                <div v-if="is_analyse && user_ans[current_index][sub_item_index]!=sub_item.answer" class="answer2">
+                    <h4 class="answer_h4">
+                        <img src="../../img/answer/answer_cuowu_03.png" alt="">很遗憾，您答错了！
+                    </h4>
+                    <div class="answer_div">
+                        <div class="answer_left">
+                            <p>
+                                正确答案
+                            </p>
+                            <p class="answer_left_p">
+                                {{sub_item.answer}}
+                            </p>
+                        </div>
+                        <div class="answer_right">
+                            <p>
+                                您的答案
+                            </p>
+                            <p v-if="page_type==4" class="answer_left_p2">
+                                {{sub_item.user_answer}}
+                            </p>
+                            <p v-if="page_type!=4" class="answer_left_p2">
+                                {{user_ans[current_index][sub_item_index]}}
+                            </p>
+                        </div>
+                    </div>
+                    <div v-on:click="a_find_mistake_click" class="answer_bottom">
+                        <img src="../../img/answer/error_correction_07.png" alt="">纠错
+                    </div>
+                </div>
+                <!--正确-->
+                <div v-if="is_analyse && user_ans[current_index][sub_item_index]==sub_item.answer" class="answerright2">
+                    <h4 class="answerright_h4">
+                        <img src="../../img/answer/error_correctionc_03.png" alt="">恭喜您，您答对了！
+                    </h4>
+                    <div class="answer_div">
+                        <div class="answer_left">
+                            <p>
+                                正确答案
+                            </p>
+                            <p class="answer_left_p">
+                                {{sub_item.answer}}
+                            </p>
+                        </div>
+                        <div class="answer_right">
+                            <p>
+                                您的答案
+                            </p>
+                            <p v-if="page_type==4" class="answer_left_p2">
+                                {{sub_item.user_answer}}
+                            </p>
+                            <p v-if="page_type!=4" class="answer_left_p2">
+                                {{user_ans[current_index][sub_item_index]}}
+                            </p>
+                        </div>
+                    </div>
+                    <div v-on:click="a_find_mistake_click" class="answer_bottom">
+                        <img src="../../img/answer/error_correction_07.png" alt="">纠错
+                    </div>
+                </div>
+
+                <!--答案解析-->
+                <div v-if="is_analyse" class="analysis">
+                    <div class="analysis_div">
+                        <div class="analysis_top">
+                            <p class="analysis_top_p">
+                                答案解析
+                            </p>
+                            <div class="analysis_top_right">
+                                <span>难度系数：</span>
+                                <div style="display: inline" v-for="n in Str_to_num(sub_item.problem)">
+                                    <img src="../../img/answer/stars_l_03.png" alt="">
+                                </div>
+                                <div style="display: inline" v-for="n in (5-Str_to_num(sub_item.problem))">
+                                    <img src="../../img/answer/stars_05.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                        <p class="analysis_p">
+                            {{sub_item.analysis}}
+                        </p>
+                        <div class="analysis_bottom">
+                            <p class="analysis_bottom_p">
+                                涉及考点
+                            </p>
+                            <p class="analysis_bottom_p2">
+                                {{sub_item.point_name}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--</div>-->
+        </div>
+        <!--</div>-->
+        <div class="station">
+
+        </div>
+        <!--底部-->
+        <!--章节练习-->
+        <div v-if="page_type==1" class="chapterexercises_bottom">
+            <!--上一题-->
+            <div v-on:click="present_sub" class="chapterexercises_left swiper-button-prev select_able"
+                 :class="{select_un_able:current_index==0,select_able:true}">
+                上一题
+            </div>
+            <ul class="chapterexercises_in">
+                <li v-on:click="a_to_board" class="chapterexercises_inli">
+                    <img src="../../img/answer/answercard_03.png" alt="">
+                    答题卡
+                </li>
+                <li v-on:click="a_sub_analyse" class="chapterexercises_inli_two">
+                    <img src="../../img/answer/answerquestion.png" alt="">
+                    答案解析
+                </li>
+                <li v-on:click="a_collect_sub" class="chapterexercises_inli_three">
+                    <img src="../../img/answer/collection_07.png" alt="">
+                    收藏
+                </li>
+            </ul>
+            <div v-if="current_index!=sub_list.length-1" v-on:click="next_sub" class="chapterexercises_right swiper-button-next select_able">
+                下一题
+            </div>
+            <div v-if="current_index==sub_list.length-1" v-on:click="a_submit_ans" class="chapterexercises_right swiper-button-next select_able">
+                提交
+            </div>
+        </div>
+        <!--考试-->
+        <div v-if="page_type==2" class="chapterexercises_bottom_two">
+            <div v-on:click="present_sub" class="chapterexercises_left swiper-button-prev"
+                 :class="{select_un_able:current_index==0,select_able:true}">
+                上一题
+            </div>
+            <ul class="chapterexercises_in">
+                <li v-on:click="a_to_board" class="chapterexercises_inli"><img src="../../img/answer/answercard_03.png"
+                                                                               alt="">
+                    答题卡
+                </li>
+                <li v-on:click="a_submit_ans" class="chapterexercises_inli_two"><img
+                        src="../../img/answer/Submit_03.png" alt="">
+                    提交答案
+                </li>
+                <li v-on:click="a_collect_sub" class="chapterexercises_inli_three"><img
+                        src="../../img/answer/collection_07.png" alt="">
+                    收藏
+                </li>
+            </ul>
+            <div v-if="current_index!=sub_list.length-1" v-on:click="next_sub" class="chapterexercises_right swiper-button-next select_able">
+                下一题
+            </div>
+            <div v-if="current_index==sub_list.length-1" v-on:click="a_submit_ans" class="chapterexercises_right swiper-button-next select_able">
+                提交
+            </div>
+        </div>
+        <!--错题解析-->
+        <div v-if="page_type==3 || page_type==4" class="chapterexercises_bottom_three">
+            <div v-on:click="present_sub" class="chapterexercises_bottom_three_left"
+                 :class="{select_un_able:current_index==0,select_able:true}">
+                上一题
+            </div>
+            <div v-on:click="next_sub" class="chapterexercises_bottom_three_right"
+                 :class="{select_un_able:current_index==sub_list.length-1,select_able:true}">
+                下一题
+            </div>
+        </div>
+
+        <!--提交-->
+        <div v-if="is_show_submit" class="prepareforsubmission">
+            <div class="prepareforsubmission_div">
+                <div class="prepareforsubmission_top">
+                    <p class="prepareforsubmission_top_p">
+                        提示
+                    </p>
+                    <img v-on:click="a_close_alert" class="prepareforsubmission_img" src="../../img/course/placeholder_03.png" alt="">
+                </div>
+                <div class="prepareforsubmission_in">
+                    您已全部答完，确认提交吗？
+                </div>
+                <div class="prepareforsubmission_bottom">
+                    <div v-on:click="a_submit_ans" class="prepareforsubmission_bottom_left">
+                        确定
+                    </div>
+                    <div v-on:click="a_close_alert" class="prepareforsubmission_bottom_right">
+                        取消
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--</div>-->
+        <!--</div>-->
+        <!--纠错弹框-->
+        <div v-if="find_mistake" class="errorcorrection_div">
+            <div class="errorcorrection__div">
+                <h4 class="errorcorrection__h4">
+                    纠错
+                    <img v-on:click="a_close_mistake" src="../../img/user_info/placeholder_03.png " alt="">
+                </h4>
+                <textarea v-model="find_mistake_info" class="errorcorrection__textarea" name="" id="" cols="30"
+                          rows="10"></textarea>
+                <div v-on:click="a_mistake_submit" class="submit">
+                    提交
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--答题卡-->
+    <div v-if="is_board">
+        <div class="section">
+            <div class="section_top">
+                <p class="section_top_p2">
+                    <img v-on:click="a_close_board" src="../../img/answer/closedown.png" alt="">
+                </p>
+            </div>
+        </div>
+        <div class="testquestions">
+            <div class="testquestions_div">
+                <div class="testquestions_h4">
+                    <p class="testquestions_h4_p">
+                        单选题
+                    </p>
+                    <p class="testquestions_h4_p2">
+                        共{{single_ans.length}}题/每题1分
+                    </p>
+                </div>
+                <ul class="testquestions_ul">
+                    <li v-if="page_type==2" v-on:click="a_tap_board(sub_index)"
+                        :class="{testquestions_li4:has_answered(sub_ans.user_ans),testquestions_li3:true}"
+                        v-for="(sub_ans,sub_index) in single_ans">
+                        {{sub_index + 1}}
+                    </li>
+                    <li v-if="page_type==1" v-on:click="a_tap_board(sub_index)"
+                        :class="{testquestions_li:sub_ans.user_ans==sub_ans.right_ans,testquestions_li2:sub_ans.user_ans!=sub_ans.right_ans,testquestions_li3:!has_answered(sub_ans.user_ans)}"
+                        v-for="(sub_ans,sub_index) in single_ans">
+                        {{sub_index + 1}}
+                    </li>
+                </ul>
+            </div>
+            <div class="testquestions_div">
+                <div class="testquestions_h4">
+                    <p class="testquestions_h4_p">
+                        多选题
+                    </p>
+                    <p class="testquestions_h4_p2">
+                        共{{multi_ans.length}}题/每题1分
+                    </p>
+                </div>
+                <ul class="testquestions_ul">
+                    <li v-if="page_type == 2" v-on:click="a_tap_board(single_ans.length + sub_index)"
+                        :class="{testquestions_li4:has_answered(sub_ans.user_ans),testquestions_li3:true}"
+                        v-for="(sub_ans,sub_index) in multi_ans">
+                        {{sub_index + 1}}
+                    </li>
+                    <li v-if="page_type == 1" v-on:click="a_tap_board(single_ans.length + sub_index)"
+                        :class="{testquestions_li:sub_ans.user_ans==sub_ans.right_ans,testquestions_li2:sub_ans.user_ans!=sub_ans.right_ans,testquestions_li3:!has_answered(sub_ans.user_ans)}"
+                        v-for="(sub_ans,sub_index) in multi_ans">
+                        {{sub_index + 1}}
+                        <!--{{sub_user_ans==(sub_list[sub_index + single_ans.length].answer)}}-->
+                    </li>
+                </ul>
+            </div>
+            <div class="testquestions_div">
+                <div class="testquestions_h4">
+                    <p class="testquestions_h4_p">
+                        配伍题
+                    </p>
+                    <p class="testquestions_h4_p2">
+                        共{{multi_ans.length}}题/每小题1分
+                    </p>
+                </div>
+                <ul class="testquestions_ul">
+                    <!--<li :class="{testquestions_li4:has_answered(sub_user_ans),testquestions_li3:true}" v-for="(sub_user_ans,sub_index) in multi_ans">-->
+                    <!--{{sub_index + 1}}-->
+                    <!--</li>-->
+                    <div class="testquestions_div" v-for="(big_sub_ans,big_index) in comp_ans">
+                        <li v-if="page_type==2" v-on:click="a_tap_board(single_ans.length + multi_ans.length + big_index)"
+                            :class="{testquestions_li4:has_answered(small_sub_user_ans),testquestions_li3:true}"
+                            v-for="(small_sub_user_ans,small_index) in big_sub_ans.user_ans">
+                            {{big_index + 1}}-{{small_index+1}}
+                        </li>
+                        <li v-if="page_type==1" v-on:click="a_tap_board(single_ans.length + multi_ans.length + big_index)"
+                            :class="{testquestions_li:small_sub_user_ans==big_sub_ans.right_ans[small_index],testquestions_li2:small_sub_user_ans!=big_sub_ans.right_ans[small_index],testquestions_li3:!has_answered(small_sub_user_ans)}"
+                            v-for="(small_sub_user_ans,small_index) in big_sub_ans.user_ans">
+                            {{big_index + 1}}-{{small_index+1}}
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <div class="testquestions_div">
+                <div class="testquestions_h4">
+                    <p class="testquestions_h4_p">
+                        综合案例题
+                    </p>
+                    <p class="testquestions_h4_p2">
+                        共{{multi_ans.length}}题/每小题1分
+                    </p>
+                </div>
+                <ul class="testquestions_ul">
+                    <div class="testquestions_div" v-for="(big_sub_ans,big_index) in case_ans">
+                        <li v-if="page_type==2" v-on:click="a_tap_board(single_ans.length + multi_ans.length + comp_ans.length + big_index)"
+                            :class="{testquestions_li4:has_answered(small_sub_user_ans),testquestions_li3:true}"
+                            v-for="(small_sub_user_ans,small_index) in big_sub_ans.user_ans">
+                            {{big_index + 1}}-{{small_index+1}}
+                        </li>
+                        <li v-if="page_type==1" v-on:click="a_tap_board(single_ans.length + multi_ans.length + comp_ans.length + big_index)"
+                            :class="{testquestions_li:small_sub_user_ans==big_sub_ans.right_ans[small_index],testquestions_li2:small_sub_user_ans!=big_sub_ans.right_ans[small_index],testquestions_li3:!has_answered(small_sub_user_ans)}"
+                            v-for="(small_sub_user_ans,small_index) in big_sub_ans.user_ans">
+                            {{big_index + 1}}-{{small_index+1}}
+                        </li>
+                    </div>
+                </ul>
+            </div>
+            <!--答题板-->
+            <div class="explain" v-if="page_type==1">
+                <ul class="explain_ul">
+                    <li class="explain_li">
+                        <div class="explain_li_div"></div>
+                        正确
+                    </li>
+                    <li class="explain_li2">
+                        <div class="explain_li_div2"></div>
+                        错误
+                    </li>
+                    <li class="explain_li3">
+                        <div class="explain_li_div3"></div>
+                        未答
+                    </li>
+                </ul>
+
+            </div>
+            <div class="explain" v-if="page_type==2">
+                <ul class="explain_ul">
+                    <li class="explain_li4">
+                        <div class="explain_li_div4"></div>
+                        已答
+                    </li>
+                    <li class="explain_li3">
+                        <div class="explain_li_div3"></div>
+                        未答
+                    </li>
+                </ul>
+            </div>
+            <div v-if="" v-on:click="a_submit_ans" class="explain_submit">
+                提交
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script src="../../js/swiper/swiper.min.js"></script>
+<script src="../../js/answer/chapterexercises.js"></script>
+<script>
+    //vue创建
+    var vm = new Vue({
+        el: '#app_body',
+        data: {
+            exam_id: '',//试卷id
+            test_id: '',//测试id
+            sec_count: 0,//计时
+            min_time: '00',
+            sec_time: '00',//记录时间
+            sub_data: {},//试题总数据
+            sub_info: {},//试题信息
+            sub_list: [],//试题列表
+            user_ans: [],//记录用户的答题记录(用于判断和答题使用，初始读入进来的答题记录数据需要转成这种格式，用户提交的时候需要转成后台需要的格式)
+            single_ans: [],//单选记录
+            multi_ans: [],//多选记录
+            comp_ans: [],//配伍记录
+            case_ans: [],//综合案例记录
+            current_index: 0,//当前题目下标
+            current_sub: {},//当前题目
+            find_mistake: 0,//纠错弹框显示
+            page_type: '1',//页面类型 1是练习(章节练习、错题练习、收藏题练习)  2是考试  3是全部解析 4是错题解析
+            url_type:'1',//url类型 1是章节练习和考试  2是所有错题练习  3是所有收藏题练习
+            find_mistake_info: '',//纠错提交的信息
+            is_analyse: 0,//是否显示解析 错题解析页面都是解析的
+            is_board: 0,//是否是答题板
+            board_type: 0,//答题板类型
+            sub_url:'',//请求试题的url
+            para:{},//请求试题接口的参数
+            submit_url:'',//提交考试的时候需要的url
+            is_show_submit:0,//是否显示确认提交弹框
+            test:0,
+            current_ans:'',//当前答案
+            small_sub_num:0,//小题的数目
+            current_small_index:0//当前小题的index
+        },
+        methods: {
+            //点击返回
+            a_back_click(){
+                localStorage.removeItem('chapter_info');
+                vm.a_submit_record();
+                union_back();
+                //1.提示框是否提交 2.清空localstorage存的值
+            },
+            //初始化数据
+            a_initial_data(){
+                initial_data();
+            },
+            //开始计时
+            a_start_time(){
+                //只有考试需要计时
+                start_time();
+
+            },
+            //请求题目数据
+            a_get_data(){
+                get_data();
+            },
+            //初始化空的用户答题记录数据
+            a_initial_user_ans(){
+                initial_user_ans();
+            },
+            //读取用户上次的答题记录数据
+            // a_load_user_ans(){
+            //     load_user_ans();
+            // },
+
+            //点击上一题
+            present_sub(){
+                if (vm.current_index > 0) {
+                    vm.current_index--;
+                    vm.current_sub = vm.sub_list[vm.current_index];
+                    vm.current_ans = vm.user_ans[vm.current_index];
+                    if (vm.page_type == '1') {
+                        vm.is_analyse = 0;
+                    }
+                    get_current_small_num();
+                }
+            },
+            //点击下一题
+            next_sub(){
+                if (vm.current_index < vm.sub_list.length - 1) {
+                    vm.current_index++;
+                    vm.current_sub = vm.sub_list[vm.current_index];
+                    vm.current_ans = vm.user_ans[vm.current_index];
+                    if (vm.page_type == '1') {
+                        vm.is_analyse = 0;
+                    }
+                    get_current_small_num();
+                }
+            },
+            //单选题点击选项
+            a_single_sel(radio_index){
+               console.log('1111' + change_num(radio_index));
+               if(vm.page_type==3 || vm.page_type==4){
+                  return;
+               }
+               vm.current_ans = change_num(radio_index);
+               vm.user_ans[vm.current_index] = change_num(radio_index);
+               console.log(vm.user_ans);
+                // initial_board();
+            },
+            //多选题点击选项
+            a_multi_sel(radio_index){
+                if(vm.page_type==3 || vm.page_type==4){
+                    return;
+                }
+                var super_str = vm.user_ans[vm.current_index];
+                var sub_str = change_num(radio_index);
+                if (is_content_str(super_str, sub_str)) {
+                    //已经包含了 就把选项去掉
+                    super_str = super_str.replace(change_num(radio_index), "");
+                    if (super_str.length == 0) {
+                        super_str = "_";
+                    }
+                    vm.current_ans = sort_str(super_str);
+                    vm.user_ans[vm.current_index] = vm.current_ans;
+                } else {
+                    //没有包含 就加上选项
+                    super_str += change_num(radio_index);
+                    vm.current_ans = (sort_str(super_str)).replace('_', '');
+                    vm.user_ans[vm.current_index] = vm.current_ans;
+                }
+                console.log(vm.user_ans);
+                //排序一下
+                // initial_board();
+            },
+            //配伍题点击选项
+            a_comp_sel(big_index, small_index){
+                if(vm.page_type==3 || vm.page_type==4){
+                    return;
+                }
+                var user_sub_ans = vm.user_ans[vm.current_index];
+                vm.current_ans = user_sub_ans.replace_str_index(big_index, change_num(small_index));
+                vm.user_ans[vm.current_index] = vm.current_ans;
+                console.log(vm.user_ans);
+                // initial_board();
+            },
+            //案例题点击选项
+            a_case_sel(big_index, small_index){
+                if(vm.page_type==3 || vm.page_type==4){
+                    return;
+                }
+                var user_sub_ans = vm.user_ans[vm.current_index];
+                vm.current_ans = user_sub_ans.replace_str_index(big_index, change_num(small_index));
+                vm.user_ans[vm.current_index] = vm.current_ans;
+                console.log(vm.user_ans);
+                // initial_board();
+            },
+            //点击纠错
+            a_find_mistake_click(){
+                vm.find_mistake = 1;
+            },
+            //纠错点击关闭
+            a_close_mistake(){
+                vm.find_mistake = 0;
+            },
+            //纠错提交
+            a_mistake_submit(){
+                //提交的信息
+                if (vm.find_mistake_info.length == 0) {
+                    alert('请输入纠错内容');
+                    return;
+                }
+                var para = {
+                    'exam_id': vm.exam_id,
+                    'exam_item_id': vm.current_sub.exam_item_id,
+                    'content': vm.find_mistake_info
+                }
+                yaqooNetPost('?m=home&c=Exam&a=index&method=Challenge/add', para, function (data) {
+                    vm.find_mistake = 0;//关闭纠错弹框
+                    if (data['1000']) {
+                        alert('提交成功')
+                    } else {
+                        alert('提交失败')
+                    }
+                })
+            },
+            //点击答题解析
+            a_sub_analyse(){
+                if (vm.page_type != '2') {
+                    vm.is_analyse = 1;
+                }
+            },
+            //显示答题卡
+            a_to_board(){
+                vm.is_board = 1;
+                initial_board();
+            },//关闭答题卡
+            a_close_board(){
+                vm.is_board = 0;
+            },
+            //答题板点击某个题目
+            a_tap_board(board_index){
+                vm.current_index = board_index;
+                vm.current_sub = vm.sub_list[vm.current_index];
+                vm.current_ans = vm.user_ans[vm.current_index];
+                vm.is_board = 0;
+                get_current_small_num();
+            },
+
+            //提交答案 记录用户本次未提交的记录
+            a_submit_record(){
+                submit_record();
+            },
+            //点击提交考试 出报告结果
+            a_submit_ans(){
+                if(vm.url_type == '1'){
+                    //如果是章节练习或者是考试 需要先提交答案 然后再提交考试
+                    course_submit()
+                }else {
+                    submit_ans();
+                }
+            },
+            //点击收藏
+            a_collect_sub(){
+                var para = {
+                    'exam_id': vm.exam_id,
+                    'exam_item_id': vm.current_sub['exam_item_id'],
+                    'point': vm.current_sub['point_id'],
+                    'test_id': vm.test_id
+                }
+                console.log(para);
+                yaqooNetPost('?m=home&c=Exam&a=index&method=Favorite/add', para, function (data) {
+                    console.log(data['code']);
+                    if (data['code'] == '1000') {
+                        alert('收藏成功')
+                    } else {
+                        alert(data['message'])
+                    }
+                })
+            },
+            //关闭提交弹框
+            a_close_alert(){
+                vm.is_show_submit = 0;
+            },
+        }
+    })
+
+
+    //初始化数据
+    function initial_data() {
+        var chapter_info = JSON.parse(localStorage.getItem('chapter_info'));
+        vm.page_type = chapter_info.chapter_page_type;
+        vm.url_type = chapter_info.chapter_url_type;
+        vm.exam_id = chapter_info.chapter_exam_id;
+        vm.test_id = chapter_info.chapter_test_id;
+        //判断页面类型
+        if (vm.page_type == '1') {
+            //章节练习页面
+            vm.is_analyse = 0;//解析初始不可见
+        } else if (vm.page_type == '2'){
+            //考试页面
+            vm.is_analyse = 0;//解析初始不可见
+        } else if (vm.page_type == '3' || vm.page_type == '4'){
+            //错题解析和全部解析页面
+            vm.is_analyse = 1;//解析初始可见
+        }
+
+        console.log('url_type==' + vm.url_type);
+        //判断接口类型
+        if(vm.url_type == '1'){
+            //所有的章节练习和考试相关接口和参数
+            vm.sub_url = 'index/init';
+            vm.submit_url = 'TestPaper/commitTest'
+            vm.para = {'examination_id': vm.exam_id};
+        }else if(vm.url_type == '2'){
+            //所有的错题相关接口和参数
+            vm.sub_url = 'Problem/items';
+            vm.submit_url = 'Problem/redo'
+            vm.para = {'test_id':vm.test_id};
+        }else if(vm.url_type == '3'){
+            //所有的收藏题相关接口和参数
+            vm.sub_url = 'Favorite/items';
+            vm.submit_url = 'Favorite/redo'
+            vm.para = {'test_id':vm.test_id};
+        }
+        // if(vm.page_type == '2'){
+        //     get_user_last_ans();
+        // }else{
+        //     console.log('直接请求数据');
+        //     vm.a_get_data();
+        // }
+        vm.a_get_data();
+    }
+    vm.a_initial_data();
+
+    //计时
+    function start_time() {
+        if (vm.sec_count == null || vm.sec_count == '') {
+            vm.sec_count = 0;
+        }
+        var timer = setInterval(function () {
+            vm.sec_count++;
+            var min = parseInt(vm.sec_count / 60);
+            var sec = vm.sec_count % 60;
+            vm.min_time = min > 9 ? min : '0' + min;
+            vm.sec_time = sec > 9 ? sec : '0' + sec;
+
+            if (vm.page_type == '2') {
+                //考试提前五分钟提示交卷
+                if (vm.sec_count == (vm.sub_info.long_time - 5) * 60) {
+                    alert('距离考试结束还有五分钟');
+                }
+                //考试到时间自动提交
+                if (vm.sec_count >= vm.sub_info.long_time * 60) {
+                    clearInterval(timer);
+                    submit_ans();//提交考试操作
+                    alert('提交试题');
+                }
+            }
+
+            //记录用户答题数据 每30s一次
+            if(!(vm.sec_count%30) && vm.page_type == '2'){
+                vm.a_submit_record();
+                console.log('记录答题数据');
+            }
+        }, 1000)
+    }
+    vm.a_start_time();
+
+    //请求题目数据
+    function get_data() {
+        console.log('sub_url=' +vm.sub_url);
+        console.log(vm.para);
+        yaqooNetPost('?m=home&c=Exam&a=index&method=' + vm.sub_url, vm.para, function (data) {
+            console.log(data);
+            if (data['code'] == 1000) {
+                vm.sub_data = data['data'];
+                console.log(vm.sub_data);
+                vm.exam_id = vm.sub_data['test_info']['exam_id'];
+                if(vm.page_type != '3'){
+                    vm.test_id = vm.sub_data['test_info']['test_id'];
+                }
+                vm.sub_list = vm.sub_data['test_item_list']
+                vm.current_sub = vm.sub_list[vm.current_index]
+                vm.sub_info = vm.sub_data['test_info'];
+
+                //初始化小题数目
+                get_small_num();
+                //初始化用户答案数据
+                if(vm.page_type == '2'){
+                    //考试- 先获取用户上次的答题记录
+                    get_user_last_ans();
+                }else if(vm.page_type == '3'){
+                    //全部解析- 用户答案
+                    get_user_last_ans();
+                }else{
+                    //其余(错题解析和练习)- 初始化空的用户答案
+                    vm.a_initial_user_ans();
+                }
+
+
+            } else {
+                alert(data['message']);
+            }
+        })
+    }
+
+    //获取用户上次的答题记录
+    function get_user_last_ans(){
+        alert(vm.exam_id + '__' + vm.test_id);
+        var para = {'exam_id': vm.exam_id, 'test_id': vm.test_id}
+        yaqooNetPost('?m=home&c=Exam&a=index&method=TestPaper/answerSheet', para, function (data) {
+            //有答题记录
+            console.log(data);
+            if (data['code'] == '1000') {
+                //如果没有有答题记录 初始化空的答题记录 如果有答题记录 将答题记录读入进去
+                if(data['data'].length=='0'){
+                    vm.a_initial_user_ans();
+                }else {
+                    // vm.a_initial_user_ans();
+                    vm.user_ans = data['data'];
+                    vm.current_ans = vm.user_ans[0];
+                    initial_board();
+                }
+            } else {
+                alert(data['message'])
+            }
+        })
+    }
+
+    //初始化空的用户答题
+    function initial_user_ans() {
+        for (var i = 0; i < vm.sub_list.length; i++) {
+            var sub = vm.sub_list[i];
+            var ans_str = '';
+            if (sub['class'] == '1') {
+                //单选
+                ans_str = '_'
+            } else if (sub['class'] == '2') {
+                //多选
+                ans_str = '_'
+            } else if (sub['class'] == '3') {
+                //配伍
+                for (var j = 0; j < sub.sub_items.length; j++) {
+                    ans_str += '_'
+                }
+            } else if (sub['class'] == '4') {
+                //案例
+                for (var j = 0; j < sub.sub_items.length; j++) {
+                    ans_str += '_'
+                }
+            }
+            vm.user_ans[i] = ans_str;
+        }
+        vm.current_ans = vm.user_ans[0];
+        console.log(vm.user_ans);
+        initial_board();
+    }
+
+    //获取小题数目
+    function get_small_num() {
+        for (var i = 0; i < vm.sub_list.length; i++) {
+            var sub = vm.sub_list[i];
+            if (sub["class"] == '1' || sub["class"] == '2') {
+                //单选与多选
+                vm.small_sub_num ++;
+            }else{
+                //配伍与案例
+                for(var j=0;j<sub.sub_items.length;j++){
+                    vm.small_sub_num ++;
+                }
+            }
+        }
+    }
+
+    //根据当前大题下标算出当前开始小题的下标
+    function get_current_small_num() {
+        var current_small_index = 0;
+        for (var i = 0; i < vm.current_index; i++) {
+            var sub = vm.sub_list[i];
+            if (sub["class"] == '1' || sub["class"] == '2') {
+                //单选与多选
+                current_small_index ++;
+            }else{
+                //配伍与案例
+                for(var j=0;j<sub.sub_items.length;j++){
+                    current_small_index ++;
+                }
+            }
+        }
+        vm.current_small_index = current_small_index;
+    }
+
+    //提交答题记录
+    function submit_record() {
+        var para = {'exam_id': vm.exam_id, 'test_id': vm.test_id, 'answer': JSON.stringify(modify_sub_answer())}
+        console.log(para);
+        yaqooNetPost('?m=home&c=Exam&a=index&method=TestPaper/commitAnswer', para, function (data) {
+            console.log(data);
+            if (data['code'] == '1000') {
+                //记录成功
+                console.log('记录成功')
+            } else {
+                console.log('记录失败')
+            }
+        })
+    }
+
+
+    //提交考试 出答题报告
+    function submit_ans() {
+        var para = {'exam_id': vm.exam_id, 'test_id': vm.test_id, 'answer': JSON.stringify(modify_sub_answer())}
+        console.log(vm.submit_url);
+        yaqooNetPost('?m=home&c=Exam&a=index&method='+ vm.submit_url, para, function (data) {
+            console.log(data);
+            if (data['code'] == '1000') {
+                alert('提交成功')
+                if(vm.url_type == '1'){
+                    //跳转报告界面
+                    var answerResult_info = JSON.stringify({
+                        'exam_name':vm.sub_info.examination_name,
+                        'exam_id':vm.exam_id,
+                        'test_id':vm.test_id,
+                        'page_type':vm.page_type,
+                        'use_time':vm.sec_count
+                    })
+                    localStorage.setItem('answerResult_info',answerResult_info);
+                    localStorage.setItem('user_ans',JSON.stringify(vm.user_ans))
+                    window.location.href = 'answer_results.html';
+                }
+            } else {
+                alert('提交失败')
+            }
+        })
+    }
+
+    //章节练习和考试提交前需要调用提交答案接口
+    function course_submit() {
+        var para = {'exam_id': vm.exam_id, 'test_id': vm.test_id, 'answer': JSON.stringify(modify_sub_answer())}
+        console.log(para);
+        yaqooNetPost('?m=home&c=Exam&a=index&method=TestPaper/commitAnswer', para, function (data) {
+            console.log(data);
+            if (data['code'] == '1000') {
+                //提交答案成功
+                submit_ans()
+            } else {
+                alert('提交答案失败');
+            }
+        })
+    }
+    
+    
+    //拼接提交答案需要的数据格式
+    function modify_sub_answer() {
+        var sub_list = vm.sub_list;
+        var sub_answer = {};
+        for (var i = 0; i < sub_list.length; i++) {
+            var sub = sub_list[i];
+            if (sub['class'] == '1' || sub['class'] == '2') {
+                //单选或者多选
+                sub_answer[sub.exam_item_id] = vm.user_ans[i];
+            } else if (sub['class'] == '3' || sub['class'] == '4') {
+                //配伍或者案例
+                for (var j = 0; j < sub.sub_items.length; j++) {
+                    var sub_item = sub.sub_items[j];
+                    sub_answer[sub_item.exam_item_id] = vm.user_ans[i][j];
+                }
+            }
+        }
+        return sub_answer;
+    }
+
+    //字符串转数组
+    function Str_to_num(str) {
+        return Number(str);
+    }
+
+    //判断字符串中是否包含某个字串
+    function is_content_str(super_str, sub_str) {
+        if (super_str.indexOf(sub_str) > -1) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    //替换指定位置的字符
+    String.prototype.replace_str_index = function (n, c) {
+        return this.substr(0, n) + c + this.substr(n + 1, this.length - 1 - n);
+    }
+
+
+//答题板的方法
+    //初始化答题板数据
+    function initial_board() {
+        vm.single_ans = [];
+        vm.multi_ans = [];
+        vm.comp_ans = [];
+        vm.case_ans = [];
+        for (var i = 0; i < vm.user_ans.length; i++) {
+            var sub = vm.sub_list[i];
+            if (sub["class"] == '1') {
+                //单选
+                var obj = {'user_ans':vm.user_ans[i],'right_ans':sub.answer};
+                vm.single_ans.push(obj);
+            } else if (sub["class"] == '2') {
+                //多选
+                var obj = {'user_ans':vm.user_ans[i],'right_ans':sub.answer};
+                vm.multi_ans.push(obj);
+            } else if (sub["class"] == '3') {
+                //配伍
+                var right_ans = '';
+                for(var j=0;j<sub.sub_items.length;j++){
+                    right_ans += sub.sub_items[j].answer;
+                }
+                var obj = {'user_ans':vm.user_ans[i],'right_ans':right_ans};
+                vm.comp_ans.push(obj);
+            } else if (sub["class"] == '4') {
+                //案例
+                var right_ans = '';
+                for(var j=0;j<sub.sub_items.length;j++){
+                    right_ans += sub.sub_items[j].answer;
+                }
+                var obj = {'user_ans':vm.user_ans[i],'right_ans':right_ans};
+                vm.case_ans.push(obj);
+
+            }
+        }
+    }
+    //答题板判断是否已经答题过
+    function has_answered(str) {
+        var reg = new RegExp("_")
+        return !reg.test(str);
+    }
+    //关闭答题板
+    function close_board() {
+        is_board = 0;
+    }
+
+    //字符串按照abcd排序
+    function sort_str(str) {
+        var str2 = str.split("");
+        str2.sort();
+        return str2.join("");
+    }
+
+    //jquery点击事件
+    // setTimeout(function () {
+    //     //单选点击
+    //     $('.terexercises_ulli').on('click',function () {
+    //         var radio_index = $(this).attr('j-index')//获取当前点击的下标
+    //         console.log(radio_index);
+    //         console.log('1111' + change_num(radio_index));
+    //         if(vm.page_type==3 || vm.page_type==4){
+    //             return;
+    //         }
+    //         vm.user_ans[vm.current_index] = change_num(radio_index);
+    //         console.log(vm.user_ans);
+    //         //将父级的class移除
+    //         $(this).parent().find('.chapterexercises_xuan_sel').removeClass('chapterexercises_xuan_sel')
+    //         //将当前的class添加
+    //         $(this).children().find('div').addClass('chapterexercises_xuan_sel')
+    //     })
+    //
+    // },1000)
+
+
+    //字母变数字
+    function change_chara(chara) {
+        var num = 0;
+        switch (chara) {
+            case 'A':
+                num = 0;
+                break;
+            case 'B':
+                num = 1;
+                break;
+            case 'C':
+                num = 2;
+                break;
+            case 'D':
+                num = 3;
+                break;
+            case 'E':
+                num = 4;
+                break;
+            case 'F':
+                num = 5;
+                break;
+        }
+        return num;
+    }
+    //数字变字母
+    function change_num(num) {
+        var chara = '';
+        switch (num) {
+            case 0:
+                chara = 'A';
+                break;
+            case '0':
+                chara = 'A';
+                break;
+            case 1:
+                chara = 'B';
+                break;
+            case '1':
+                chara = 'B';
+                break;
+            case 2:
+                chara = 'C';
+                break;
+            case '2':
+                chara = 'C';
+                break;
+            case 3:
+                chara = 'D';
+                break;
+            case '3':
+                chara = 'D';
+                break;
+            case 4:
+                chara = 'E';
+                break;
+            case '4':
+                chara = 'E';
+                break;
+            case 5:
+                chara = 'F';
+                break;
+            case '5':
+                chara = 'F';
+                break;
+        }
+        return chara;
+    }
+
+</script>
+
+</html>

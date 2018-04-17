@@ -1,0 +1,377 @@
+body {
+    background: #fff;
+}
+#test3 {
+    outline: 0;
+    border: 0;
+}
+
+.layui-input {
+    text-align: center;
+    height: 100%;
+    color: #333;
+}
+
+.layui-input::placeholder{
+     color: #333;
+}
+.nav__top {
+    background: #1e2028;
+    color: #fff;
+    padding: .2rem 0;
+}
+
+.nav__top_right {
+    float: right;
+    position: relative;
+    margin-right: .2rem;
+}
+
+.nav__top_right img {
+    display: block;
+    width: .6rem;
+}
+
+.nav__top_right span {
+    position: absolute;
+    top: 0;
+    right: -.1rem;
+    width: .34rem;
+    height: .34rem;
+    border-radius: 50%;
+    background: #ffa800;
+    color: #fff;
+    text-align: center;
+    font-size: .28rem;
+    line-height: .34rem;
+}
+
+.find_nav {
+    width: 100%;
+    height: 1.44rem;
+    font-size: .36rem;
+    z-index: 99;
+    border-bottom: 1px solid #ddd;
+    display: -moz-box;
+    display: -webkit-box;
+    background: #1e2028;
+}
+
+.find_nav_left {
+    position: relative;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    height: 1.44rem;
+}
+
+.find_nav_list {
+    position: absolute;
+    left: 0;
+    height: 1.44rem;
+}
+
+.find_nav_list ul {
+    position: relative;
+    white-space: nowrap;
+    color: #adafb9;
+
+}
+
+.find_nav_list ul li {
+    display: inline-block;
+    padding: 0 .4rem;
+    height: 1.44rem;
+}
+
+.find_nav_list ul li:last-child {
+    height: 2px;
+}
+
+.find_nav_list ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 1.4rem;
+    font-size: .52rem;
+    text-align: center;
+    color: #adafb9;
+
+}
+
+.find_nav_cur a {
+    color: #fff !important;
+}
+
+.sideline {
+    display: block;
+    position: absolute;
+    border: 0;
+    height: 2px;
+    background-color: #0299ec;
+    left: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.sideline span {
+    position: absolute;
+    bottom: -.2rem;
+    left: 50%;
+    margin-left: -.05rem;
+    width: 0;
+    height: 0;
+    border-left: .1rem solid transparent;
+    border-right: .1rem solid transparent;
+    border-top: .2rem solid #0299ec;
+}
+
+.livelist_nav {
+    background: #f0f0f0;
+    overflow: hidden;
+    font-size: 0.36rem;
+    padding-top: .2rem;
+    color: #333333;
+}
+
+.livelist_nav_ul {
+    position: relative;
+    padding: .2rem 0;
+    background: #fff;
+}
+
+.livelist_nav_ul li {
+    float: left;
+    width: 33%;
+    text-align: center;
+}
+
+.livelist_nav_ulli {
+    border-left: 1px solid #c3c3c3;
+    border-right: 1px solid #c3c3c3;
+    height: 0.36rem;
+    line-height: 0.36rem;
+}
+
+.livelist_ul {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding-bottom: 1.6rem;
+    min-height: 13rem;
+}
+
+.livelist_ul li {
+    width: 100%;
+    position: relative;
+    font-size: .36rem;
+    margin-bottom: .2rem;
+}
+
+.livelist_ul_div {
+    width: 100%;
+    height: 5.46;
+    position: relative;
+    overflow: hidden;
+}
+
+.livelist_ul_div_img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.livelist_ul_div_img2 {
+    position: absolute;
+    top: 2.1rem;
+    left: 50%;
+    margin-left: -.69rem;
+    width: 1.38rem;
+    height: 1.38rem;
+
+}
+
+.livelist_ul_div_right {
+    position: absolute;
+    right: 0;
+    top: .2rem;
+    width: 2rem;
+    text-align: center;
+    color: #fff;
+    padding: .1rem 0;
+    border-top-left-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+    background: #fc8526;
+}
+
+.livelist_li_bottom {
+    width: 100%;
+    padding: .4rem 0;
+    background: #fff;
+    overflow: hidden;
+}
+
+.livelist_li_left {
+    float: left;
+    margin-left: .2rem;
+    overflow: hidden;
+    width: 7.29rem;
+}
+
+.livelist_li_left_p {
+    font-size: .44rem;
+    color: #333;
+    margin-bottom: .2rem;
+}
+
+.livelist_li_left_p2 {
+    font-size: .36rem;
+    color: #666666;
+}
+
+.livelist_li_left_p2_span {
+    margin-right: .3rem;
+}
+
+.livelist_li_right_div {
+    width: 2.05rem;
+    float: right;
+    margin-right: .2rem;
+}
+
+.livelist_li_right {
+    width: 100%;
+    padding: .2rem 0;
+    border-radius: .1rem;
+    background: #0299ec;
+    text-align: center;
+    color: #fff;
+}
+
+.livelist_li_right_div_p {
+    color: #fc8526;
+    font-size: .44rem;
+}
+
+.livelist_uldiv {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 13rem; 
+    background: rgba(000, 000, 000, .4);
+    z-index: 111;
+}
+
+.livelist_nav_ul li img {
+    vertical-align: middle;
+    width: .13rem;
+}
+
+.livelist_uldiv_ul {
+    overflow: auto;
+    position: relative;
+    font-size: .32rem;
+    background: #fff;
+    height: 5.28rem;
+}
+
+.livelist_uldiv_ul li {
+    padding: .3rem 0;
+    border-top: 1px solid #d2d2d2;
+
+}
+
+.livelist_uldiv_ul li p {
+    padding-left: .4rem;
+}
+
+.find_nav_two {
+    width: 100%;
+    padding: .24rem 0;
+    z-index: 99;
+    border-bottom: 1px solid #ddd;
+    display: -moz-box;
+    background: #1e2028;
+    color: #fff;
+    text-align: center;
+    font-size: .48rem;
+}
+
+.find_nav_left_two {
+    position: relative;
+    -moz-box-flex: 1;
+    -webkit-box-flex: 1;
+    box-flex: 1;
+    height: 1.44rem;
+}
+
+.find_nav_list_two {
+    position: absolute;
+    left: 0;
+    height: 1.44rem;
+}
+
+.find_nav_list_two ul {
+    position: relative;
+    white-space: nowrap;
+    color: #adafb9;
+}
+
+.find_nav_list_two ul li {
+    display: inline-block;
+    padding: 0 .4rem;
+    height: 1.44rem;
+}
+
+.find_nav_list_two ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 1.4rem;
+    font-size: .52rem;
+    text-align: center;
+    color: #adafb9;
+}
+
+.listofcourses_nav {
+    width: 100%;
+    padding-top: .2rem;
+    font-size: .36rem;
+    color: #555555;
+    background: #fff;
+}
+
+.listofcourses_nav_ul {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.listofcourses_nav_ul li {
+    float: left;
+    width: 25%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.listofcourses_nav_ul_li {
+    color: #0299ec !important;
+}
+
+.listofcourses_nav_ul li p {
+    padding-bottom: .2rem;
+}
+
+.listofcourses_nav_ul li span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+}
+
+.listofcourses_nav_ul_li span {
+    background: #0299ec !important;
+}

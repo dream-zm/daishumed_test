@@ -1,0 +1,290 @@
+body {
+    background: #eceef0;
+}
+
+.nav__top {
+    width: 100%;
+    padding: .2rem 0;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.53rem;
+    color: #333333;
+    text-align: center;
+    background: #fff;
+}
+
+.personnal_nav {
+    width: 100%;
+    padding: .24rem 0;
+    background: #1e2028;
+    text-align: center;
+    font-size: .48rem;
+    color: #fff;
+}
+
+.nav__top_left {
+    float: left;
+    margin: .1rem 0 0 0.32rem;
+    width: 0.29rem;
+    height: 0.54rem;
+    vertical-align: middle;
+}
+
+.head_portrait {
+    width: 100%;
+    height: 4.49rem;
+    overflow: hidden;
+    background: url("../../img/user_info/head_portrait_02.png") no-repeat center;
+    background-size: 100% 100%;
+    position: relative;
+}
+
+.head_portrait_img {
+    border-radius: 50%;
+    width: 1.76rem;
+    height: 1.76rem;
+    background: #fff;
+    border: 2px solid #fff;
+    overflow: hidden;
+    margin: .53rem auto 0;
+}
+
+.head_portrait_img img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.head_portrait_wach {
+    display: block;
+    width: 0.8rem;
+    height: 0.8rem;
+}
+
+.head_portrait_p {
+    font-size: .4rem;
+    text-align: center;
+    padding: .2rem 0;
+    color: #fff;
+}
+
+.head_portrait_bottom {
+    width: 9.36rem;
+    margin: 0 auto;
+    padding: .1rem 0;
+    overflow: hidden;
+    font-size: .32rem;
+    background: rgba(000, 000, 000, .4);
+    border-radius: .4rem;
+}
+
+.head_portrait_bottom p {
+    float: left;
+    width: 7.42rem;
+    padding-left: .4rem;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
+
+.head_portrait_bottom img {
+    float: right;
+    margin-right: .4rem;
+    width: .373rem;
+    height: .373rem;
+}
+
+.learning_Center {
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: .2rem;
+    position: relative;
+    color: #333333;
+    background: #fff;
+}
+
+.learning_top {
+    padding: .3rem 0;
+    overflow: hidden;
+    position: relative;
+    font-size: .4rem;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.learning_top img {
+    display: inline-block;
+    margin: -.1rem .2rem 0;
+    width: .5rem;
+    height: .34rem;
+    vertical-align: middle;
+}
+
+.learning_Center_ul {
+    overflow: hidden;
+    position: relative;
+    font-size: .32rem;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.learning_Center_ul li {
+    width: 24.7%;
+    border-right: 1px solid #dfdfdf;
+    float: left;
+    padding: .48rem 0;
+    text-align: center;
+}
+
+.learning_Center_ul li img {
+    display: block;
+    margin: 0 auto .2rem;
+    width: .45rem;
+    height: .45rem;
+}
+
+.learning_Center_ul li :nth-child(4) {
+    border: none;
+}
+
+.learning_top_img {
+    width: .5rem !important;
+    height: .5rem !important;
+}
+
+.information {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    border-top: 1px solid #dfdfdf;
+    border-bottom: 1px solid #dfdfdf;
+    background: #fff;
+    margin-bottom: .2rem;
+}
+
+.information_ul {
+    font-size: .4rem;
+    color: #333333;
+    overflow: hidden;
+}
+
+.information_ul li {
+    overflow: hidden;
+    padding: .2rem 0;
+}
+
+.information_img {
+    margin-left: .2rem;
+    float: left;
+    width: .49rem;
+    height: .49rem;
+}
+
+.information_div {
+    float: left;
+    width: 9.11rem;
+    margin-left: .2rem;
+    border-bottom: 1px solid #dfdfdf;
+    padding-bottom: .2rem;
+    overflow: hidden;
+}
+
+.information_div_div {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.information_div_p {
+    float: left;
+}
+
+.information_div img {
+    float: right;
+    margin-right: .2rem;
+    width: .2rem;
+
+}
+
+.information_ul li:last-child .information_div {
+    border: none;
+}
+
+.signout {
+    margin: .3rem .2rem .4rem;
+    overflow: hidden;
+    padding: .2rem 0;
+    border-radius: .1rem;
+    color: #fff;
+    font-size: .4rem;
+    text-align: center;
+    background: #f55157;
+}
+
+.information_ul2 {
+    margin-bottom: 1.8rem;
+}
+
+.head_portrait_wach_div {
+    position: absolute;
+    top: .4rem;
+    right: .2rem;
+}
+
+.homepage_nav_right_div {
+    position: absolute;
+    top: 0;
+    right: -.1rem;
+    width: .34rem;
+    height: .34rem;
+    border-radius: 50%;
+    background: #ffa800;
+    color: #fff;
+    text-align: center;
+    font-size: .28rem;
+    line-height: .34rem;
+}
+
+
+.registeredlogin{
+    margin: .2rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.registeredlogin_left{
+    float: left;
+    width: 4.5rem;
+    height: 1.13rem;
+    border-radius: .2rem;
+    text-align: center;
+    line-height: 1.13rem;
+    color: #fff;
+    font-size: 0.4rem;
+    background: #25bb52;
+}
+.registeredlogin_right{
+    float: right;
+    width: 4.5rem;
+    height: 1.13rem;
+    border-radius: .1rem;
+    text-align: center;
+    line-height: 1.13rem;
+    color: #fff;
+    font-size: 0.4rem;
+    background: #0299ec;
+}
+
+.information_li_img2{
+    position: absolute;
+    opacity: 0;
+}
+
+
+
+
+
+
+

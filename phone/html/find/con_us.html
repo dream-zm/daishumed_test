@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>联系我们</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=jCTWzgCK1QcypTrgxosTChNO"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/company_info/company_info_index.css">
+    <!--本页引入-->
+    <link rel="stylesheet" href="../../css/company_info/con_us.css">
+</head>
+<body>
+<div id="app_body" v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back">
+
+    联系我们
+</div>
+<div class="section">
+    <div class="about_us_banner">
+        <img src="../../img/company_info/con_us_02.png" alt="">
+        <div class="section__above">
+            <p class="section__above_p">
+                联系我们
+            </p>
+            <p class="section__above_p2">
+                卓越学习体验，打造国内医学教育的旗舰品牌。  
+            </p>
+        </div>
+
+    </div>
+    <div class="section_address">
+        <div class="section_address_div">
+            <p class="section_address_p">
+                袋鼠医学
+            </p>
+            <p>
+                地址：北京市海淀区金源时代商务中心B区9F
+            </p>
+            <p>
+                电话：010-88862899
+            </p>
+            <p>
+                传真：010-88874052
+            </p>
+            <p>
+                邮件：market@jingoal.com
+            </p>
+            <p>
+                邮编：100097
+            </p>
+        </div>
+    </div>
+    <!--地图-->
+    <div id="allmap"></div>
+    <ul class="section_ul">
+        <li class="section_li">
+            <img src="../../img/company_info/con_us_erweima_05.png" alt="">
+            <p>
+                袋鼠医学微信 <br>
+                公众号
+            </p>
+        </li>
+        <li class="section_li2">
+            <img src="../../img/company_info/con_us_erweima2_08.png" alt="">
+            <p>
+                请加卡丁老师微信 <br>
+                拉入交流群
+            </p>
+        </li>
+        <li class="section_li3">
+           <div class="section_li3_div">
+               <p>
+                   010 <br>- <br>64405710
+               </p>
+           </div>
+            <p>
+               联系电话
+            </p>
+        </li>
+    </ul>
+    <div class="press">
+        <img class="press_img" src="../../img/company_info/con_us_logo_13.png" alt="">
+        <p class="press_p">
+            出版社联系方式
+        </p>
+        <p class="press_p2">
+            地址：北京市朝阳区北三环东路28号（和平西桥西南侧）易亨大厦16层
+        </p>
+        <p>
+            邮编：100013
+        </p>
+        <p>
+            电话：（010）64405719 （社长办公室）
+        </p>
+        <p>
+            Email：cptcm2016@126.com
+        </p>
+    </div>
+</div></div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+
+
+    var app = new Vue({
+        el: '#app_body',
+        data: {},
+        methods: {
+            back() {
+                union_back();
+            }
+        }
+    });
+
+
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes:[
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]}));
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+</script>
+</html>

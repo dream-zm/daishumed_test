@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>支付成功</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--购物车公共.css-->
+    <link rel="stylesheet" href="../../css/shopcar/shopcar_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/shopcar/payment_success.css">
+</head>
+<body >
+<div id="app_body" v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="">
+        {{succeed}}
+    </div>
+    <div class="section">
+        <div class="section_top">
+            <img class="section_img" :src="img" alt="">
+            <p>{{succeed}}</p>
+        </div>
+        <div class="section_in">
+            <div class="section_in_div" v-for="data in data_list.course">
+                <p>
+                    <span class="section_in_div_span">商品：</span>{{data.course_name}}
+                </p>
+                <p>
+                    <span class="section_in_div_span">所选科目：</span>{{data.direction_name}}
+                </p>
+
+                <p>
+                    <span class="section_in_div_span">赠送：</span>
+                    <span v-for="(datas,index) in data.giveaway_name">{{datas}}</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <ul class="payment_ul">
+        <a href="##">
+            <li @click="buy">
+                继续去购买
+            </li>
+        </a>
+        <a href="##">
+            <li @click="course">
+                查看我的课程
+            </li>
+        </a>
+    </ul>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+<script>
+    checkUserState(true);
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            data_list:'',
+            succeed:"",
+            img:"",
+        },
+        methods:{
+            buy(){
+                window.location.href="../index.html"
+            },
+            course(){
+
+                    if(app.data_list.course[0].product_type == 2){
+
+                        if(app.succeed == "支付失败"){
+                            window.location.href="../my_course/mine_livelist.html"
+                        }else{
+                            for(let i=0;i<4;i++){
+                                yaqooNetPost('Live/index', {list_type: i, flag:1}, function (data) {
+                                    if (data['code'] == 1000) {
+                                        for(x in data['data']){
+                                            if(app.data_list.course[0].course_id == data['data'][x].course_id){
+                                                setTempData(JSON.stringify(i))
+                                                window.location.href="../my_course/mine_livelist.html"
+                                                }
+                                            }
+                                        }
+                                },false)
+                            }
+
+                        }
+                    }else{
+                        if(app.succeed == "支付失败"){
+                            window.location.href="../my_course/my_already_buy.html"
+                        }else{
+                            for(let i=0;i<4;i++){
+                                yaqooNetPost('Course/purchase', {list_type: i}, function (data) {
+                                    if (data['code'] == 1000) {
+                                        for(x in data['data']){
+                                            console.log(data)
+                                            if(app.data_list.course[0].course_id == data['data'][x].course_id){
+                                                // localStorage.setItem("gouList",i)
+                                                setTempData(JSON.stringify(i))
+                                                window.location.href="../my_course/my_already_buy.html"
+                                            }
+                                        }
+                                    }
+                                },false)
+                            }
+
+                        }
+
+                    }
+
+            },
+        }
+    });
+    var test = (window.location.href).split("");
+    var order_sn=test.splice(test.indexOf("=")+1,test.length).join("")
+    yaqooNetPost("Order/detail", {order_sn: order_sn}, function (data) {
+        if (data['code'] == 1000) {
+            app.data_list = data['data']
+            console.log(app.data_list.pay_status)
+
+            if(app.data_list.pay_status == 0){
+                app.succeed="支付失败";
+                app.img="../../img/shopcar/return_fail_03.png";
+            }else{
+                app.succeed="支付成功";
+                app.img="../../img/shopcar/payment_success_03.png"
+            }
+        }
+    })
+// console.log(app.data_list)
+
+
+</script>
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>习题</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/learning.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" v-on:click="to_back" src="../../img/course/return_03_03.png" alt="">
+        {{course_type_name.split('|')[1]}}
+    </div>
+
+    <learn_top_nav init_tabs="1"></learn_top_nav>
+    <div style="height: 8rem;position: relative;">
+            <div style="height:.2rem;background:#f0f0f0;width:100%" ></div>
+        <div style="position:absolute;left:46%;top:50%;margin-top:-2.1rem;margin-left:-2.745rem;width: 5.49rem;height: 4.2rem;display: inline-block;text-align: center;">
+                <img src="../../img/course/tip.png" style="width: 4.49rem;height: 3.47rem;margin-bottom: .52rem;">
+                <p style="margin-left:.5rem;color: #a3c5e0;font-size: .4rem;padding-left: 1.2rem;display: inline-block;">内容暂未上线</p>
+                 <p style="margin-left:.2rem;font-size: .34rem;color: #a3c5e0;text-align: center;margin-top: .1rem">如有疑问请拨打 400-9001-765 咨询</p>
+            </div>
+    </div>
+
+    <!--习题-->
+    <div class="exercises">
+        <div class="courselist_banner">
+            <img src="../../img/course/courselist_02.png" alt="">
+            <div class="courselist_div">
+                <div class="courselist_div_right">
+                    <p>
+                        做了这么多题
+                    </p>
+                    <p>
+                        来看看考点掌握的情况吧
+                    </p>
+                    <div class="courselist_div_right_div">
+                        查看效果评估
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="exercises_nav">
+            <div v-on:click="a_tap_page_type(1)" class="exercises_left" :class="{exercises_left2:page_type==1}">
+                <p class="exercises_left_p"> 章节练习</p>
+                <p class="exercises_left_p_2">
+
+                </p>
+            </div>
+            <div v-on:click="a_tap_page_type(2)" class="exercises_left" :class="{exercises_left2:page_type==2}">
+                <p class="exercises_left_p"> 模拟考试</p>
+                <p class="exercises_left_p_2">
+
+                </p>
+            </div>
+
+        </div>
+        <!--章节练习-->
+        <div v-if="page_type==1" class="chapter">
+            <ul class="chapter_ul">
+                <li v-for="(execersise,index) in data_list">
+                    <p class="chapter_p">{{index +1}}</p>
+                    <div class="chapter_div">
+                        <p class="chapter_div_p">
+                            {{execersise.examination_name}}
+                        </p>
+                        <p v-if="execersise.new_test_id!=0" class="chapter_div_p2">
+                            上次练习错题率 <span>{{get_false_rate(execersise.all_topicnum-execersise.test_right_num,execersise.all_topicnum)}}%</span>
+                        </p>
+                    </div>
+                    <div v-on:click="a_tap_chapter_sub(execersise.exam_id,execersise.test_id)" class="chapter_right">
+                        立即答题
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--模拟考试-->
+        <div v-if="page_type==2" class="simulation">
+            <ul>
+                <li class="simulation_li" v-for="exam in data_list">
+                    <p class="simulation_li_p">
+                        {{exam.examination_name}}
+                    </p>
+                    <ul class="simulation_ul">
+                        <li>
+                            <p>
+                                满分：<span class="simulation_span">{{exam.all_grade}}分</span>
+                            </p>
+                            <p>
+                                上次得分:<span class="simulation_span2">{{exam.last_score}}分</span>
+                            </p>
+                            <div v-on:click="a_tap_sml_report(exam.exam_id,exam.test_id,exam.examination_name)" class="simulation_li_div">
+                                查看报告
+                            </div>
+                        </li>
+                        <li>
+                            <p>
+                                限时：<span class="simulation_span">{{exam.long_time}}分钟</span>
+                            </p>
+                            <p>
+                                排名：<span class="simulation_span3">{{exam.test_ranking}}名</span>
+                            </p>
+                            <div v-on:click="a_tap_sml_false(exam.exam_id,exam.test_id)" class="simulation_li_div2">
+                                错题解析
+                            </div>
+                        </li>
+                        <li>
+                            <p class="simulation_ullip">
+                                总题数：<span class="simulation_span">{{exam.all_topicnum}}道</span>
+                            </p>
+                            <div v-on:click="a_tap_sml_sub(exam.exam_id,exam.test_id)" class="simulation_li_div3">
+                                马上答题
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script type="text/javascript">
+
+    var vm = new Vue({
+        el:'#app_body',
+        data:{
+            course_id:'',//课程id
+            course_type:'',//课程类型
+            page_type:'1',//页面类型 1是章节练习 2是模拟考试
+            data_list:[],//数据列表
+            course_name:'',//课程名称
+            course_type_name:'',//课程分类名称
+        },
+        methods:{
+            //初始化数据
+            a_init_data(){
+               var jump_info = JSON.parse(localStorage.getItem("jump_detail_info"));
+               vm.course_id = jump_info.course_id;
+               vm.course_type = jump_info.course_type;
+               //这里是测试数据
+               // vm.course_id = '1';
+               // alert(vm.course_id);
+                get_courseData()
+            },
+
+            //请求课程信息数据
+            a_get_courseData(){
+                get_courseData();
+            },
+            //点击页面类型
+            a_tap_page_type(page_type){
+                console.log(page_type);
+                vm.page_type = page_type;
+                get_Listdata();
+            },
+            //章节练习点击答题
+            a_tap_chapter_sub(exam_id,test_id){
+                var chapter_info = JSON.stringify({
+                    'chapter_page_type':'1',
+                    'chapter_url_type':'1',
+                    'chapter_exam_id':exam_id,
+                    'chapter_test_id':test_id
+                })
+                localStorage.setItem('chapter_info',chapter_info);
+                window.location.href='../answer/chapterexercises.html'
+            },
+            //考试点击答题
+            a_tap_sml_sub(exam_id,test_id){
+                var chapter_info = JSON.stringify({
+                    'chapter_page_type':'2',
+                    'chapter_url_type':'1',
+                    'chapter_exam_id':exam_id,
+                    'chapter_test_id':test_id
+                })
+                localStorage.setItem('chapter_info',chapter_info);
+                window.location.href='../answer/chapterexercises.html'
+            },
+            //考试点击错题解析
+            a_tap_sml_false(exam_id,test_id){
+                var chapter_info = JSON.stringify({
+                    'chapter_page_type':'4',
+                    'chapter_url_type':'2',
+                    'chapter_exam_id':exam_id,
+                    'chapter_test_id':test_id
+                })
+                localStorage.setItem('chapter_info',chapter_info);
+                window.location.href='../answer/chapterexercises.html'
+            },
+            //考试点击报告
+            a_tap_sml_report(exam_id,test_id,exam_name){
+                var answerResult_info = JSON.stringify({
+                    'exam_name':exam_name,
+                    'exam_id':exam_id,
+                    'test_id':test_id,
+                    'page_type':'2'//页面类型
+
+                })
+                localStorage.setItem('answerResult_info',answerResult_info);
+                window.location.href='../answer/answer_results.html'
+            },
+            //点击返回
+            to_back(){
+                union_back();
+            }
+
+        }
+    })
+
+    vm.a_init_data();
+
+
+    //请求课程信息数据
+    function get_courseData() {
+        var para = {course_id:vm.course_id};
+        yaqooNetPost('Course/show_detail',para,function (data) {
+            if(data['code']=='1000'){
+                vm.course_name = data['course_name'];
+                vm.course_type_name = data['course_type_name'];
+                get_Listdata();
+            }
+        })
+    }
+    //请求数据
+    function get_Listdata() {
+        var para = {'paper_type':vm.page_type,'course_id':vm.course_id}
+        yaqooNetPost('?m=home&c=Exam&a=index&method=Examination/lists',para,function (data) {
+            if(data['code'] == 1000){
+                //处理数据
+                vm.data_list = data['data'];
+            }else {
+                alert(data['message']);
+            }
+        })
+    }
+
+    //计算错题率
+    function get_false_rate(false_num,total_num) {
+        return (false_num/total_num).toFixed(2)  * 100;
+    }
+    
+    $(function () {
+        $(".find_nav_list").css("left", sessionStorage.left + "px");
+        $(".find_nav_list li").each(function () {
+            if ($(this).find("a").text() == sessionStorage.pagecount) {
+                $(".sideline").css({left: $(this).position().left});
+                $(".sideline").css({width: $(this).outerWidth()});
+                $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+
+                return false
+            }
+            else {
+                $(".sideline").css({left: 0});
+                $(".find_nav_list li").eq(0).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+            }
+        });
+        var nav_w = $(".find_nav_list li").first().width();
+        $(".sideline").width(nav_w);
+        $(".find_nav_list li").on('click', function () {
+
+            nav_w = $(this).width();
+            $(".sideline").stop(true);
+            $(".sideline").animate({left: $(this).position().left}, 300);
+            $(".sideline").animate({width: nav_w});
+            $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+            var fn_w = ($(".find_nav").width() - nav_w) / 2;
+            var fnl_l;
+            var fnl_x = parseInt($(this).position().left);
+            if (fnl_x <= fn_w) {
+                fnl_l = 0;
+            } else if (fn_w - fnl_x <= flb_w - fl_w) {
+                fnl_l = flb_w - fl_w;
+            } else {
+                fnl_l = fn_w - fnl_x;
+            }
+            $(".find_nav_list").animate({
+                "left": fnl_l
+            }, 300);
+            sessionStorage.left = fnl_l;
+            var c_nav = $(this).find("a").text();
+
+        });
+        var fl_w = $(".find_nav_list").width();
+        var flb_w = $(".find_nav_left").width();
+        $(".find_nav_list").on('touchstart', function (e) {
+            var touch1 = e.originalEvent.targetTouches[0];
+            x1 = touch1.pageX;
+            y1 = touch1.pageY;
+            ty_left = parseInt($(this).css("left"));
+        });
+        $(".find_nav_list").on('touchmove', function (e) {
+            var touch2 = e.originalEvent.targetTouches[0];
+            var x2 = touch2.pageX;
+            var y2 = touch2.pageY;
+            if (ty_left + x2 - x1 >= 0) {
+                $(this).css("left", 0);
+            } else if (ty_left + x2 - x1 <= flb_w - fl_w) {
+                $(this).css("left", flb_w - fl_w);
+            } else {
+                $(this).css("left", ty_left + x2 - x1);
+            }
+            if (Math.abs(y2 - y1) > 0) {
+                e.preventDefault();
+            }
+        });
+    })
+</script>
+</html>

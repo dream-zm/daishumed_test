@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>试听音频</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/mobile.css">
+    <link rel="stylesheet" href="../../css/course/audio_player.css">
+    <link rel="stylesheet" href="../../css/course/audiofrequency.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+
+    <div class="video_div">
+        <div class="nav__top">
+            <!--暂时的头部-->
+            <img class="nav__top_left" src="../../img/course/return_03_03.png" alt="">
+            中医基础理论
+        </div>
+        <div class="bg_white mb_20 pb_20 pad30">
+            <div class="box_radio">
+                <div class="book_title">
+                    <div class="audio_title">如何提升医院管理水平</div>
+                </div>
+                <div class="audio_box">
+                    <!--音乐控制面板-->
+                    <div class="music-nav">
+                        <!--当前时间-->
+                        <div class="time" id="time_cur"></div>
+                        <!--进度条-->
+                        <div class="audio_progress">
+                            <span class="audio_line"></span>
+                            <span class="audio_blue"></span>
+                            <span class="audio_dot"></span>
+                            <input type="range" min="0" max="0" step="0.4" value="0" id="scale">
+                        </div>
+                        <!--歌曲时长-->
+                        <div class="time time2" id="time_long"></div>
+                    </div>
+                    <div class="audio_btn">
+                        <!--快退-->
+                        <img class="btn_prev" src="../../img/course/thelast_06.png" alt="">
+                        <!--暂停/播放按钮-->
+                        <div class="btn_play btn_pause"></div>
+                        <!--快进-->
+                        <img class="btn_next" src="../../img/course/next_09.png" alt="">
+                    </div>
+                    <audio id="music" src="">
+
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="curriculum_title">
+        <div class="curriculum_title_div">
+            <h4 class="curriculum_title_h4">
+                【全面精讲班】 名师讲解 打好基础 全面覆盖考点（120小时课、500道习题）
+            </h4>
+            <div class="title_div">
+                <div class="title_div_left">
+                    <p class="title_div_left_p">
+                        官方出版社 品质有保障
+                    </p>
+                    <p class="title_div_left_p2">
+                        ¥ 1680.00
+                    </p>
+                </div>
+                <div class="title_div_right">
+                    立即购买
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="optional">
+        <div class="optional_div">
+            <span>可选类别：</span>中医执业医师实践技能、中医助理医师实践技能、中西医执业医师实践技能、中西医助理医师实践技能
+        </div>
+    </div>
+    <div class="information">
+        <div class="information_div">
+            <div class="information_left">
+                <img src="../../img/course/user_img_09.png" alt="">
+                <span>65456</span>人正在学习
+            </div>
+            <div class="information_right">
+                <img src="../../img/course/share_03.png" alt="">
+                分享
+            </div>
+            <div class="information_right2">
+                <img src="../../img/course/Collection_06.png" alt="">
+                收藏
+            </div>
+        </div>
+    </div>
+    <div class="curriculum_nav">
+        <ul class="curriculum_nav_ul">
+            <li class="curriculum_nav_ulli2">
+                <p class="curriculum_nav_p">
+                    课程详情
+                </p>
+                <p class="curriculum_nav_p2"></p>
+            </li>
+            <li class="curriculum_nav_ulli">
+                <p class="curriculum_nav_p">
+                    课程目录
+                </p>
+                <p class="curriculum_nav_p2"></p>
+            </li>
+            <li>
+                <p class="curriculum_nav_p">
+                    我想问
+                </p>
+                <p class="curriculum_nav_p2"></p>
+            </li>
+        </ul>
+    </div>
+    <!--详情-->
+    <div class="contentdiv">
+        <div class="content">
+            <div class="content_div">
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        课程介绍
+                    </h4>
+                    <p class="content__p">
+                        本课程为小伙伴们介绍如何对Linux系统进行管理，包括进程管理、工作管理、系统资源查看和定时任务，每个部分讲师都进行了详细的讲解。相信通过本课程的学习，你的Linux技能会有进一步提升。
+                    </p>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        包含内容
+                    </h4>
+                    <p class="content__p">
+                        主要面向计算机专业本科升及研究生，同时非常欢迎对人工智能感兴趣的其它人群。主要面向计算机专业本科升及研究生，同时非常欢迎对人工智能感兴趣的其它人群。
+                    </p>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        免费赠送
+                    </h4>
+                    <p class="content__p">
+                        本课程为小伙伴们介绍如何对Linux系统进行管理，包括进程管理、工作管理、系统资源查看和定时任务，每个部分讲师都进行了详细的讲解。相信通过本课程的学习，你的Linux技能会有进一步提升。
+                    </p>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        使用对象
+                    </h4>
+                    <p class="content__p">
+                        本课程为小伙伴们介绍如何对Linux系统进行管理，包括进程管理、工作管理、系统资源查看和定时任务，每个部分讲师都进行了详细的讲解。相信通过本课程的学习，你的Linux技能会有进一步提升。
+                    </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="content">
+            <div class="content_div">
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        课程介绍
+                    </h4>
+                    <div class="content__divdiv">
+                        <ul class="content__divdivul">
+                            <li>
+                                <img src="../../img/shopcar/dingdan_success_03.png" alt="">
+                                <div class="content__divdivul_div">
+                                    <p class="content__divdivul_div_p">
+                                        刘亦菲
+                                    </p>
+                                    <p>
+                                        博士，副教授
+                                    </p>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="../../img/shopcar/dingdan_success_03.png" alt="">
+                                <div class="content__divdivul_div">
+                                    <p class="content__divdivul_div_p">
+                                        刘亦菲
+                                    </p>
+                                    <p>
+                                        博士，副教授
+                                    </p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        课程设计思路
+                    </h4>
+                    <p class="content__p">
+                        主要面向计算机专业本科升及研究生，同时非常欢迎对人工智能感兴趣的其它人群。主要面向计算机专业本科升及研究生，同时非常欢迎对人工智能感兴趣的其它人群。
+                    </p>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        学习方式
+                    </h4>
+                    <p class="content__p">
+                        本课程为小伙伴们介绍如何对Linux系统进行管理，包括进程管理、工作管理、系统资源查看和定时任务，每个部分讲师都进行了详细的讲解。相信通过本课程的学习，你的Linux技能会有进一步提升。
+                    </p>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        关于我们
+                    </h4>
+                    <p class="content__p">
+                        本课程为小伙伴们介绍如何对Linux系统进行管理，包括进程管理、工作管理、系统资源查看和定时任务，每个部分讲师都进行了详细的讲解。相信通过本课程的学习，你的Linux技能会有进一步提升。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--目录-->
+    <div class="catalog">
+        <ul class="catalog_ul">
+            <li class="catalog_li">
+                <div class="catalog_li_div">
+                    <p class="catalog_li_div_p">
+                        <span>1</span>考纲解读
+                    </p>
+                    <img class="catalog_li_div_img" src="../../img/course/slideDown8_03.png" alt="">
+                </div>
+                <ul class="layui-timeline">
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="catalog_li">
+                <div class="catalog_li_div">
+                    <p class="catalog_li_div_p">
+                        <span>1</span>考纲解读
+                    </p>
+                    <img class="catalog_li_div_img" src="../../img/course/slideDown8_03.png" alt="">
+                </div>
+                <ul class="layui-timeline">
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="catalog_li">
+                <div class="catalog_li_div">
+                    <p class="catalog_li_div_p">
+                        <span>1</span>考纲解读
+                    </p>
+                    <img class="catalog_li_div_img" src="../../img/course/slideDown8_03.png" alt="">
+                </div>
+                <ul class="layui-timeline">
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li class="catalog_li">
+                <div class="catalog_li_div">
+                    <p class="catalog_li_div_p">
+                        <span>1</span>考纲解读
+                    </p>
+                    <img class="catalog_li_div_img" src="../../img/course/slideDown8_03.png" alt="">
+                </div>
+                <ul class="layui-timeline">
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="layui-timeline-item">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p">
+                                    1-2 页头、正文、页脚的宏观布局
+                                </p>
+                                <p class="catalog_text_p2">
+                                    <span class="catalog_text_p2_span">40题</span><span class="catalog_text_p2_span2">40题</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script src="../../js/course/audio_player.js"></script>
+
+<script type="application/javascript">
+
+    //checkUserState(true);
+
+</script>
+</html>

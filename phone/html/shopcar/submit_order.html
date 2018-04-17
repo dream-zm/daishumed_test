@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>提交订单</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--购物车公共.css-->
+    <link rel="stylesheet" href="../../css/shopcar/shopcar_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/shopcar/place_order.css">
+</head>
+<body>
+
+<div v-cloak id="app_body">
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" v-on:click="back">
+        提交订单
+    </div>
+
+    <div class="commodity">
+        <ul class="commodity_ul">
+
+            <li class="commodity_li" v-for="(data,key) in product_list">
+                <div class="commodity_li_div">
+                    <img class="commodity_li_div_img" :src="data.course_thumb" alt="">
+                    <div class="commodity_li_div_right">
+                        <p class="commodity_li_div_p">
+                        <span>
+                        {{data.course_name}}{{data.spec_key_name==""?"":"("+data.spec_key_name+")"}}
+                        </span>
+                            <span class="commodity_li_div_span"
+                                  v-if="giveaways[key]!=''"
+                                  @click="show_giveaway(giveaways[key])">
+                                有赠品
+                            </span>
+                        </p>
+                        <p class="commodity_li_div_p2">
+                            {{data.direction_name}}
+                        </p>
+                        <p class="commodity_li_div_p3">
+                            有效期：{{data.down_time}}
+                        </p>
+                        <div class="commodity_li_divdiv">
+                            <p class="commodity_li_divdiv_p">
+                                    <span class="commodity_li_divdiv_p_span" v-if="data.discount_price != null">¥ {{data.discount_price}}</span>
+                                    <span class="commodity_li_divdiv_p_span3" v-if="data.discount_price != null"><del>原价:{{data.course_price}}</del></span>
+                                    <span class="commodity_li_divdiv_p_span" v-if="data.discount_price == null">¥ {{data.course_price}}</span>
+                            </p>
+                            <p class="commodity_li_divdiv_p2">
+                                X1
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+
+        </ul>
+    </div>
+    <div class="address">
+        <h4 class="address_h4">
+            <p>
+                地址选择
+            </p>
+        </h4>
+        <div class="address_div">
+            <div class="address__div" v-on:click.stop="go_address">
+                <div class="address__div_top" v-if="address_info">
+                    <p class="address__div_top_p">
+                        <span>{{address_info.consignee}}</span>
+                    </p>
+                    <p class="address__div_top_p2">
+                        {{address_info.mobile}}
+                    </p>
+                </div>
+                <div class="address__div_bottom">
+                    <p class="address__div_bottom_p">
+                        {{address_info?address_info.province+address_info.city+address_info.district+address_info.address:"请选择地址"}}
+                    </p>
+                    <img class="address__div_bottom_right" src="../../img/shopcar/address_right_03.png" alt=""
+                         >
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="discount">
+        <ul class="discount_ul">
+            <!--<li class="discount_li" v-on:click.stop="go_invoice">-->
+                <!--<p class="discount_li_p">-->
+                    <!--发票申请-->
+                <!--</p>-->
+                <!--<p class="discount_li__p2">-->
+                    <!--{{invoice_info.invoice_content}}-->
+                    <!--<img class="discount_li_p2_img" src="../../img/shopcar/address_right_03.png" alt="" />-->
+                <!--</p>-->
+            <!--</li>-->
+            <li class="discount_li" v-on:click.stop="go_coupon">
+                <p class="discount_li_p">
+                    优惠券
+                </p>
+                <p class="discount_li_p2">
+                    <!--{{sum_price>=coupon_info.total?"已优惠"+coupon_info.coupon_price:""}}-->
+                    <span v-if="coupon_info!=''">已优惠 {{coupon_info.coupon_price}}</span>
+                    <img class="discount_li_p2_img" src="../../img/shopcar/address_right_03.png" alt="" />
+                </p>
+            </li>
+        </ul>
+    </div>
+    <!--
+
+    <div class="discount discount__div">
+         <ul class="discount_ul">
+             <li class="discount_li">
+                 <p class="discount_li_p">
+                     满减优惠 <span>满299元减10</span>
+                 </p>
+                 <p class="discount_li_p2">
+                     -¥10.00
+                 </p>
+             </li>
+             <li class="discount_li">
+                 <p class="discount_li_p">
+                     免邮优惠 <span>满299元免运费</span>
+                 </p>
+                 <p class="discount_li_p2">
+                     ¥00.00
+                 </p>
+             </li>
+         </ul>
+     </div>
+
+     -->
+    <div class="settlement">
+        <div class="settlement_left">
+            <p class="settlement_in_p">
+                合计：<span>¥{{sum_price}}</span>
+            </p>
+        </div>
+        <div class="settlement_right" v-on:click.stop="commit">
+            结算
+        </div>
+    </div>
+    <!--赠品弹出层-->
+    <div class="giveaway" v-if="have_giveaway">
+        <div class="giveaway_div">
+            <h4 class="giveaway_h4">
+                <span class="giveaway_span">有赠品</span>
+                <img class="giveaway_img" src="../../img/shopcar/guanbi_img_03.png" alt="" @click.stop="close_giveaway">
+            </h4>
+            <div class="giveaway__div">
+                <div class="giveaway__div_div">
+                    <p v-for="data in giveaway_txt">
+                        {{data}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+
+<!--购物车公共.js-->
+<script src="../../js/shopcar/shopcar_index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="../../js/index_footer.js"></script>
+<script type="application/javascript">
+
+    /*checkUserState(true);*/
+    var app_body = new Vue({
+        el: '#app_body',
+        data: {
+            product_list: '',
+            sum_price: 0,
+            invoice_info: {invoice_id: '', invoice_content: ''},
+            coupon_info: {coupon_id: "", coupon_price: ''},
+            cart_id: "",
+            address_info: "",
+            product_price: 0.00,
+            giveaway_txt: '',
+            have_giveaway: false,//是否有赠品
+            num:0,
+            is_cour:"",//判断能不能使用优惠券
+            giveaways:[],
+        },
+        methods: {
+            close_giveaway: function () {
+                this.have_giveaway = false;
+                this.giveaway_txt = "";
+            },
+            show_giveaway: function (content) {
+                //展示赠品
+                this.have_giveaway = true;
+                this.giveaway_txt = content;
+            },
+            back: function () {
+                union_back();
+
+                localStorage.setItem('coupon',"");
+                //清空数据
+                setTempData("");
+            }, go_coupon: function () {
+                if(this.is_cour>0){
+
+                    alert("不能使用优惠券")
+                }else{
+                    window.location.href = "coupon.html"
+                }
+             },go_invoice: function () {
+                window.location.href = "invoices_manager.html"
+            }, go_address: function () {
+                localStorage.setItem("Goaddres","1")
+                window.location.href = "../user_info/mailing_address.html"
+            },
+            commit: function () {
+                var order_detail =
+                {
+                    cart_id: this.cart_id,
+                    address_id: this.address_info.address_id,
+                    invoice_id: this.invoice_info.invoice_id,
+                    coupon_id: this.coupon_info.coupon_id,
+                    user_note: "无",
+                    source: "1"
+                 };
+               yaqooNetPost("Order/add", order_detail, function (data) {
+                    console.log(data)
+                    if (data['code'] == 1000) {
+
+                        //清除优惠券数据
+                        this.coupon_info="";
+                        localStorage.setItem('coupon',"");
+                        
+
+                        setTempData("");
+                        localStorage.setItem("order_id", data['data'].order_id);
+                        window.location.href = "pay_order.html";
+                    }else if(data['code'] == 1000){
+                        alert(data['message'])
+                    }
+                })
+            }
+
+        },
+    });
+
+
+    function init() {
+
+        //初始化跳转参数
+
+        localStorage.setItem("come_from_flag","submit_order");
+
+
+        //初始化商品数据
+        if (!isNull(getTempData())) {
+            var product_data = JSON.parse(getTempData());
+            console.log(product_data)
+            app_body.product_list = product_data;
+            //添加赠品信息
+            yaqooNetPost("Cart/index", {}, function (data) { //获取商品列表所有商品
+                if (data['code'] == 1000) {
+                    for(i in data.data){//循环商品列表
+                        for(x in app_body.product_list){
+                            if(app_body.product_list[x].cart_id==data.data[i].cart_id){//判断商品列表内相同的商品
+                                app_body.giveaways.push(data.data[i].giveaway_name)
+                                console.log(app_body.giveaways)
+                            }
+                        }
+
+
+                    }
+                }
+            })
+
+
+            console.log(product_data)
+            app_body.cart_id = new Array();
+
+
+            for (let x=0;x<app_body.product_list.length;x++) {
+                app_body.cart_id.push(app_body.product_list[x].cart_id);
+                if(app_body.product_list[x].discount_price == null){
+                    app_body.product_price += parseFloat(app_body.product_list[x].course_price);
+                }else{
+                    app_body.product_price += parseFloat(app_body.product_list[x].discount_price);
+                }
+
+
+                yaqooNetPost("Cart/index", {}, function (data) {
+                    if (data['code'] == 1000) {
+                        for(i in data.data){
+                            if(data.data[i].cart_id == app_body.product_list[x].cart_id){
+                                if(data.data[i].is_coupons==2){
+                                    app_body.is_cour++;
+                                    localStorage.setItem('coupon',"");
+                                    aa();
+                                }
+
+                            }
+                        }
+                    }
+                })
+
+            }
+        } else {
+            //没有数据则返回首页
+            backToIndex();
+        }
+//初始化优惠券
+
+        function aa(){
+            var coupon_info = localStorage.getItem('coupon');
+            if (!isNull(coupon_info)) {//判断参数使用是空的
+
+                if(JSON.parse(coupon_info).status==1){
+                    app_body.coupon_info = JSON.parse(coupon_info);
+                }else{
+                    app_body.coupon_info = "";
+                }
+                //优惠参数
+                //初始化价格
+                app_body.sum_price=app_body.product_price.toFixed(2);
+                localStorage.setItem("ZJ",app_body.sum_price)
+                if(app_body.sum_price>=app_body.coupon_info.total){
+                    app_body.sum_price = app_body.product_price - app_body.coupon_info.coupon_price;
+                    app_body.sum_price = app_body.sum_price.toFixed(2);
+                    app_body.num=1;
+                }
+            }else{
+                app_body.coupon_info ="";
+                app_body.sum_price=app_body.product_price.toFixed(2);
+            }
+        }
+        aa()
+
+
+
+        //初始化地址
+        var cacheAddress = localStorage.getItem('address_info');
+        //是否手动选择地址
+        if (!isNull(cacheAddress)) {
+            yaqooNetPost("Address/index", "", function (data) {
+                if (data['code'] == 1000) {
+                    for(i in data.data){
+                        //判断 本地存的 和 这个账号后台存的 地址id
+                        if(data.data[i].address_id==JSON.parse(localStorage.getItem('address_info')).address_id){
+                            app_body.address_info = JSON.parse(localStorage.getItem('address_info'));
+                            break;
+                        }else{
+                            app_body.address_info = data.data[0]
+                        }
+                    }
+                }
+            })
+        }
+
+        //初始化发票
+        var cacheInvoice = localStorage.getItem('invoice_info');
+        if (!isNull(cacheInvoice)) {//判断是否为空
+            //获取所有发票
+            yaqooNetPost("Invoice/index", "", function (data) {
+                if (data['code'] == 1000) {
+                    for(i in data.data){
+                        //判断 本地存的 和 这个账号后台存的 发票id
+                        if(data.data[i].invoice_id==JSON.parse(localStorage.getItem('invoice_info')).invoice_id){
+                            app_body.invoice_info = JSON.parse(localStorage.getItem('invoice_info'));
+                            break;
+                        }else{
+                            app_body.invoice_info = ""
+                        }
+                    }
+                }
+            })
+
+        }
+
+        //初始化价格
+        app_body.sum_price=app_body.product_price.toFixed(2);
+        localStorage.setItem("ZJ",app_body.sum_price)
+        if(app_body.sum_price>=app_body.coupon_info.total){
+            app_body.sum_price = app_body.product_price - app_body.coupon_info.coupon_price;
+            app_body.sum_price = app_body.sum_price.toFixed(2);
+            app_body.num=1;
+        }
+
+    }
+    init();
+
+</script>
+</html>

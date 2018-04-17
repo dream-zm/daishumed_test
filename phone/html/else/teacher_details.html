@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>师资详情</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/company_info/company_info_index.css">
+    <!--本页引入-->
+    <link rel="stylesheet" href="../../css/company_info/teacher_details.css">
+</head>
+<body>
+
+<div id="app_body" class="section" v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back">
+        师资详情
+    </div>
+
+
+    <div class="section_head">
+        <div class="section_head_div">
+            <div class="section_head_div_top">
+                <div class="section_head_div_left">
+                    <div class="section_head_div_circular">
+                        <img :src="news_list.teacher_photo" alt="">
+                    </div>
+                    <div class="section_head_div_txt">
+                        <p class="section_head_div_p">
+                            {{news_list.teacher_name}}
+                        </p>
+                        <p class="section_head_div_p2">
+                            {{news_list.education}}
+                        </p>
+                    </div>
+                </div>
+                <div v-on:click="hitcall" class="section_head_div_right">
+                    <img src="../../img/company_info/givethethumbs_03.png" alt="">
+                    点赞 {{news_list.zan}}
+                </div>
+            </div>
+            <p class="section_head_div__p">
+               <span class="ellipsis">{{news_list.introduce}}</span>
+               <button @click="show_detail" v-show="show_teacher">展开</button>
+               <button @click="close_detail" v-show="!show_teacher">隐藏</button>
+            </p>
+            <ul class="section_head_ul" v-if="news_list.feature==null">
+                <li v-for="(data,index) in news_list.feature">
+                    {{data}}
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="section_title">
+        <p>
+            主讲科目：
+            <span v-for="(data,index) in news_list.major_subs">   {{data}}
+            </span>
+        </p>
+    </div>
+
+    <ul class="section_ul">
+        <li v-for="(data,index) in details_list" class="section_ulli">
+            <div class="section_li_div">
+                <img :src="data.course_thumb" class="section_li_img" alt="">
+            </div>
+            <div class="section_li_bottom">
+                <div class="section_li_bottom_div">
+                    <h4 class="section_li_bottom_div_h4">
+                        {{data.course_type_name}}
+                    </h4>
+                    <p class="section_li_bottom_div_P">
+                      {{data.course_type_describe}}
+                    </p>
+                    <ul v-if="data.is_free==0" class="section_li_bottom_ul">
+                        <li v-if="data.course_type" class="section_li_bottom_ulli3" @click="jump2detail(1,data.course_type,0)">
+                            查看详情
+                        </li>
+
+                        <li v-if="!data.course_type" class="section_li_bottom_ulli3" @click="jump2detail(3,0,data.course_id,data.is_free)">
+                            查看详情
+                        </li>
+
+
+                    </ul>
+                    <!-- <ul v-if="data.is_free==1" class="section_li_bottom_ul" @click="jump2detail(0,0,data.course_id,data.is_free)">
+                        <li class="section_li_bottom_ulli3">
+                            立即学习
+                        </li>
+                    </ul> -->
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    var teacher_id = JSON.parse(localStorage.getItem('teacher_id'));
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            news_list: [{
+                "teacher_name": "",
+                "education": "",
+                "introduce": "",
+                "teacher_photo": "",
+                "zan": "",
+                "feature": "",
+                "major_subs":""
+            }],
+            details_list:[{
+                "course_thumb":"",
+                "course_type_name":"",
+                "course_type_describe":"",
+                "is_free":""
+            }],
+
+            whether: true,
+            show_teacher: true
+
+        },
+        methods: {
+            teacher_details(){
+                yaqooNetPost('Course/teacher', {teacher_id: teacher_id}, function (data) {
+                    if (data['code'] == 1000) {
+                        app.details_list = data["data"];
+                        console.log(app.details_list)
+                    }
+                })
+            },
+            back(){
+                union_back();
+            },
+            hitcall(){
+                if (app.whether) {
+                    console.log('09')
+                    yaqooNetPost('Teacher/teacher_zan', {teacher_id: teacher_id}, function (data) {
+                        if (data['code'] == 1000) {
+                            var nuber_data = Number(app.news_list.zan);
+                            nuber_data += 1;
+                            app.news_list.zan = nuber_data;
+                            console.log(data['data'])
+                        }
+                    });
+                    app.whether = false;
+                }
+            },
+            newsstorage(){
+                yaqooNetPost('Teacher/teacher_des', {teacher_id: teacher_id}, function (data) {
+                    if (data['code'] == 1000) {
+                        app.news_list = data;
+
+                    }
+                })
+            },
+            show_detail () {
+                $('.section_head_div__p').find('span').removeClass('ellipsis')
+                this.show_teacher = false
+            },
+            close_detail () {
+                $('.section_head_div__p').find('span').addClass('ellipsis')
+                this.show_teacher = true
+            }
+        }
+    })
+
+    app.newsstorage()
+    app.teacher_details();
+</script>
+</html>

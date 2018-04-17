@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>直播列表</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/livelist.css">
+    <link rel="stylesheet" href="../../css/homepage/dredge.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+
+    <!--原页面-->
+    <mine_top_nav init_tabs="1"></mine_top_nav>
+    <div v-if="isRegiste">
+        <div class="listofcourses_nav">
+            <div class="listofcourses_nav_ul">
+                <li :class="{listofcourses_nav_ul_li:  current_tab == index }" v-for="(data, index) in tab_list" @click="check_tab(index)">
+                    <p>{{data.name}}</p>
+                    <span></span>
+                </li>
+            </div>
+        </div>
+        <div v-show="IsDredge">
+        <div class="livelist_nav">
+            <ul class="livelist_nav_ul clear">
+                <li @click="change_direction">
+                    {{direction_nav}} <img src="../../img/course/livelist_sanjiao_03.png" alt="" ref="select_direction">
+                </li>
+                <li class="livelist_nav_ulli">
+                    <div class="layui-inline">
+                      <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="test3" placeholder="年月" ref="time_test">
+                      </div>
+                    </div>
+                </li>
+                <li @click="change_teacher">
+                    {{teacher_nav}} <img src="../../img/course/livelist_sanjiao_03.png" alt="" ref="select_teacher">
+                </li>
+            </ul>
+        </div>
+
+        <!-- 方向列表 -->
+        <ul class="livelist_ul">
+            <div class="livelist_uldiv" v-show="show_direction">
+                <ul class="livelist_uldiv_ul">
+                    <li @click.stop="select_direction('','')">
+                        <p>
+                            全部
+                        </p>
+                    </li>
+                    <li v-for="data in live_direction_list" @click.stop="select_direction(data.t_name, data.t_name)">
+                     <p>
+                         {{data.t_name}}
+                     </p>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 教师列表 -->
+            <div class="livelist_uldiv" v-show="show_teacher">
+                <ul class="livelist_uldiv_ul">
+                    <li @click.stop="select_teacher('','')">
+                        <p>
+                            全部
+                        </p>
+                    </li>
+                    <li v-for="data in teacher_list" @click.stop="select_teacher(data.teacher_id, data.teacher_name)">
+                        <p>
+                            {{data.teacher_name}}
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+            <li v-for="data in data_list" @click="to_detail(data.course_id, data.live_type)">
+                <div class="livelist_ul_div">
+                    <img class="livelist_ul_div_img" :src="data.live_thumb" alt="">
+                    <div class="livelist_ul_div_right">
+                        {{data.live_status == 1 ? '敬请期待' : data.live_status == 2 ? '正在直播' : data.live_status == 3 ? '直播结束' : '录播课程' }}
+                    </div>
+                    <!-- <img class="livelist_ul_div_img2" src="../../img/course/livelist_bo_03.png" alt=""> -->
+                </div>
+                <div class="livelist_li_bottom">
+                    <div class="livelist_li_left">
+                        <p class="livelist_li_left_p">
+                            {{data.live_name}}
+                        </p>
+                        <p class="livelist_li_left_p2">
+                            <span class="livelist_li_left_p2_span">讲师：{{data.teacher_names}}   </span> {{data.live_time}}
+                        </p>
+                    </div>
+                    <div class="livelist_li_right_div">
+
+                        <div class="livelist_li_right">
+                            {{data.live_type == 1 ? '免费' : data.live_type == 2 ? '注册免费' : data.live_type == 3 ? '关联班型' : data.live_type == 4 ? '分享免费'
+                                : data.live_type == 5 ? '直播码' : data.live_type == 6 ? '付费' : '会员'
+                        }}
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        </div>
+    </div>
+    <is-register></is-register>
+    <div style="height:.2rem;background:#f0f0f0;width:100%" v-show="current_tab==2"></div>
+    <div style="height: 8rem;position: relative;" v-if="!IsDredge">
+        <div style="position:absolute;left:46%;top:50%;margin-top:-2.1rem;margin-left:-3rem;width: 6rem;height: 4.2rem;display: inline-block;text-align: center;">
+            <img src="../../img/course/tip.png" style="width: 4.49rem;height: 3.47rem;margin-bottom: .52rem;">
+            <p style="margin-left:.5rem;color: #a3c5e0;font-size: .48rem;">内容暂未上线</p>
+            <p style="margin-left:.2rem;font-size: .34rem;color: #a3c5e0;text-align: center;margin-top: .1rem">如有疑问请拨打 400-9001-765 咨询</p>
+            </div>
+        </div>
+    </div>
+    <!--底部导航-->
+    <main_bottom_nav init_tabs="2"></main_bottom_nav>
+
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+<script type="text/javascript">
+
+
+    var app = new Vue({
+        el:"#app_body",
+        data: {
+            IsDredge:true,
+            current_tab: 0,
+            page_flag: 1,
+            tab_list: [{
+                name: '执业医师'
+            },{
+                name: '执业药师'
+            },{
+                name: '中医师承'
+            },
+            //     {
+            //     name: '卫生管理'
+            // }
+            ],
+            isRegiste:check_user_state(),//判断是否去登录
+            data_list: [],
+            live_direction_list: [],
+            teacher_list: [],
+            show_direction: false,
+            show_teacher: false,
+            direction_nav: '考试方向',
+            teacher_nav: '讲师',
+            direction_id: '',
+            teacher_id: '',
+            live_time: '',
+            checked_img: '../../img/course/livelist_sanjiao2_05.png',
+            img: '../../img/course/livelist_sanjiao_03.png'
+
+        },
+        methods: {
+
+            init (flag) {
+                
+                yaqooNetPost('Live/index', {list_type: flag, flag:1}, function (data) {
+                    if (data.code == 1000) {
+                       app.data_list = data.data
+                    }
+                })
+                yaqooNetPost('Live/direction', {}, function (data) {
+                    if (data.code == 1000) {
+                       app.live_direction_list = data.data
+                    }
+                })
+                var index = 1;
+                if (flag == 1) {
+                    index = 11989
+                } else if (flag == 2) {
+                    index = 11991
+                } else if (flag == 3) {
+                    index = 11992
+                } else if (flag == 4) {
+                    index = 11993
+                }
+                yaqooNetPost('Teacher/teacher_list', {t_id: index}, function (data) {
+                    if (data.code == 1000) {
+                       app.teacher_list = data.data
+                    }
+                })
+            },
+            check_tab (index) {
+                this.current_tab = index
+                if(index == 2 ){
+                    this.IsDredge = false;
+                    return;
+                } else {
+                    this.IsDredge = true;
+                }
+                this.show_direction = false
+                this.show_teacher = false
+                this.direction_nav = '考试方向'
+                this.live_time = '年月'
+                this.teacher_nav = '讲师'
+                this.direction_id = ''
+                this.teacher_id = ''
+                this.$refs.time_test.value = ''
+                this.page_flag = index+1
+                window.localStorage.page_jump_info = this.page_flag
+                this.init(this.page_flag)
+            },
+            change_direction () {
+                this.show_direction = !this.show_direction
+                this.show_direction_state()
+                this.show_teacher = false
+            },
+            change_teacher () {
+                this.show_teacher = !this.show_teacher
+                this.show_direction = false
+                this.show_teacher_state()
+            },
+            select_direction (id, name) {
+                this.show_direction = false
+                this.direction_nav = name == '' ? '全部' : name
+                this.direction_id = id 
+                this.get_detail()
+                this.show_direction_state()
+            },
+            select_time (value) {
+                this.live_time = value               
+                this.get_detail()    
+            },
+            select_teacher (id, name) {
+                this.show_teacher = false
+                this.teacher_nav = name == '' ? '全部' : name
+                this.teacher_id = id 
+                this.get_detail()
+                this.show_teacher_state()
+            },
+            get_detail () {
+                yaqooNetPost('Live/index', {list_type: app.page_flag, direction_id: app.direction_id, teacher_id: app.teacher_id, start_time: app.live_time}, function (data) {
+                    if (data.code == 1000) {
+                       app.data_list = data.data
+                    }
+                })
+            },
+            to_detail (id, type) {
+               window.location.href = './livedetails.html?course_id='+id+'&page_flag='+ app.page_flag           
+            },
+            show_direction_state () {
+                this.$refs.select_direction.src = this.show_direction ? this.checked_img : this.img
+            },
+            show_teacher_state () {
+                this.$refs.select_teacher.src = this.show_teacher ? this.checked_img : this.img
+            }
+        }
+    })
+
+    
+
+    layui.use('laydate', function(){
+      var laydate = layui.laydate;
+      
+      //常规用法
+    laydate.render({
+        elem: '#test3',
+        done: function (value) {
+            app.select_time(value)
+        },
+        ready: function () {
+            app.show_direction = false
+            app.show_teacher = false
+            app.show_direction_state()
+            app.show_teacher_state()
+        }
+      });
+    })
+
+
+    $(function () {
+        $(".find_nav_list_two").css("left", localStorage.left + "px");
+        $(".find_nav_list_two li").each(function () {
+            $(".find_nav_list_two li").eq(0).addClass("find_nav_cur1").siblings().removeClass("find_nav_cur1");
+        });
+        var nav_w = $(".find_nav_list_two li").first().width();
+        var fl_w = $(".find_nav_list_two").width();
+        var flb_w = $(".find_nav_left_two").width();
+        $(".find_nav_list_two").on('touchstart', function (e) {
+            var touch1 = e.originalEvent.targetTouches[0];
+            x1 = touch1.pageX;
+            y1 = touch1.pageY;
+            ty_left = parseInt($(this).css("left"));
+        });
+        $(".find_nav_list_two").on('touchmove', function (e) {
+            var touch2 = e.originalEvent.targetTouches[0];
+            var x2 = touch2.pageX;
+            var y2 = touch2.pageY;
+            if (ty_left + x2 - x1 >= 0) {
+                $(this).css("left", 0);
+            } else if (ty_left + x2 - x1 <= flb_w - fl_w) {
+                $(this).css("left", flb_w - fl_w);
+            } else {
+                $(this).css("left", ty_left + x2 - x1);
+            }
+            if (Math.abs(y2 - y1) > 0) {
+                e.preventDefault();
+            }
+        });
+    })
+
+        
+        if(getTempData() == '' || getTempData() == null || JSON.parse(getTempData()) instanceof Array){
+            app.init(app.page_flag)
+            window.localStorage.page_jump_info = 1
+        }else{
+            app.current_tab = getTempData()-1;
+            app.page_flag = Number(getTempData());
+            app.init(Number(getTempData()))
+        }
+
+
+</script>
+
+
+</html>

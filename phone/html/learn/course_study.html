@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>课时</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+
+    <script src="//imgcache.qq.com/open/qcloud/video/vcplayer/TcPlayer-2.2.1.js" charset="utf-8"></script>
+
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/curriculum_two.css">
+    <link rel="stylesheet" href="../../css/course/courselist.css">
+</head>
+<body>
+
+
+<div id="app_body" v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/course/return_03_03.png" alt="" @click="back">
+        <span v-show="list_name!='' " style="width: 50%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;">
+            <span style="display:inline-block;position:absolute;font-size:.48rem;top:.15rem;left:1.5rem;width: 50%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">{{list_name}}</span>  
+        </span><span  v-show="list_name!=''">-</span> 
+        {{ course_data.course_type_name.split('|')[1]}}
+            
+         
+    </div>
+
+    <learn_top_nav init_tabs="0"></learn_top_nav>
+
+    <div class="video_div" :style="{'background-image':'url('+course_data.course_thumb+')'}">
+        <div class="listen" v-if="current_video_url">
+            <div class="listenPic">
+                <div id="id_test_video" style="width:100%; height:5.6rem;"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--目录-->
+    <div class="find_nav_lee catalog">
+        <div class="find_nav_left_lee find_navs" id="find_scroll_box" style="width: auto;overflow:scroll;">
+            <div class="find_nav_list_lee">
+                <ul>
+                    <li  v-for="(data,index) in product_info" @click="collar_dir_check(index)">
+                        <span :class="{find_nav_cur:index==current_product_dir_index, other:index!=current_product_dir_index}">{{data.pro_name.split('-')[data.pro_name.split('-').length-1]}}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="catalog">
+        <!-- <div class="find_nav">
+            <ul> -->
+                <!--<li class="" >-->
+                <!--执业医师-->
+                <!--</li>-->
+             <!--    <li :class="{find_nav_cur:index==current_product_dir_index}" v-for="(data,index) in product_info"
+                    @click="collar_dir_check(index)">
+                    {{data.pro_name}}
+                </li>
+
+            </ul>
+        </div> -->
+        <ul class="catalog_ul" style="min-height: 9rem">
+            <li class="catalog_li" v-for="(data,index)  in dir_list" @click="check_dir(data)">
+                <!-- <div class="catalog_li_div"> -->
+                    <!-- <p class="catalog_li_div_p">
+                        <span>
+                        {{index+1}}
+                        </span>
+                        {{data.name}}
+                    </p> -->
+                    <!--<img class="catalog_li_div_img" src="../../img/course/slideDown8_03.png" alt="">-->
+                <!-- </div> -->
+                <ul class="layui-timeline" v-if="!data.isShow">
+                    <li class="layui-timeline-item" v-for="(dataz,index)  in data.video_list"
+                        @click.stop="check_video(dataz,data.id)">
+                        <i class="layui-icon layui-timeline-axis"></i>
+                        <div class="layui-timeline-content layui-text">
+                            <div class="catalog_text">
+                                <p class="catalog_text_p" :class="{blue:current_video_id==dataz.id}" style="padding-top: .04rem">
+                                    {{dataz.name}}
+                                </p>
+                                <p class="catalog_text_p2" style="padding-top: .04rem">
+                                    <span class="catalog_text_p2_span2">{{formatSeconds(dataz.time)}}</span>
+                                    <img class="catalog_text_p2_img" src="../../img/course/curriculum_paly_03.png"
+                                         alt="">
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+<script type="application/javascript">
+
+    var player;
+    checkUserState(true);
+ 
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            list_name:"",//直播名称
+            current_video_url: '-',
+            page_flag: 0,//1为职业医师，2为职业药师
+            course_data: {
+                course_type_name:''
+            },//课程信息
+            product_info: '',//产品信息
+            video_service_time: '',//服务器时间
+            video_current_tims: '',//视频当前的时间
+            current_listen: 0,//当前的试听
+            current_price: 0,//当前价格
+            buy_two_years_flag: false,//是不是两年期
+            collar_price: 0,//套包弹框中的价格
+            collar_dir_list: [],//套包中的课程大目录
+            dir_list: [
+                {
+                    id: 0,
+                    isShow: false,
+                    name: "",
+                    video_list: []
+                }
+
+            ],//视频目录数组
+            current_tab: 1,//当前的tab
+            current_video_id:0,
+            current_product_dir_index: 0//当前选中的商品（套包）的目录index
+
+        },
+        methods: {
+
+            back(){
+                union_back()
+            }, check_dir(data){
+                data.isShow = !data.isShow;
+            }, formatSeconds(t){
+              return  formatSeconds(t);
+
+            },check_video(check_video, chapter_id){
+                //选中视频
+                this.list_name = check_video.name
+                console.log(check_video + " " + chapter_id)
+
+
+                if (player != undefined && player != null) {
+                    player.destroy();
+                } 
+
+                console.log("11111111111111")
+//                if (player)
+                //获取历史播放时间
+                yaqooNetPost("Course/Video_record", {
+                    "course_id": app.course_data.course_id,
+                    "video_id": check_video.id,
+                    "product_id": app.product_info[app.current_product_dir_index].pro_id
+                }, function (data) {
+                    if (data.code == 1000) {
+                        app.video_service_time = data.long_time;
+                        app.video_current_tims = data.long_time;
+                        console.log(app.video_current_tims)
+                    }
+                }, false);
+
+
+                console.log("2")
+
+                yaqooNetPost("Course/video", {
+                    "course_id": app.course_data.course_id,
+                    "video_id": check_video.id
+                }, function (data) {
+                    if (data.code == 1000) {
+//                        alert("播放" + data.data.video_url)
+                        app.current_video_id=check_video.id;
+                        app.check_listen(data.data.video_url, check_video, chapter_id)
+                    }
+                }, false);
+                console.log("3")
+
+            }, check_listen(url, check_video, chapter_id)
+            {
+                app.current_video_url = url;
+
+
+                player = new TcPlayer('id_test_video', {
+                    "mp4": app.current_video_url, //请替换成实际可用的播放地址
+                    "autoplay": false,      //iOS下safari浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
+                    "coverpic": app.course_data.course_thumb,
+                    "width": '100%',//视频的显示宽度，请尽量使用视频分辨率宽度
+                    "height": '100%',//视频的显示高度，请尽量使用视频分辨率高度
+                    "listener": function (msg) {
+                        //检测当前视频是否正在播放； true正在播放
+                        if (player.playing() == true) {
+                            //检测当前播放的时间点
+                            app.video_current_tims = player.currentTime();
+                        }
+                    }
+                });
+                //设置开始播放秒数 学员继续学习是需要 默认设置0秒
+               // alert(app.video_service_time+" aa "+check_video.time)
+                player.currentTime(app.video_service_time==check_video.time?0:app.video_service_time)
+                // player.load();
+                setTimeout(function() {
+                    player.play();
+                }, 150)
+                
+
+
+                //定时器，60秒提交一次至后台统计学习时长
+                function study_time() {
+                    //判断当前学习时长比上一次学习时长就执行提交
+                    if (app.video_current_tims > app.video_service_time) {
+                        /** 视频学习记录接口  **/
+//                        alert("提交时间" + app.video_current_tims.toFixed(0))
+                        yaqooNetPost("Userinfo/study_time", {
+                            "course_id": app.course_data.course_id,
+                            "video_id": check_video.id,
+                            "product_id": app.product_info[app.current_product_dir_index].pro_id,
+                            "subject_id": app.product_info[app.current_product_dir_index].subject_id,//学科的id
+                            "chapter_id": chapter_id,//章节的id
+//                            "knobble_id": app.product_info[app.current_product_dir_index].pro_id,//小节的id 暂时取消
+                            "long_time": app.video_current_tims.toFixed(0)
+                        }, function (data) {
+                            if (data.code == 1000) {
+
+                            }
+                        }, false);
+
+
+                    }
+                    //清除定时器
+                    //  clearInterval(study_t)
+                }
+
+                var study_t = setInterval(study_time, 60000);// 注意函数名没有引号和括弧！
+
+
+            }, collar_dir_check(index){
+                //选择套包内的课程目录
+                this.current_product_dir_index = index;
+                this.format_dir();
+            }, format_dir(){
+                //初始化自定义目录
+                app.dir_list.length = 0;
+
+
+                //取出目录的数组数据【将对象套对象转为数组】
+                for (var i in app.product_info[app.current_product_dir_index].pro_category) {
+
+                    var temp_data = {name: '', isShow: false, video_list: [], id: 0};
+
+                    //判断是不是对象，如果是对象，那么就当成数组解析
+                    if ((typeof app.product_info[app.current_product_dir_index].pro_category[i]) == "object") {
+
+                        temp_data.name = app.product_info[app.current_product_dir_index].pro_category[i].name;
+                        temp_data.id = app.product_info[app.current_product_dir_index].pro_category[i].id;
+                        //解析video
+                        if (typeof( app.product_info[app.current_product_dir_index].pro_category[i].resource) != "undefined") {
+                                for (var z in app.product_info[app.current_product_dir_index].pro_category[i].resource.video) {
+                                temp_data.video_list.push(app.product_info[app.current_product_dir_index].pro_category[i].resource.video[z])
+                            }
+                        }
+                        
+                        app.dir_list.push(temp_data);
+                    }
+                }
+
+                console.log(app.current_product_dir_index)
+                console.log(app.dir_list)
+            }, init(course_idz)
+            {
+                var requestData = {
+                    course_id: course_idz
+                };
+
+                yaqooNetPost("Course/learn", requestData, function (data) {
+
+                    if (data.code == 1000) {
+
+                        app.course_data = data['data'].course;
+
+                        //获取产品信息
+                        app.product_info = data['data'].product_info;
+                        app.video_list = data['data'].giveaway_info;
+                        app.product_info = app.product_info.concat(app.video_list)
+                        //格式化目录
+                        app.format_dir();
+
+                    }
+
+                });
+
+
+            },
+        }
+    });
+
+
+    //获取其余界面跳转传过来的数据
+    var cacheInfo = localStorage.getItem("jump_detail_info");
+    console.log(cacheInfo);
+    var cacheInfoClient = {
+        flag: 0,
+        course_type: 0,
+        course_id: 0,
+        is_question: false
+    };
+
+    if (!isNull(cacheInfo)) {
+        cacheInfoClient = JSON.parse(cacheInfo);
+    }
+
+    //page_flag: 1,//1为职业医师，2为职业药师 3卫生管理 4国医经典
+    //1为有考试方向的  2为套包  3、4为普通的
+    app.page_flag = cacheInfoClient.flag;
+
+    app.init(cacheInfoClient.course_id);
+
+
+
+    //秒转时分秒
+    function formatSeconds(value) {
+
+        var theTime = parseInt(value);// 秒
+        var theTime1 = 0;// 分
+        var theTime2 = 0;// 小时
+// alert(theTime);
+        if(theTime > 60) {
+            theTime1 = parseInt(theTime/60);
+            theTime = parseInt(theTime%60);
+// alert(theTime1+"-"+theTime);
+            if(theTime1 > 60) {
+                theTime2 = parseInt(theTime1/60);
+                theTime1 = parseInt(theTime1%60);
+            }
+        }
+        var result = ""+parseInt(theTime)+"秒";
+        if(theTime1 > 0) {
+            result = ""+parseInt(theTime1)+"分"+result;
+        }
+        if(theTime2 > 0) {
+            result = ""+parseInt(theTime2)+"小时"+result;
+        }
+        return result;
+    }
+
+    //初始化视频
+
+
+    //    var player = new TcPlayer('id_test_video', {
+    //        "mp4": app.current_video_url, //请替换成实际可用的播放地址
+    //        "autoplay": false,      //iOS下safari浏览器，以及大部分移动端浏览器是不开放视频自动播放这个能力的
+    //        "coverpic": app.course_data.course_thumb,
+    //        "width": '100%',//视频的显示宽度，请尽量使用视频分辨率宽度
+    //        "height": '100%'//视频的显示高度，请尽量使用视频分辨率高度
+    //    });
+
+
+    /*
+     $(function () {
+
+     $(".find_nav_list").css("left", sessionStorage.left + "px");
+     $(".find_nav_list li").each(function () {
+     if ($(this).find("a").text() == sessionStorage.pagecount) {
+     $(".sideline").css({left: $(this).position().left});
+     $(".sideline").css({width: $(this).outerWidth()});
+     $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+
+     return false
+     }
+     else {
+     $(".sideline").css({left: 0});
+     $(".find_nav_list li").eq(0).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+     }
+     });
+     var nav_w = $(".find_nav_list li").first().width();
+     $(".sideline").width(nav_w);
+     $(".find_nav_list li").on('click', function () {
+
+     nav_w = $(this).width();
+     $(".sideline").stop(true);
+     $(".sideline").animate({left: $(this).position().left}, 300);
+     $(".sideline").animate({width: nav_w});
+     $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+     var fn_w = ($(".find_nav").width() - nav_w) / 2;
+     var fnl_l;
+     var fnl_x = parseInt($(this).position().left);
+     if (fnl_x <= fn_w) {
+     fnl_l = 0;
+     } else if (fn_w - fnl_x <= flb_w - fl_w) {
+     fnl_l = flb_w - fl_w;
+     } else {
+     fnl_l = fn_w - fnl_x;
+     }
+     $(".find_nav_list").animate({
+     "left": fnl_l
+     }, 300);
+     sessionStorage.left = fnl_l;
+     var c_nav = $(this).find("a").text();
+
+     });
+     var fl_w = $(".find_nav_list").width();
+     var flb_w = $(".find_nav_left").width();
+     $(".find_nav_list").on('touchstart', function (e) {
+     var touch1 = e.originalEvent.targetTouches[0];
+     x1 = touch1.pageX;
+     y1 = touch1.pageY;
+     ty_left = parseInt($(this).css("left"));
+     });
+     $(".find_nav_list").on('touchmove', function (e) {
+     var touch2 = e.originalEvent.targetTouches[0];
+     var x2 = touch2.pageX;
+     var y2 = touch2.pageY;
+     if (ty_left + x2 - x1 >= 0) {
+     $(this).css("left", 0);
+     } else if (ty_left + x2 - x1 <= flb_w - fl_w) {
+     $(this).css("left", flb_w - fl_w);
+     } else {
+     $(this).css("left", ty_left + x2 - x1);
+     }
+     if (Math.abs(y2 - y1) > 0) {
+     e.preventDefault();
+     }
+     });
+     })*/
+</script>
+</html>

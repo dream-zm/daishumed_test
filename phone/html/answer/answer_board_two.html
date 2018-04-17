@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>答题报告答题板</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/answer/answer_board.css">
+</head>
+<body>
+<div class="nav__top">
+    <!--暂时的头部-->
+    <img v-on:click="to_back" class="nav__top_left" src="../../img/company_info/return_03.png" alt="">
+    答题报告答题板
+</div>
+<div class="section">
+    <div class="section_top">
+        <p class="section_top_p">
+            历年真题.2014年《建设工程造价管理》
+        </p>
+        <p class="section_top_p2">
+            <img src="../../img/answer/timer_2_03.png" alt="">
+            10：05
+        </p>
+    </div>
+</div>
+<div class="testquestions">
+    <div class="testquestions_div">
+        <div class="testquestions_h4">
+            <p class="testquestions_h4_p">
+                多选题
+            </p>
+            <p class="testquestions_h4_p2">
+                共50题/每题1分
+            </p>
+        </div>
+        <ul class="testquestions_ul">
+            <li class="testquestions__li">
+                1
+            </li>
+            <li class="testquestions__li">
+                2
+            </li>
+            <li class="testquestions__li">
+                3
+            </li>
+            <li class="testquestions__li">
+                4
+            </li>
+            <li class="testquestions__li">
+                5
+            </li>
+            <li class="testquestions__li">
+                6
+            </li>
+            <li class="testquestions__li">
+                7
+            </li>
+            <li class="testquestions__li2">
+                8
+            </li>
+            <li class="testquestions__li2">
+                9
+            </li>
+            <li class="testquestions__li2">
+                10
+            </li>
+            <li class="testquestions__li2">
+                11
+            </li>
+            <li class="testquestions__li2">
+                12
+            </li>
+            <li class="testquestions__li2">
+                13
+            </li>
+            <li class="testquestions_li2">
+                14
+            </li>
+            <li class="testquestions_li4">
+                15
+            </li>
+            <li class="testquestions_li4">
+                16
+            </li>
+            <li class="testquestions_li4">
+                17
+            </li>
+            <li class="testquestions_li4">
+                18
+            </li>
+            <li class="testquestions_li4">
+                19
+            </li>
+            <li class="testquestions_li4">
+                20
+            </li>
+            <li class="testquestions_li4">
+                21
+            </li>
+        </ul>
+    </div>
+    <div class="testquestions_div">
+        <div class="testquestions_h4">
+            <p class="testquestions_h4_p">
+                单选题
+            </p>
+            <p class="testquestions_h4_p2">
+                共50题/每题1分
+            </p>
+        </div>
+        <ul class="testquestions_ul">
+            <li class="testquestions_li">
+                1
+            </li>
+            <li class="testquestions_li">
+                2
+            </li>
+            <li class="testquestions_li">
+                3
+            </li>
+            <li class="testquestions_li">
+                4
+            </li>
+            <li class="testquestions_li">
+                5
+            </li>
+            <li class="testquestions_li">
+                6
+            </li>
+            <li class="testquestions_li">
+                7
+            </li>
+            <li class="testquestions_li2">
+                8
+            </li>
+            <li class="testquestions_li2">
+                9
+            </li>
+            <li class="testquestions_li2">
+                10
+            </li>
+            <li class="testquestions_li2">
+                11
+            </li>
+            <li class="testquestions_li2">
+                12
+            </li>
+            <li class="testquestions_li2">
+                13
+            </li>
+            <li class="testquestions_li2">
+                14
+            </li>
+            <li class="testquestions_li4">
+                15
+            </li>
+            <li class="testquestions_li4">
+                16
+            </li>
+            <li class="testquestions_li4">
+                17
+            </li>
+            <li class="testquestions_li4">
+                18
+            </li>
+            <li class="testquestions_li4">
+                19
+            </li>
+            <li class="testquestions_li4">
+                20
+            </li>
+            <li class="testquestions_li4">
+                21
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="explain">
+    <ul class="explain_ul">
+        <li class="explain_li">
+            <div class="explain_li_div">
+
+            </div>
+            正确
+        </li>
+        <li class="explain_li2">
+            <div class="explain_li_div2">
+
+            </div>
+            错误
+        </li>
+        <li class="explain_li3">
+            <div class="explain_li_div3">
+
+            </div>
+            未答
+        </li>
+    </ul>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+</html>

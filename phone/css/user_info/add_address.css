@@ -1,0 +1,97 @@
+.nav__top_span {
+    float: right;
+    margin: .1rem .2rem 0 0;
+    color: #0299ec;
+    font-size: .44rem;
+}
+
+.section {
+    width: 100%;
+    margin-top: .2rem;
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+}
+
+.information_ul {
+    margin-left: .2rem;
+    overflow: hidden;
+    font-size: .33rem;
+    color: #333333;
+}
+
+.information_ul li {
+    border-bottom: 1px solid #dfdfdf;
+    padding: .4rem 0;
+    overflow: hidden;
+}
+.information_ul li:last-child{
+    border: none;
+}
+
+.information_li_p2 {
+    float: left;
+    width: 2rem;
+}
+
+.information_right {
+    float: right;
+    overflow: hidden;
+}
+
+.information_input {
+    border: none;
+    text-align: left;
+}
+
+.information_li_p2 span {
+    color: #ff3636;
+    margin-right: .08rem;
+}
+
+.information_right {
+    float: left;
+    overflow: hidden;
+}
+
+.layui-form-radio > i:hover, .layui-form-radioed > i {
+    color: #5FB878;
+}
+
+.information_li_p3 {
+    line-height: .89rem;
+}
+
+.layui-form-item {
+    margin-bottom: 0;
+}
+
+.layui-form-radio {
+    margin: 0;
+}
+
+.textarea {
+    width: 90%;
+    margin: .2rem auto;
+    height: 2rem;
+    padding: .1rem 0;
+    overflow: hidden;
+    display: block;
+    line-height: .44rem;
+    font-size: .32rem;
+    resize: none;
+    border: none;
+}
+
+input{
+    margin-right: .2rem;
+}
+
+
+
+
+
+
+
+
+

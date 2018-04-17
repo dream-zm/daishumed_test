@@ -1,0 +1,341 @@
+
+
+.seciton {
+    width: 100%;
+    padding: 0.36rem 0;
+    overflow: hidden;
+    position: relative;
+    margin: .2rem 0;
+    background: #fff;
+}
+
+.section_div {
+    padding-bottom: .2rem;
+    border-bottom: 1px solid #d0d0d0;
+}
+
+.section__div {
+    margin: 0 .3rem;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.32rem;
+    line-height: .52rem;
+}
+
+.section__div_p {
+    overflow: hidden;
+}
+
+.section_strong {
+    color: #666666;
+}
+
+.section__div_span {
+    float: left;
+}
+
+.section__div_span2 {
+    float: right;
+    color: #e4a614;
+    font-size: 0.4rem;
+}
+
+.section__div_span2 img {
+    vertical-align: middle;
+    width: 0.4rem;
+    height: 0.4rem;
+    margin: -.1rem .1rem 0 0;
+}
+
+.section__div_span3 {
+    color: #0299ec;
+}
+
+.seciton_ul {
+    margin: .3rem .3rem 0;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.36rem;
+    text-align: center;
+}
+
+.seciton_ul li {
+    padding: .2rem 1.4rem;;
+    border-radius: .1rem;
+}
+
+.seciton_ul li:last-child(even) {
+    float: left;
+}
+
+.seciton_ul li:last-child(odd) {
+    float: right;
+}
+
+.seciton_ul_li {
+    background: #0299ec;
+    border: 1px solid #0299ec;
+    color: #fff;
+}
+
+.seciton_ul_li2 {
+    background: #fff;
+    border: 1px solid #aaaaaa;
+    color: #999999;
+}
+
+.seciton_ul li:nth-child(odd) {
+    float: left;
+}
+
+.seciton_ul li:nth-child(even) {
+    float: right;
+}
+
+.logistics {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+}
+
+.logistics_h4 {
+    padding: .3rem 0;
+    overflow: hidden;
+    border-bottom: 1px solid #d0d0d0;
+    font-size: 0.4rem;
+    color: #333333;
+}
+
+.logistics_h4 span {
+    margin-left: .3rem;
+}
+
+.logistics_div {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: .3rem 0 0;
+    background: #fff;
+}
+
+.logistics_div_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+
+.layui-timeline-title {
+    font-size: 0.32rem !important;
+    color: #333;
+}
+
+.layui-timeline-title p {
+    color: #666 !important;
+}
+
+.orderinformation {
+    width: 100%;
+    overflow: hidden;
+    padding: 0 0 .2rem 0;
+    background: #fff;
+    margin: .2rem 0;
+}
+
+.orderinformation_div {
+    margin: .3rem;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.32rem;
+    line-height: .46rem;
+    color: #666666;
+}
+
+.orderinformation_div p span {
+    color: #333333;
+}
+
+.orderinformation_div p {
+    margin-bottom: .2rem;
+}
+
+.layui-icon {
+    color: #e3e3e3;
+    border-radius: 50%;
+}
+
+.commodity {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.commodity_ul {
+    overflow: hidden;
+    position: relative;
+}
+
+.commodity_li {
+    width: 100%;
+    border-bottom: 1px solid #d0d0d0;
+    padding: 0.5rem 0;
+    overflow: hidden;
+    background: #fff;
+}
+
+.commodity_li_div {
+    margin: 0 .3rem;
+    overflow: hidden;
+}
+
+.commodity_li_div_img {
+    width: 2.69rem;
+    height: 1.4rem;
+    float: left;
+    margin-right: 0.3rem;
+}
+
+.commodity_li_div_right {
+    float: left;
+    overflow: hidden;
+    width: 6.36rem;
+}
+
+.commodity_li_div_p {
+    font-size: 0.4rem;
+    color: #333333;
+    line-height: .48rem;
+}
+
+.commodity_li_div_span {
+    margin: .2rem 0 0 .2rem;
+    color: #fff;
+    background: #ff4e00;
+    font-size: 0.28rem;
+    padding: .1rem .2rem;
+    border-radius: .1rem;
+    display: inline-block;
+}
+
+.commodity_li_div_p2 {
+    font-size: .32rem;
+    color: #0299ec;
+    padding: .1rem 0;
+}
+
+.commodity_li_div_p3 {
+    font-size: .32rem;
+    color: #999999;
+    padding: 0 0 .1rem;
+}
+
+.commodity_li_divdiv {
+    overflow: hidden;
+    width: 6.36rem;
+}
+
+.commodity_li_divdiv_p {
+    float: left;
+}
+
+.commodity_li_divdiv_p2 {
+    float: right;
+    font-size: .28rem;
+    color: #999;
+    line-height: 1rem;
+}
+
+.commodity_li_divdiv_p_span {
+    font-size: .44rem;
+    color: #ff4e00;
+    margin-right: .1rem;
+}
+
+.commodity_li_divdiv_p_span2 {
+    font-size: 0.32rem;
+    color: #0299ec;
+    margin-right: .2rem;
+}
+
+.commodity_li_divdiv_p_span3 {
+    font-size: 0.32rem;
+    color: #999999;
+}
+
+.discount {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.discount_ul {
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+}
+
+.discount_li {
+    padding: .2rem 0;
+    border-bottom: 1px solid #d0d0d0;
+    font-size: .32rem;
+    overflow: hidden;
+    color: #333333;
+}
+
+.discount_li span {
+    color: #999999;
+}
+
+.discount_li_p {
+    float: left;
+    padding-left: .3rem;
+}
+
+.discount_li_p2 {
+    padding-right: .3rem;
+    color: #ff4e00;
+    float: right;
+}
+
+.copewith {
+    width: 100%;
+    background: #fff;
+    overflow: hidden;
+    padding: .3rem 0;
+    font-size: .32rem;
+    margin-top: .2rem;
+}
+
+.copewith p {
+    float: right;
+    padding-right: .3rem;
+}
+
+.copewith p span {
+    color: #ff4e00;
+    font-size: .4rem;
+}
+
+.logistics_h4_ul{
+    overflow: hidden;
+    position: relative;
+    font-size: .32rem;
+    margin-bottom: .4rem;
+}
+.logistics_h4_ul li{
+    float: left;
+    overflow: hidden;
+    position: relative;
+    padding: .2rem .4rem;
+    border-radius: .1rem;
+    margin: .2rem  0 0 .2rem;
+    color: #fff;
+}
+.logistics_h4_ulli_click{
+    background: #0299ec;
+}
+.logistics_h4_ulli_unclick{
+    background: #aaa;
+}
+
+
+

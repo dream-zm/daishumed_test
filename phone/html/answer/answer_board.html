@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>答题板</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/answer/answer_index.css">
+    <!--<link rel="stylesheet" href="../../css/answer/answer_board.css">-->
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img v-on:click="to_back" class="nav__top_left" src="../../img/company_info/return_03.png" alt="">
+        答题报告答题板
+    </div>
+    <div class="section">
+        <div class="section_top">
+            <p class="section_top_p">
+                历年真题.2014年《建设工程造价管理》
+            </p>
+            <p class="section_top_p2">
+                <img src="../../img/answer/timer_2_03.png" alt="">
+                {{min_time}}:{{sec_time}}
+            </p>
+        </div>
+    </div>
+    <div class="testquestions">
+        <div class="testquestions_div">
+            <div class="testquestions_h4">
+                <p class="testquestions_h4_p">
+                    单选题
+                </p>
+                <p class="testquestions_h4_p2">
+                    共{{single_ans.length}}题/每题1分
+                </p>
+            </div>
+            <ul class="testquestions_ul">
+                <li :class="{testquestions_li4:has_answered(sub_user_ans),testquestions_li3:true}" v-for="(sub_user_ans,sub_index) in single_ans">
+                    {{sub_index + 1}}
+                </li>
+            </ul>
+        </div>
+        <div class="testquestions_div">
+            <div class="testquestions_h4">
+                <p class="testquestions_h4_p">
+                    多选题 1正确 2错误 3未做 4已做
+                </p>
+                <p class="testquestions_h4_p2">
+                    共{{multi_ans.length}}题/每题1分
+                </p>
+            </div>
+            <ul class="testquestions_ul">
+                <li :class="{testquestions_li4:has_answered(sub_user_ans),testquestions_li3:true}" v-for="(sub_user_ans,sub_index) in multi_ans">
+                    {{sub_index + 1}}
+                </li>
+            </ul>
+        </div>
+        <div class="testquestions_div">
+            <div class="testquestions_h4">
+                <p class="testquestions_h4_p">
+                    配伍题
+                </p>
+                <p class="testquestions_h4_p2">
+                    共{{multi_ans.length}}题/每小题1分
+                </p>
+            </div>
+            <ul class="testquestions_ul">
+                <!--<li :class="{testquestions_li4:has_answered(sub_user_ans),testquestions_li3:true}" v-for="(sub_user_ans,sub_index) in multi_ans">-->
+                    <!--{{sub_index + 1}}-->
+                <!--</li>-->
+                <div class="testquestions_div" v-for="(big_sub_user_ans,big_index) in comp_ans">
+                    <li :class="{testquestions_li4:has_answered(small_sub_user_ans),testquestions_li3:true}" v-for="(small_sub_user_ans,small_index) in big_sub_user_ans">
+                        {{big_index + 1}}-{{small_index+1}}
+                    </li>
+                </div>
+            </ul>
+        </div>
+        <div class="testquestions_div">
+            <div class="testquestions_h4">
+                <p class="testquestions_h4_p">
+                    综合案例题
+                </p>
+                <p class="testquestions_h4_p2">
+                    共{{multi_ans.length}}题/每小题1分
+                </p>
+            </div>
+            <ul class="testquestions_ul">
+                <div class="testquestions_div" v-for="(big_sub_user_ans,big_index) in case_ans">
+                    <li :class="{testquestions_li4:has_answered(small_sub_user_ans),testquestions_li3:true}" v-for="(small_sub_user_ans,small_index) in big_sub_user_ans">
+                        {{big_index + 1}}-{{small_index+1}}
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <!--答题板-->
+    <div class="explain" v-if="board_type==1">
+        <ul class="explain_ul">
+            <li class="explain_li">
+                <div class="explain_li_div">
+
+                </div>
+                正确
+            </li>
+            <li class="explain_li2">
+                <div class="explain_li_div2">
+
+                </div>
+                错误
+            </li>
+            <li class="explain_li3">
+                <div class="explain_li_div3">
+
+                </div>
+                未答
+            </li>
+        </ul>
+    </div>
+    <div class="explain" v-if="board_type==2">
+        <ul class="explain_ul">
+            <li class="explain_li4">
+                <div class="explain_li_div4">
+
+                </div>
+                已答
+            </li>
+            <li class="explain_li3">
+                <div class="explain_li_div3">
+
+                </div>
+                未答
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    var vm = new Vue({
+        el:"#app_body",
+        data:{
+            board_type:'',//答题板类型 1是章节练习 2是考试
+            user_ans:[],
+            sub_list:[],
+            sec_count:0,
+            min_time: '00',
+            sec_time: '00',//记录时间
+            current_index:0
+        },
+        methods:{
+
+            //读取答题界面传递来的数据
+            a_get_data(){
+                get_data();
+            },
+            //计时
+            a_start_time(){
+                start_time()
+            },
+            //返回上个界面
+            to_back(){
+                union_back();
+                localStorage.setItem('chap_sec_count',vm.sec_count);
+                localStorage.setItem('chap_user_ans',JSON.stringify(vm.user_ans));
+                localStorage.setItem('chap_current_index',)
+            },
+            //
+            a_has_answered(sub_user_ans){
+                has_answered(sub_user_ans)
+            }
+        }
+    })
+
+    //接受数据并进行初始化
+    function get_data() {
+        vm.board_type = localStorage.getItem('chap_page_type');
+        vm.user_ans = JSON.parse(localStorage.getItem('chap_user_ans'));
+        vm.sub_list = JSON.parse(localStorage.getItem('chap_sub_list'));
+        // console.log(vm.sub_list);
+        for(var i=0;i<vm.user_ans.length;i++){
+            var sub = vm.sub_list[i];
+            if(sub["class"]=='1'){
+                //单选
+                vm.single_ans.push(vm.user_ans[i]);
+            }else if(sub["class"]=='2'){
+                //多选
+                vm.multi_ans.push(vm.user_ans[i]);
+            }else if(sub["class"]=='3'){
+                //配伍
+                vm.comp_ans.push(vm.user_ans[i]);
+            }else if(sub["class"]=='4'){
+                //案例
+                vm.case_ans.push(vm.user_ans[i]);
+            }
+        }
+        // console.log(vm.single_ans);
+    }
+    vm.a_get_data();
+
+    function start_time() {
+        vm.sec_count = localStorage.getItem('chap_sec_count');
+        var timer = setInterval(function () {
+            vm.sec_count++;
+            var min = parseInt(vm.sec_count / 60);
+            var sec = vm.sec_count % 60;
+            vm.min_time = min > 9 ? min : '0' + min;
+            vm.sec_time = sec > 9 ? sec : '0' + sec;
+            if (vm.page_type == '2') {
+                //考试提前五分钟提示交卷
+                if (vm.sec_count == (vm.sub_info.long_time - 5) * 60) {
+                    alert('距离考试结束还有五分钟');
+                }
+            }
+        }, 1000)
+    }
+    vm.a_start_time();
+
+    //判断是否已经答题过
+    function has_answered(str){
+        // var reg = new RegExp(".*[A-F]+.*")
+        // return reg.test(str);
+        var reg = new RegExp("_")
+        return !reg.test(str);
+    }
+
+
+</script>
+</html>

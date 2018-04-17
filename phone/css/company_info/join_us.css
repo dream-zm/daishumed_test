@@ -1,0 +1,165 @@
+
+.section {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.32rem;
+    color: #555555;
+    line-height: .46rem;
+
+}
+
+.section__div {
+    width: 100%;
+    height: 3.546rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.about_us_banner img {
+    width: 100%;
+    display: block;
+    height: 100%;
+}
+
+.section__above {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+}
+
+.about_us_banner {
+    display: block;
+    width: 100%;
+    height: 3.546rem;
+    position: relative;
+}
+
+.section_div {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    margin-bottom: .2rem;
+}
+
+.section___div {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+}
+
+.section_div_div {
+    margin: 0.6rem 0.3rem .4rem;
+    overflow: hidden;
+    line-height: .56rem;
+}
+
+.section__above_p {
+    font-size: 0.56rem;
+    margin: 1.2rem 0 .5rem 0;
+
+}
+
+.section__above_p2 {
+    font-size: 0.36rem;
+}
+
+.section_ul {
+    overflow: hidden;
+    position: relative;
+}
+
+.section_li {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    margin-bottom: .2rem;
+}
+
+.section_li_top {
+    margin: 0.3rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.section_li_head {
+    width: 100%;
+    overflow: hidden;
+    padding-bottom: .3rem;
+    border-bottom: 1px solid #cccccc;
+}
+
+.section_li_head_left {
+    float: left;
+}
+
+.section_li_head_left_p {
+    font-size: .4rem;
+    color: #007cd3;
+    margin-bottom: .2rem;
+}
+
+.section_li_head_left_p2 {
+    font-size: 0.32rem;
+    color: #666666;
+}
+
+.section_li_head_right {
+    float: right;
+    width: 0.53rem;
+    height: 0.3rem;
+    margin: 0.46rem 0 0 0;
+}
+
+.section_li_hidden {
+    display: none;
+    margin: 0 0.3rem;
+    overflow: hidden;
+    position: relative;
+    line-height: .6rem;
+    font-size: 0.36rem;
+    color: #333333;
+    padding-bottom: .3rem;
+}
+.section_li_hidden_p{
+    padding: .2rem 0;
+    font-size: 0.4rem;
+    color: #333333;
+}
+.section_li_hidden_ul{
+    font-size: 0.32rem;
+    color: #333333;
+    line-height: .6rem;
+}
+
+.section_li_head_p{
+    line-height: .6rem;
+    font-size: 0.36rem;
+    color: #333;
+    padding-top: .2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,291 @@
+
+
+.commodity {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: .2rem;
+}
+
+.commodity_ul {
+    overflow: hidden;
+    position: relative;
+}
+
+.commodity_li {
+    width: 100%;
+    border-bottom: 1px solid #d0d0d0;
+    padding: 0.5rem 0;
+    overflow: hidden;
+    background: #fff;
+}
+
+.commodity_li_div {
+    margin: 0 .3rem;
+    overflow: hidden;
+}
+
+.commodity_li_div_img {
+    width: 2.69rem;
+    height: 1.4rem;
+    float: left;
+    margin-right: 0.3rem;
+}
+
+.commodity_li_div_right {
+    float: left;
+    overflow: hidden;
+}
+
+.commodity_li_div_p {
+    font-size: 0.4rem;
+    color: #333333;
+    line-height: .48rem;
+}
+
+.commodity_li_div_span {
+    margin-left: .2rem;
+    color: #fff;
+    background: #ff4e00;
+    font-size: 0.28rem;
+    padding: .1rem .2rem;
+    border-radius: .1rem;
+}
+
+.commodity_li_div_p2 {
+    font-size: .32rem;
+    color: #0299ec;
+    padding: .1rem 0;
+}
+
+.commodity_li_div_p3 {
+    font-size: .32rem;
+    color: #999999;
+    padding: 0 0 .1rem;
+}
+
+.commodity_li_divdiv {
+    overflow: hidden;
+    width: 6.36rem;
+}
+
+.commodity_li_divdiv_p {
+    float: left;
+}
+
+.commodity_li_divdiv_p2 {
+    float: right;
+    font-size: .28rem;
+    color: #999;
+    line-height: 1rem;
+}
+
+.commodity_li_divdiv_p_span {
+    font-size: .44rem;
+    color: #ff4e00;
+    margin-right: .1rem;
+}
+
+.commodity_li_divdiv_p_span2 {
+    font-size: 0.32rem;
+    color: #0299ec;
+    margin-right: .2rem;
+}
+
+.commodity_li_divdiv_p_span3 {
+    font-size: 0.32rem;
+    color: #999999;
+    text-decoration:line-through
+}
+
+.discount {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin-top: .2rem;
+    margin-bottom: 2rem;
+}
+
+.discount_ul {
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+}
+
+.discount_li {
+    padding: .3rem 0;
+    border-bottom: 1px solid #d0d0d0;
+    font-size: .32rem;
+    overflow: hidden;
+    color: #333333;
+}
+
+.discount_li span {
+    color: #999999;
+}
+
+.discount_li_p {
+    float: left;
+    padding-left: .3rem;
+}
+
+.discount_li_p2 {
+    padding-right: .3rem;
+    color: #ff4e00;
+    float: right;
+}
+
+.address {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.address_h4 {
+    padding: 0.26rem 0;
+    overflow: hidden;
+    font-size: 0.32rem;
+    color: #333333;
+}
+
+.address_h4 p {
+    padding-left: .3rem;
+}
+
+.address_div {
+    padding: .3rem 0;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+}
+
+.address__div {
+    margin: 0 .3rem;
+    overflow: hidden;
+    font-size: .32rem;
+}
+
+.address__div_top {
+    overflow: hidden;
+}
+
+.address__div_top_p {
+    float: left;
+    font-size: .32rem;
+    color: #999999;
+}
+
+.address__div_top_p2 {
+    float: right;
+    font-size: .36;
+    color: #333;
+    margin-top: .1rem;
+}
+
+.address__div_top_p span {
+    font-size: .36rem;
+    color: #333;
+    margin-right: .1rem;
+}
+
+.address__div_bottom {
+    overflow: hidden;
+    position: relative;
+}
+
+.address__div_bottom_p {
+    float: left;
+    width: 8.8rem;
+    margin-top: .2rem;
+    line-height: .5rem;
+    color: #666666;
+    font-size: .32rem;
+}
+
+.address__div_bottom_right {
+    float: right;
+    width: .2rem;
+    height: .4rem;
+    margin-top: .3rem;
+}
+
+.discount_li__p2 {
+    padding-right: .3rem;
+    color: #666666;
+    float: right;
+}
+
+.discount_li_p2_img {
+    vertical-align: middle;
+    display: inline-block;
+    width: .2rem;
+    height: .4rem;
+    margin-left: .2rem;
+}
+
+.settlement {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    z-index: 11;
+    width: 100%;
+    height: 1.266rem;
+    -moz-box-shadow: 0px -1px 5px #D9D9D9;
+    -webkit-box-shadow: 0px -1px 5px #D9D9D9;
+    box-shadow: 0px -1px 5px #D9D9D9;
+}
+
+.settlement_left {
+    float: left;
+    padding-left: .3rem;
+    overflow: hidden;
+    font-size: .32rem;
+    color: #666666;
+    line-height: 1.266rem;
+    margin-right: .8rem;
+}
+
+.settlement_in_p {
+    font-size: .32rem;
+    color: #333;
+}
+
+.settlement_in_p span {
+    font-size: 0.4rem;
+    color: #ff4e00;
+}
+
+.settlement_right {
+    height: 1.266rem;
+    float: right;
+    padding: 0 1rem;
+    background: #0299ec;
+    line-height: 1.266rem;
+    font-size: .36rem;
+    color: #fff;
+}
+
+.discount__div{
+    padding-bottom: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

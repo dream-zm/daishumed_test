@@ -1,0 +1,69 @@
+.nav__top {
+    background: #1e2028;
+    color: #fff;
+}
+
+.discovery {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    margin-bottom: .2rem;
+}
+
+.discovery_ul {
+    margin-left: .2rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.discovery_ul li {
+    padding: .4rem 0;
+    font-size: .36rem;
+    color: #333333;
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.discovery_ul li img {
+    vertical-align: middle;
+    width: .46rem;
+    margin-right: .2rem;
+    margin-top: -.1rem;
+}
+
+.discovery_ul a:last-child li{
+    border-bottom: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>回答</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/answer.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/course/return_03_03.png" alt="">
+        回答
+    </div>
+    <div class="find_nav">
+        <div class="find_nav_left">
+            <div class="find_nav_list">
+                <ul>
+                    <li tad-data="zero" class="find_nav_cur"><a href="javascript:void(0)">最新</a></li>
+                    <li tad-data="one"><a href="javascript:void(0)">执业医师</a></li>
+                    <li tad-data="two"><a href="javascript:void(0)">执业药师</a></li>
+                    <li tad-data="three"><a href="javascript:void(0)">中医师承 </a></li>
+                    <li tad-data="four"><a href="javascript:void(0)">中医师承</a></li>
+                    <li tad-data="five"><a href="javascript:void(0)">中医师承</a></li>
+                    <li class="sideline">
+                        <span></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="list_div">
+        <ul class="list_ul">
+            <li class="list_li">
+                <div class="list_li_div">
+                    <img class="list_li_img" src="../../img/course/modify__03.png" alt="">
+                    <div class="list_li_div_right">
+                        <div class="list_li_div_top">
+                            <p class="list_li_div_top_left">
+                                <span class="list_li_div_top_left_span">夏凯</span> <span
+                                    class="list_li_div_top_left_span2">刚刚回答了王小二提出的问题</span>
+                            </p>
+                            <p class="list_li_div_top_right">
+                                <img src="../../img/answer/watch_03.png" alt="">1111
+                            </p>
+                        </div>
+                        <p class="list_li__p">
+                            什么是销售的艺术？
+                        </p>
+                        <p>
+
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        $(".find_nav_list").css("left", sessionStorage.left + "px");
+        $(".find_nav_list li").each(function () {
+            if ($(this).find("a").text() == sessionStorage.pagecount) {
+                $(".sideline").css({left: $(this).position().left});
+                $(".sideline").css({width: $(this).outerWidth()});
+                $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+
+                return false
+            }
+            else {
+                $(".sideline").css({left: 0});
+                $(".find_nav_list li").eq(0).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+            }
+        });
+        var nav_w = $(".find_nav_list li").first().width();
+        $(".sideline").width(nav_w);
+        $(".find_nav_list li").on('click', function () {
+
+            nav_w = $(this).width();
+            $(".sideline").stop(true);
+            $(".sideline").animate({left: $(this).position().left}, 300);
+            $(".sideline").animate({width: nav_w});
+            $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+            var fn_w = ($(".find_nav").width() - nav_w) / 2;
+            var fnl_l;
+            var fnl_x = parseInt($(this).position().left);
+            if (fnl_x <= fn_w) {
+                fnl_l = 0;
+            } else if (fn_w - fnl_x <= flb_w - fl_w) {
+                fnl_l = flb_w - fl_w;
+            } else {
+                fnl_l = fn_w - fnl_x;
+            }
+            $(".find_nav_list").animate({
+                "left": fnl_l
+            }, 300);
+            sessionStorage.left = fnl_l;
+            var c_nav = $(this).find("a").text();
+
+        });
+        var fl_w = $(".find_nav_list").width();
+        var flb_w = $(".find_nav_left").width();
+        $(".find_nav_list").on('touchstart', function (e) {
+            var touch1 = e.originalEvent.targetTouches[0];
+            x1 = touch1.pageX;
+            y1 = touch1.pageY;
+            ty_left = parseInt($(this).css("left"));
+        });
+        $(".find_nav_list").on('touchmove', function (e) {
+            var touch2 = e.originalEvent.targetTouches[0];
+            var x2 = touch2.pageX;
+            var y2 = touch2.pageY;
+            if (ty_left + x2 - x1 >= 0) {
+                $(this).css("left", 0);
+            } else if (ty_left + x2 - x1 <= flb_w - fl_w) {
+                $(this).css("left", flb_w - fl_w);
+            } else {
+                $(this).css("left", ty_left + x2 - x1);
+            }
+            if (Math.abs(y2 - y1) > 0) {
+                e.preventDefault();
+            }
+        });
+    })
+
+</script>
+</html>

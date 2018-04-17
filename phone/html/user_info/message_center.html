@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>消息中心</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <!--vue框架-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <!--个人消息css-->
+    <link rel="stylesheet" href="../../css/user_info/personal_information.css">
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--个人中心公共.css-->
+    <link rel="stylesheet" href="../../css/user_info/user_info_index.css">
+    <link rel="stylesheet" href="../../css/user_info/message_center.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img v-on:click="to_back" class="nav__top_left" src="../../img/company_info/return_03.png" alt="">
+        消息中心
+        <span v-on:click="clear_click" class="nav__top_span">清空消息</span>
+    </div>
+    <ul class="message_ul">
+        <li v-for="data in data_list" v-on:click="a_to_des(data)">
+            <div class="message_div">
+                <!--<img class="message_img" src="../../img/user_info/delete_03.png" alt="">-->
+                <div v-if="data.watch_status==1" class="message_right">
+                    <div class="message_right_div">
+                        <p class="message_right_div_p">
+                            {{data.message_title}}
+                        </p>
+                        <p class="message_right_div_p2">
+                            {{data.inputtime}}
+                        </p>
+                    </div>
+                    <p class="message_right_p">
+                        {{data.message_info}}
+                    </p>
+                </div>
+                <div v-if="data.watch_status==2" class="message_right">
+                    <div class="message_right_div">
+                        <p class="message_right_div_p" style="color: #999">
+                            {{data.message_title}}
+                        </p>
+                        <p class="message_right_div_p2">
+                            {{data.inputtime}}
+                        </p>
+                    </div>
+                    <p class="message_right_p" style="color: #999">
+                        {{data.message_info}}
+                    </p>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    //新建vue对象
+    checkUserState(true)
+    var vm = new Vue({
+        el:'#app_body',
+        data:{
+           data_list:[]
+        },
+        methods:{
+            //请求数据
+            a_get_data(){
+                yaqooNetPost('Userinfo/message_info','',function (data) {
+                    if(data['code'] == 1000){
+                        console.log(data);
+                        vm.data_list = data['data_list']
+                    }else {
+                        alert(data['message'])
+                    }
+                })
+            },
+
+            //点击进入消息详情
+            a_to_des(data){
+                localStorage.setItem('mc_message_id',data.message_id);
+                window.location.href='message_details.html'
+            },
+
+            clear_click(){
+                //清空消息
+                yaqooNetPost('Userinfo/delete_message',{delete_type:'2'},function (data) {
+                    if(data['code'] == 1000){
+                        //清空数组
+                        vm.data_list.splice(0,vm.data_list.length);
+                    }else {
+                        alert('返回失败' + data['message']);
+                    }
+                })
+            },
+            //返回上个界面
+            to_back(){
+                union_back();
+            }
+
+
+
+        }
+    })
+    //调用请求数据方法
+    if (check_user_state()) {
+        vm.a_get_data();
+    }
+    
+
+
+</script>
+</html>

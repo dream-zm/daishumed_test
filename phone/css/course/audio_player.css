@@ -1,0 +1,464 @@
+
+.audio_box {
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    padding: 0.2rem 0;
+    font-size: .2rem;
+    color: #fff;
+}
+
+.audio_btn {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 100%;
+    height: 1.1rem;
+}
+
+.audio_box .btn_fr {
+    width: 0.76rem;
+    height: 0.76rem;
+    margin-left: .1rem;
+}
+
+.audio_box .btn_ff {
+    width: 0.76rem;
+    height: 0.76rem;
+    margin-right: .1rem;
+}
+
+.audio_box .cover {
+    width: 3.1rem;
+    height: 3.1rem;
+    background-size: 100%;
+    border-radius: 50%;
+    margin: 0 0.5rem;
+}
+
+.audio_box .btn_play {
+    width: 2.74rem;
+    height:1.81rem;
+    background: url(../../img/course/suspend_03.png) no-repeat;
+    background-size: 100%;
+    margin: 0 .1rem;
+}
+
+.audio_box .btn_pause {
+    background: url(../../img/course/suspend__03.png) no-repeat;
+    background-size: 100%;
+}
+
+.audio_box .music-nav {
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-top: 0.5rem;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: 100%;
+    height: 0.2rem;
+}
+
+.audio_progress {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    position: relative;
+    width: 5rem;
+    height: 0.2rem;
+    -webkit-appearance: none;
+}
+
+.audio_progress input {
+    left: 0;
+    top: 0;
+    position: absolute;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 5rem;
+    height: 0.2rem;
+    -webkit-appearance: none;
+    opacity: 0;
+}
+
+.audio_progress input::-webkit-slider-thumb {
+    width: 0.2rem;
+    height: 0.2rem;
+    background-color: #0d0d0d;
+    background-size: 0.2rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.audio_line {
+    width: 100%;
+    height: 0.04rem;
+    background-color: #D8D8D8;
+}
+
+.audio_blue {
+    width: 0;
+    height: 0.04rem;
+    position: absolute;
+    top: 50%;
+    margin-top: -0.02rem;
+    left: 0;
+    background-color: #0199ec;
+}
+
+.audio_dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0.2rem;
+    height: 0.2rem;
+    background-image: url(../../img/course/btn_now.png);
+    background-repeat: no-repeat;
+    background-size: 0.2rem;
+}
+
+.time {
+    width: 1rem;
+    color: #0199ec;
+    font-size: 0.24rem
+}
+
+.Catalog__div {
+    width: 100%;
+    height: .8rem;
+    background: #f3f3f3;
+    position: relative;
+    border-bottom: 1px solid #d6d6d6;
+}
+
+.Catalog__div_i {
+    width: .4rem;
+    height: .4rem;
+    border-radius: 50%;
+    background: #0199ec;
+    position: absolute;
+    text-align: center;
+    line-height: .4rem;
+    color: #fff;
+    top: 0.2rem;
+    left: .4rem;
+    font-size: .2rem;
+}
+
+.Catalog__div_p {
+    float: left;
+    margin: 0 0 0 1rem;
+    font-size: .3rem;
+    line-height: .85rem;
+    color: #000;
+}
+
+.upDSilde {
+    float: right;
+    margin: .3rem .6rem 0 0;
+    width: .34rem;
+    height: .2rem;
+}
+
+.time2 {
+    color: #666666;
+}
+
+#music_list {
+    height: 4rem;
+    background-color: #dec9ea;
+    color: #000;
+    font-size: 0.24rem
+}
+
+#music_list li {
+}
+
+.audio_player_head {
+    width: 100%;
+    padding: .1rem 0;
+    overflow: hidden;
+    position: relative;
+    background: #eceef0;
+    color: #ff6000;
+}
+
+.audio_player_head_p {
+    float: left;
+    margin-left: .2rem;
+    font-size: .22rem;
+    line-height: .5rem;
+}
+
+.audio_player_head_div {
+    float: right;
+    margin-right: .2rem;
+    padding: .1rem .2rem;
+    color: #fff;
+    border-radius: 5px;
+    background: #ff6000;
+    font-size: .15rem;
+    margin-top: .04rem;
+}
+
+.cover_div {
+    width: 100%;
+    background: #fff;
+    padding: .6rem 0 0;
+    overflow: hidden;
+}
+
+.cover_div img {
+    display: block;
+    margin: 0 auto;
+    width: 6rem;
+    -moz-box-shadow: 0px 0px 5px #CCCCCC;
+    -webkit-box-shadow: 0px 0px 5px #CCCCCC;
+    box-shadow: 0px 0px 5px #CCCCCC;
+}
+
+.Catalog_nav {
+    padding: .2rem 0 0;
+    background: #fff;
+    overflow: hidden;
+    margin-top: .1rem;
+}
+
+.Catalog_nav_ul {
+    padding-left: .2rem;
+    overflow: hidden;
+    font-size: .26rem;
+    color: #666666;
+}
+
+.Catalog_nav_ul li {
+    float: left;
+    padding: 0 .2rem .16rem;
+    border-bottom: 1px solid transparent;
+    margin-right: .2rem;
+}
+
+.Catalog_nav_ul_li {
+    border-color: #0199ec !important;
+    color: #0199ec;
+}
+
+.Catalog_details {
+    border-bottom: 1px solid #d6d6d6;
+    background: #f5f5f5;
+}
+
+.Catalog_details_ul {
+    margin: 0 .2rem;
+    overflow: hidden;
+}
+
+.Catalog_details_li {
+    border-bottom: 1px solid #d6d6d6;
+    padding: .2rem 0;
+    font-size: .2rem;
+    color: #777777;
+    overflow: hidden;
+}
+
+.Catalog_details_li_span {
+    font-size: .34rem;
+    color: #333333;
+    float: left;
+}
+
+.Catalog_details_li_span2 {
+    float: right;
+}
+
+.Catalog_details__li_p {
+    padding: .1rem 0;
+    font-size: .2rem;
+    color: #666666;
+}
+
+.Catalog_details__li_p img {
+    vertical-align: middle;
+    width: .3rem;
+    margin-right: .1rem;
+}
+
+.Catalog_details__li_p2 {
+    padding-bottom: 0;
+}
+
+.Catalog_section {
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+}
+
+.briefintroduction {
+    margin: 0 .2rem;
+    overflow: hidden;
+    padding-bottom: 1rem;
+}
+
+.briefintroduction_h4 {
+
+    border-bottom: 1px solid #d6d6d6;
+    padding: .2rem 0;
+    overflow: hidden;
+    font-size: .3rem;
+    margin-bottom: .2rem;
+}
+
+.briefintroduction_h4_span {
+    border-left: 2px solid #0199ec;
+    padding-left: .2rem;
+    font-size: .3rem;
+    color: #333333;
+
+}
+
+.briefintroduction_p {
+    font-size: .2rem;
+    line-height: .4rem;
+    color: #666666;
+    margin-bottom: .2rem;
+}
+
+.teacher_ul {
+    overflow: hidden;
+    position: relative;
+    margin-bottom: .2rem;
+}
+
+.teacher_li {
+    float: left;
+    overflow: hidden;
+    font-size: .2rem;
+    color: #333333;
+}
+
+.teacher_li2 {
+    float: right;
+    overflow: hidden;
+    font-size: .2rem;
+    color: #333333;
+}
+
+.teacher_li_img {
+    float: left;
+    width: .8rem;
+}
+
+.teacher_li_left {
+    float: left;
+    margin-left: .14rem;
+    overflow: hidden;
+    padding-top: .1rem;
+}
+
+.teacher_li_left_p {
+    margin-bottom: .04rem;
+}
+
+.teacher_li_left_p2 {
+    color: #666666;
+    font-size: .18rem;
+}
+
+.details_data {
+    font-size: .2rem;
+    color: #666666;
+    line-height: .4rem;
+    padding-bottom: .2rem;
+}
+
+.details_data_p {
+    color: #ff6801;
+}
+
+.details_data_p_span {
+    color: #5ca421;
+}
+
+.qrcode {
+    margin: 1rem 0;
+    display: block;
+    width: 100%;
+}
+
+.Catalog_div {
+    display: none;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+    min-height: 6rem;
+}
+
+.Catalog_ul {
+    width: 100%;
+    padding-top: .14rem;
+    overflow: hidden;
+    padding-bottom: 2rem;
+    margin-top: 0;
+}
+
+.Catalog_ul li {
+    overflow: hidden;
+    margin: 0 .2rem;
+    padding: .14rem 0;
+    font-size: .3rem;
+    color: #333;
+}
+
+.fixed_bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(000, 000, 000, .4);
+    overflow: hidden;
+    padding: .2rem 0;
+}
+.fixed_bottom_left {
+    width: 2.5rem;
+    height: 0.6rem;
+    background: #ef581d;
+    float: left;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 0.6rem;
+    color: #fff;
+    font-size: .25rem;
+    margin-left: .4rem;
+}
+.fixed_bottom_right{
+    width: 2.5rem;
+    height: 0.6rem;
+    background: #288ce6;
+    float: right;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 0.6rem;
+    color: #fff;
+    font-size: .25rem;
+    margin-right: .4rem;
+}

@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title> New Document </title>
+
+
+    <script>
+
+        function zd(u) {
+            var a = ['top', 'left'], b = 0;
+            u = setInterval(function () {
+                document.getElementById('win').style[a[b % 2]] = (b++) % 4 < 2 ? 0 : 4;
+                if (b > 15) {
+                   // clearInterval(u);
+                    b = 0
+                }
+            }, 32)
+        }
+    </script>
+
+</head>
+
+<body id="win" style='position:relative;'>
+<button onclick="zd()">振动</button>
+
+
+</body>
+</html>

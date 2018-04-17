@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>卡券激活</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--购物车公共.css-->
+    <link rel="stylesheet" href="../../css/shopcar/shopcar_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/shopcar/voucher_activation.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back">
+        卡券管理
+    </div>
+    <div class="section">
+        <ul class="section_ul">
+            <li class="section_li">
+                <div class="section_li_div">
+                    <p>
+                        优惠券/学习卡/直播码编号:
+                    </p>
+                    <div class="section_li__div">
+                        <input type="text" v-model.trim="cdkey"/>
+                    </div>
+                </div>
+            </li>
+
+            <li v-if="!is_showGetCode" class="section_li">
+                <div class="section_li_div">
+                    <p>
+                        验证码：
+                    </p>
+                    <div class="section__div2">
+                        <div class="section_li__div2">
+                            <input type="text" v-model="graphic_code" v-on:input="g_code_change" placeholder="图形验证码">
+                        </div>
+                        <div style="display: inline" v-on:click="change_g_code">
+                            <canvas id="mycanvas" width='91' height='100'>
+                                您的浏览器不支持canvas，请换个浏览器试试~
+                            </canvas>
+                        </div>
+
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+        <div v-if="is_showGetCode" class="activation" @click="active" >
+            激活
+        </div>
+    </div>
+    <div class="activation_tab">
+        <div class="activation_tab_left" :class="{activation_tab_two:isCoupon==0}" @click="checktab(0)">
+            我的优惠券
+        </div>
+        <div class="activation_tab_right" :class="{activation_tab_two:isCoupon==1}" @click="checktab(1)">
+            我的学习卡
+        </div>
+        <div class="activation_tab_right" :class="{activation_tab_two:isCoupon==2}" @click="checktab(2)">
+            我的直播码
+        </div>
+    </div>
+    <!--优惠券-->
+    <div class="coupon" v-if="isCoupon==0">
+        <ul class="Coupon_ul Coupon_ul_click">
+            <li v-for="(data,index) in data_list_coupon" :class="data.clazz">
+                <div class="Coupon_li_div">
+
+                    <img :src="getImg(data.status)" alt="">
+
+                    <div class="Coupon_li_div_sh">
+                        <p class="Coupon_li_div_sh_p" style="margin-top:.17rem">
+                            ¥ <span class="Coupon_li_div_sh_p_span" style="font-size:.4rem;">{{parseInt(data.coupon_money)}}元</span>
+                        </p>
+                        <p class="Coupon_li_div_sh_p2">
+                            优惠券
+                        </p>
+                    </div>
+                </div>
+                <div class="Coupon_title">
+                    <p class="Coupon_title_p">
+                        消费满{{parseInt(data.minimum_charge)}}元可使用
+                    </p>
+                    <p class="Coupon_title_p2">
+                        编号：{{data.cdkey}}
+                    </p>
+                    <p class="Coupon_title_p2">
+                        有效期：{{data.inputtime}} 至 {{data.validitytime}}
+                    </p>
+
+                </div>
+            </li>
+        </ul>
+        <div class="coupon_txt">
+            <p class="coupon_txt_p">
+                温馨提示：
+            </p>
+            <p>
+                1.每个订单只可使用一张优惠券，每个优惠券只能使用一次，如果使用优惠券的订单作废，优惠券同时作废
+            </p>
+            <p>
+                2.活动优惠券不得与其它优惠活动同时使用
+            </p>
+            <p>
+                3.一切解释权归袋鼠医学所有
+            </p>
+        </div>
+    </div>
+    <!--学习卡-->
+    <div class="learning_card" v-if="isCoupon==1">
+        <div class="learning_div" v-for="(data,index) in data_list_learncard">
+            <img class="learning_img"
+                 :src="(data.binding_status==1)?('../../img/shopcar/Learning_img_03.png'):('../../img/shopcar/Learning_img2_06.png')"
+                 alt="">
+            <div class="learning_hidden">
+                <p class="learning_hidden_p">
+                    {{data.binding_status==1?"未绑定课程":"已绑定课程"}}
+                </p>
+                <p class="learning_hidden_p2">
+                    {{data.course_name}}
+                </p>
+                <p class="learning_hidden_p3">
+                    激活时间：{{data.updatetime}}
+                </p>
+                <p class="learning_hidden_p3">
+                    学习卡号：{{data.cdkey}}
+                </p>
+                <div :class="(data.binding_status==1)?'learning_hidden_div2':'learning_hidden_div'"
+                     @click="check_class(data.binding_status,data.activation_id,data.course_type)">
+                    {{data.binding_status==1?"未选择考试方向":"已选择考试方向"}}
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="learning_div">-->
+        <!--<img class="learning_img" src="../../img/shopcar/Learning_img3_08.png" alt="">-->
+        <!--<div class="learning_hidden">-->
+        <!--<p class="learning_hidden_p">-->
+        <!--已绑定课程-->
+        <!--</p>-->
+        <!--<p class="learning_hidden_p2">-->
+        <!--中西医结合执业助理医师-->
+        <!--</p>-->
+        <!--<p class="learning_hidden_p3">-->
+        <!--有效期：2018-05-10-->
+        <!--</p>-->
+        <!--<p class="learning_hidden_p3">-->
+        <!--学习卡号：15658741256354-->
+        <!--</p>-->
+        <!--<div class="learning_hidden_div">-->
+        <!--已过期-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="coupon_txt">
+            <p class="coupon_txt_p">
+                温馨提示：
+            </p>
+            <p>
+                1.每个订单只可使用一张优惠券，每个优惠券只能使用一次，如果使用优惠券的订单作废，优惠券同时作废
+            </p>
+            <p>
+                2.活动优惠券不得与其它优惠活动同时使用
+            </p>
+            <p>
+                3.一切解释权归袋鼠医学所有
+            </p>
+        </div>
+    </div>
+    <!--直播码-->
+    <div class="livecode" v-if="isCoupon==2">
+        <ul>
+            <li v-for="(data,index) in data_list_learncar">
+                <div class="livecode_div" :class="{livecode_div3:data.code_type==1}">
+                    <p class="livecode_div_p">
+                        <span v-if="data.code_type==1">{{data.live_name}}</span>
+                        <span v-if="data.code_type==2">通用直播码</span>
+                    </p>
+                </div>
+                <div class="livecode_bottom">
+                    <div class="livecode_bottom_section">
+                        <p class="livecode_bottom_section_p">
+                            {{data.live_code }}
+                        </p>
+                        <p class="livecode_bottom_section_p2">
+                            有效日期：{{data.expirationtime}}
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--考试方向-->
+    <div class="examination" v-if="open_card">
+        <div class="examination_div">
+            <h4 class="giveaway_h4">
+                <span class="giveaway_span">选择考试方向</span>
+                <img class="giveaway_img" src="../../img/shopcar/guanbi_img_03.png" alt="" @click="close">
+            </h4>
+            <div class="examination__div">
+                {{popupwindow_data[0].course_type_name}}
+            </div>
+            <ul class="examination_ul">
+                <li class="examination_li" v-for="data in popupwindow_data" @click="bindClass(data.course_id)">
+                    <div class="invoicesareraised_li_div">
+                    </div>
+                    {{data.direction_name}}
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+
+<!--vue-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<script src="../../js/index_footer.js"></script>
+<!--图形验证码-->
+<script src="../../js/graphic_veriry.js"></script>
+<script>
+    checkUserState(true)
+    var vm = new Vue({
+        el: '#app_body',
+        data: {
+            isCoupon: "",//优惠券 学习卡 直播码切换
+            is_showGetCode: 0,//是否显示获取验证码
+            graphic_code: '',//输入的图形验证码
+            cdkey: '',
+            data_list_coupon: [],
+            data_list_learncar:[],
+            open_card: false,
+            current_activation_id: '',//当前学习卡id
+            data_list_learncard: [{
+                "activation_id": "",//激活码主键id
+                "cdkey": "",//学习卡激活码
+                "updatetime": "",//激活时间
+                "course_type": "",//班型分类id
+                "binding_status": "",//1是尚未保定商品 2是已经绑定商品
+                "learning_type": "",//2是学习卡 3是试听卡
+                "course_name": ""//班型中文名称
+            }],
+            popupwindow_data: [//考试方向-非套包
+                {
+                    "class_time": "",
+                    "course_id": "",
+                    "course_type": "",
+                    "course_type_name": "",
+                    "direction_name": "",
+                    "spec": [
+                        {
+                            "down_time": "",
+                            "key": "",
+                            "key_name": "",
+                            "original_price": "",
+                            "price": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        methods: {
+            //监听图形验证码输入变化
+            g_code_change(){
+                if (vm.graphic_code.length == 4) {
+                    if (get_g_v_code() == vm.graphic_code) {
+                        vm.is_showGetCode = 1;
+                    } else {
+                        vm.is_showGetCode = 0;
+                        get_random_g_v();
+                    }
+                }
+            }, checktab(flag){
+                this.isCoupon = flag;
+                if (flag == 0) {//优惠券
+                    vm.initCoupon();
+                } else if(flag == 1){
+                    //学习卡
+                    vm.initLearnCard();
+                }else if(flag == 2){
+                    vm.liveStreaming();
+
+                }
+            }, close(){
+                this.open_card = false;
+            },
+            //点击图形验证码
+            change_g_code(){
+                get_random_g_v();
+            }, back: function () {
+                union_back();
+            }, getImg(status){
+
+                return status == 1 ? "../../img/shopcar/Coupon_img_07.png" : "../../img/shopcar/Coupon_img2_10.png";
+            }, active(){
+                if (this.cdkey == "") {
+                    alert("请输入卡号")
+                } else if (this.cdkey.length != 15 &&this.cdkey.length != 16 && this.cdkey.length != 17) {
+                    alert("请输入正确的卡号")
+                } else {
+
+                    yaqooNetPost('Activation/activation', {cdkey_txt: this.cdkey}, function (data) {
+                        if (data['code'] == 1000) {
+                            //添加成功
+                            if(vm.cdkey.length == 16)
+                            {//优惠券
+                                vm.initCoupon();
+                            }else if(vm.cdkey.length == 17){
+                                vm.initLearnCard();
+                            }else {
+                                vm.liveStreaming();
+                            }
+
+                        }
+                        alert(data['message'])
+                    })
+                }
+            }, initCoupon()
+            {
+                yaqooNetPost('Userinfo/cdkey_list', "", function (data) {
+
+                    if (data['code'] == 1000) {
+                        var datas = data['data_list']
+                        console.log(data)
+                        for (x in datas) {
+                            if (x == 0) {
+                                datas[x].clazz = (datas[x].status == 1 ? "Coupon_li Coupon_li2" : "Coupon_li_two");
+                                // vm.current_coupon.coupon_price = datas[x].coupon_money;
+                                //   vm.current_coupon.coupon_id = datas[x].cdkey;
+                                // vm.current_coupon.status = datas[x].status;
+                            } else {
+                                datas[x].clazz = (datas[x].status == 1 ? "Coupon_li" : "Coupon_li_two");
+                            }
+                        }
+                        vm.data_list_coupon = datas;
+
+                    }
+
+                })
+            }, initLearnCard(){
+                //初始化学习卡列表
+
+                yaqooNetPost('Activation/learning_list', "", function (data) {
+                    if (data['code'] == 1000) {
+                        //添加成功
+                        vm.data_list_learncard = data['data_list'];
+                    }
+                })
+
+            }, liveStreaming(){
+                //初始化直播码列表
+                yaqooNetPost('Userinfo/liveCode_list', "", function (data) {
+                    console.log(data)
+                    if (data['code'] == 1000) {
+                        //添加成功
+                        vm.data_list_learncar = data['data_list'];
+                        console.log(data)
+                    }
+                })
+
+            }, check_class(binding_status, activation_id, course_type){
+                //选择具体科目
+                if (binding_status == 1) {//未绑定
+                    this.open_card = true;
+                    this.current_activation_id = activation_id;
+                    yaqooNetPost('Course/class_course', {course_type: course_type}, function (data) {
+
+                        if (data['code'] == 1000) {
+                            vm.popupwindow_data = data['data'];
+                            console.log(data)
+                        }
+                    });
+
+
+                } else {
+                    //已绑定
+                }
+
+//                data.binding_status,data.activation_id,data.course_type
+            }, bindClass(course_id){
+                yaqooNetPost('Activation/binding_course', {
+                    course_id: course_id,
+                    activation_id: vm.current_activation_id
+                }, function (data) {
+
+                    if (data['code'] == 1000) {
+                        vm.initLearnCard();
+                    }
+                    alert(data['message'])
+                    vm.open_card=false;
+                });
+            }
+        }
+    })
+    if (check_user_state()) {
+        vm.initCoupon();
+    }
+    
+$(".Coupon_ul_click").on("click","li",function(){
+    window.location.href="../shopcar/submit_order.html"
+})
+
+</script>
+</html>

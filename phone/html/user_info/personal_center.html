@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>个人中心</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <!--vue框架-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <!--個人中心-->
+    <link rel="stylesheet" href="../../css/user_info/personal_center.css">
+    <link rel="stylesheet" href="../../css/homepage/dredge.css">
+
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <!--未开通弹框-->
+    <div class="isDredges" v-if="IsDredge">
+        <div class="isDredge">
+            <div class="isDredge_top">
+                提示
+                <div class="isDredge_top_img">
+                    <img style="width:100%" src="../../img/user_info/cha_03.png" alt="" @click="FDredge">
+                </div>
+    
+            </div>
+            <div class="isDredge_bottom">
+                <div class="isDredge_bottom_img">
+                    <img style="width:100%" src="../../img/user_info/weikaitong_03.png" alt="">
+                </div>
+                <div class="isDredge_bottom_text">
+                    <p style="font-size: .48rem;text-align: center;width: 100%;">服务暂未开通</p>
+                    <p style="font-size: .34rem;text-align: center;width: 100%;margin-top: .1rem;">如有疑问请拨打 400-9001-765 咨询</p>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+    <!-- 原页 -->
+    <div class="personnal_nav">
+        个人中心
+    </div>
+    <div class="head_portrait">
+        <div class="head_portrait_img" v-on:click="click_head">
+            <!--<input v-if="is_log" type="file" id="file2" name="file" class="information_li_img2" alt="">-->
+            <img :src="head_img" alt="">
+        </div>
+        <p class="head_portrait_p">{{pet_name}}
+        </p>
+       <div class="head_portrait_wach_div">
+           <span v-if="count_message!=0" class="homepage_nav_right_div">{{count_message}}</span>
+           <img v-on:click="to_message" class="head_portrait_wach" src="../../img/user_info/user_info_img_03.png" alt="">
+       </div>
+        <div v-if="is_log" class="head_portrait_bottom">
+            <p>{{sign_info}}</p>
+            <img v-on:click="to_change_sign" src="../../img/user_info/user_info_bianji_07.png" alt="">
+        </div>
+    </div>
+    <div class="learning_Center">
+        <div class="learning_top">
+            <img src="../../img/user_info/user_info_xuexi_11.png" alt="">学习中心
+        </div>
+        <ul class="learning_Center_ul">
+            <li v-on:click="to_study_center(index)" v-for="(name,index) in study_center">
+                <img :src="study_center_imgs[index]" alt="">
+                <p>{{name}}</p>
+            </li>
+        </ul>
+    </div>
+    <div class="learning_Center">
+        <div class="learning_top">
+            <img class="learning_top_img" src="../../img/user_info/user_info_5_30.png" alt="">我的交易
+        </div>
+        <ul class="learning_Center_ul">
+            <li v-on:click="to_my_trade(index)" v-for="(name,index) in my_trade">
+                <img :src="my_trade_imgs[index]" alt="">
+                <p>{{name}}</p>
+            </li>
+        </ul>
+    </div>
+    <div class="information">
+        <ul class="information_ul">
+            <li v-on:click="to_personal_info">
+                <img class="information_img" src="../../img/user_info/user_info_11_48.png" alt="">
+                <div class="information_div">
+                    <p  class="information_div_p"> 个人信息</p>
+                    <img src="../../img/shopcar/address_right_03.png" alt="">
+                </div>
+            </li>
+            <li v-on:click="to_count_info">
+                <img class="information_img" src="../../img/user_info/user_info_12_51.png" alt="">
+                <div class="information_div">
+                    <p class="information_div_p"> 账号信息</p>
+                    <img src="../../img/shopcar/address_right_03.png" alt="">
+                </div>
+            </li>
+            <li v-on:click="to_set_password">
+                <img class="information_img" src="../../img/user_info/set_password_03.png" alt="">
+                <div class="information_div">
+                    <p class="information_div_p">设置密码</p>
+                    <img src="../../img/shopcar/address_right_03.png" alt="">
+                </div>
+            </li>
+            <li v-on:click="to_real_name">
+                <img class="information_img" src="../../img/user_info/user_info_14_55.png" alt="">
+                <div class="information_div">
+                    <p class="information_div_p"> 实名认证</p>
+                    <!--<input  class="information_input" type="text"  disabled="1">-->
+                    <div style="display: inline;color: #6f6f6f">{{cer_info}}</div>
+                    <img src="../../img/shopcar/address_right_03.png" alt="">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="information">
+        <ul class="information_ul ">
+            <li v-on:click="to_mail_address">
+                <img class="information_img" src="../../img/user_info/user_info_16_58.png" alt="">
+                <div class="information_div">
+                    <p class="information_div_p"> 邮寄地址</p>
+                    <img src="../../img/shopcar/address_right_03.png" alt="">
+                </div>
+            </li>
+            <li v-on:click="to_login_operation">
+                <img class="information_img" src="../../img/user_info/user_info_17_61.png" alt="">
+                <div class="information_div">
+                    <p class="information_div_p"> 登录操作</p>
+                    <img src="../../img/shopcar/address_right_03.png" alt="">
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div v-if="!is_log" class="registeredlogin">
+        <div v-on:click="a_to_resign" class="registeredlogin_left">
+            注册会员
+        </div>
+        <div v-on:click="a_to_login" class="registeredlogin_right">
+            我要登录
+        </div>
+    </div>
+    <div v-if="!is_log" class="information_ul2">
+
+    </div>
+    <div v-if="is_log&&show_weixin" v-on:click="a_log_out" class="signout information_ul2">
+        退出登录
+    </div>
+
+    <!-- <div class="show_tip" v-show="show_tip">
+        {{tip}}
+        <input type="button" v-model="left" name="">
+        <input type="button" v-model="right" name="">
+    </div> -->
+    <!--底部导航-->
+    <main_bottom_nav init_tabs="4"></main_bottom_nav>
+
+</div>
+
+
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    //新建vue对象
+    var vm = new Vue({
+        el:"#app_body",
+        data:{
+            IsDredge:false,//显示未开通
+            study_center:['已购课程','免费课程','我的直播','收藏课程','我的错题','收藏习题','我的答疑','我的班级'],
+            study_center_imgs:['../../img/user_info/study_center_01.png',
+                               '../../img/user_info/study_center_02.png',
+                               '../../img/user_info/study_center_03.png',
+                               '../../img/user_info/study_center_04.png',
+                               '../../img/user_info/study_center_05.png',
+                               '../../img/user_info/study_center_06.png',
+                               '../../img/user_info/study_center_07.png',
+                               '../../img/user_info/study_center_08.png'],
+            my_trade:['我的订单','购物车','卡券激活','分享优惠'],
+            my_trade_imgs:['../../img/user_info/user_info_6_34.png',
+                           '../../img/user_info/user_info_7_36.png',
+                           '../../img/user_info/user_info_8_42.png',
+                           '../../img/user_info/user_info_9_39.png'],
+            head_img:'',//头像
+            pet_name:'',//昵称
+            sign_info:'',//签名
+            is_log:0,//是否登录
+            cer_info:'',//实名认证信息
+            cer_status:'',
+            count_message:0,//消息个数
+            left: '登录',
+            right: '取消',
+            show_weixin: true
+
+        },
+        methods:{
+            //关闭未开通
+            FDredge(){
+                this.IsDredge = false;
+            },
+            //获取用户信息
+            a_get_userInfo(){
+                get_userInfo();
+            },
+            //跳转消息界面
+            to_message(){
+                if(!vm.is_log){
+                    window.location.href = '../login/land.html'
+                    return;
+                }
+                window.location.href='message_center.html';
+            },
+            //跳转个人签名界面
+            to_change_sign(){
+                if(!vm.is_log){
+                    window.location.href = '../login/land.html'
+                    return;
+                }
+                localStorage.setItem('change_sign_type','1')
+                localStorage.setItem('change_sign_info',vm.sign_info);
+                window.location.href='change_sign.html';
+            },
+            //我的学习跳转
+            to_study_center(index){
+                if(!vm.is_log){
+                    window.location.href = '../login/land.html'
+                    return;
+                }
+                if(index == 0){
+                    //已购课程
+                    window.location.href='../my_course/my_already_buy.html';
+                }else if(index == 1){
+                    //免费课程
+                    window.location.href='../my_course/my_free_course.html';
+                }else if(index == 2){
+                    //我的直播
+                    window.location.href='../my_course/mine_livelist.html';
+                }else if(index == 3){
+                    //收藏课程
+                    window.location.href='../my_course/my_collect_class.html';
+                }else if(index == 4){
+                    //我的错题
+                    window.location.href='../my_course/mymistakes.html';
+                }else if(index == 5){
+                    //收藏习题
+                    window.location.href='../my_course/mine_collection_question.html';
+                }else if(index == 6){
+                    //我的答疑
+                    this.IsDredge = true;
+                    window.location.href='###';
+                }else if(index == 7){
+                    //我的班级
+                    window.location.href='../my_course/mine_class.html';
+                }
+            },
+            //我的交易跳转
+            to_my_trade(index){
+                if(!vm.is_log){
+                    window.location.href = '../login/land.html'
+                    return;
+                }
+                if(index == 0){
+                    //我的订单
+                    window.location.href='../shopcar/my_order.html';
+                }else if(index == 1){
+                    //购物车
+                    window.location.href='../shopcar/Shopping_cart.html';
+                }else if(index == 2){
+                    //卡券激活
+                    window.location.href='../shopcar/active_coupon.html';
+                }else if(index == 3){
+                    //分享优惠
+                    this.IsDredge = true;
+                    return;
+                    window.location.href='###';
+                }
+            },
+            to_personal_info(){
+                if(!vm.is_log){
+                    window.location.href = '../login/land.html'
+                    return;
+                }
+                //个人信息
+
+                window.location.href='personal_information.html';
+
+            },
+            to_count_info(){
+                if(!vm.is_log){
+                    window.location.href = '../login/land.html'
+                    return;
+                }
+                //账号信息
+                window.location.href='account_information.html';
+            },
+            to_real_name(){
+                if(!vm.is_log){
+                    window.location.href = '../login/land.html'
+                    return;
+                }
+                //实名认证
+                if(vm.cer_status == 2){
+                    //已完成认证
+                    alert('已认证')
+                }else if(vm.cer_status== 4){
+                    //信息审核中
+                    alert('审核中')
+                }else{
+                    //未审核
+                    window.location.href='authentication.html';
+                }
+            },
+            to_mail_address(){
+                if(!vm.is_log){
+                    window.location.href = '../login/land.html'
+                    return;
+                }
+                //邮寄地址
+                localStorage.setItem('cm_mail_address_isShop','0');
+                localStorage.setItem("Goaddres","2")
+                window.location.href='mailing_address.html';
+            },
+            to_login_operation(){
+                if(!vm.is_log){
+                    window.location.href = '../login/land.html'
+                    return;
+                }
+                //登录操作
+                window.location.href='login_operation.html';
+            },
+            a_log_out(){
+                //退出登录
+                log_out();
+
+            },
+            click_head(){
+                if(!vm.is_log){
+                    //未登录
+                    window.location.href = '../login/land.html'
+                }else {
+                    //已经登录
+                    window.location.href = 'personal_information.html';
+                }
+            },
+            //点击去登录
+            a_to_login(){
+                window.location.href = '../login/land.html'
+            },
+            //点击去注册
+            a_to_resign(){
+                window.location.href = '../login/login_account.html'
+            },
+            to_set_password () {
+                if(!vm.is_log){
+                    window.location.href = '../login/land.html'
+                    return;
+                }
+                window.location.href = './set_password.html'
+            }
+
+        }
+    })
+
+
+    //判断是否登录
+    function is_login() {
+        if(getToken() == ''){
+            //没有登录
+            vm.is_log = 0;
+            vm.head_img = '../../img/login/log_none.jpg'
+            vm.pet_name = '未登录';
+            vm.sign_info = '';
+        }else {
+            //已经登录
+            vm.is_log = 1;
+            get_userInfo();
+        }
+    }
+    is_login();
+    //退出登录
+    function log_out() {
+        vm.is_log = 0;
+        vm.head_img = '../../img/login/log_none.jpg'
+        vm.pet_name = '未登录';
+        vm.sign_info = '';
+        setToken('');
+        setTel('');
+    }
+    //获取用户信息
+    function get_userInfo() {
+        yaqooNetPost('Userinfo/user_mess','',function (data) {
+            if(data['code'] == 1000){
+                vm.count_message = data['count_message'];
+                if(data['data_list']['head_img'] == null || data['data_list']['head_img'] == ''){
+                    vm.head_img = '../../img/login/log_none.jpg'//默认头像
+                } else {
+                    vm.head_img = data['data_list']['head_img']
+                }
+                vm.pet_name = data['data_list']['pet_name'];
+                if(vm.pet_name == null || vm.pet_name == ''){
+                    vm.pet_name = data['data_list']['username'];//默认昵称 如果没有的话先用手机号
+                }
+                vm.sign_info = data['data_list']['sign_info'];
+                if(vm.sign_info == null || vm.sign_info == ''){
+                    vm.sign_info = '这个人很懒惰，什么也没写'//默认签名
+                }
+                vm.cer_status = data['data_list']['certification_status'];
+                if(vm.cer_status==1){
+                    vm.cer_info = '未认证'
+                }else if(vm.cer_status==2){
+                    vm.cer_info = '认证完成'
+                }else if(vm.cer_status==3){
+                    vm.cer_info = '认证失败'
+                }else if(vm.cer_status==4){
+                    vm.cer_info = '审核中'
+                }
+            }else {
+                alert(data['message']);
+            }
+        })
+    }
+
+   
+
+    //上传头像
+
+
+    // setTimeout(function () {
+    //     console.log($("#file2"));
+    //     var fileM = document.querySelector("#file2");
+    //     $("#file2").on("change", function (){
+    //         //获取文件对象，files是文件选取控件的属性，存储的是文件选取控件选取的文件对象，类型是一个数组
+    //         var fileObj = fileM.files[0];
+    //         //创建formdata对象，formData用来存储表单的数据，表单数据时以键值对形式存储的。
+    //         var formData = new FormData();
+    //         //后台需要的参数
+    //         formData.append('user_image', fileObj);
+    //         formData.append('type','1')//type1是上传头像 2是上传其他图片
+    //
+    //         //发送网络请求
+    //         yaqooNetFile("http://kangaroo.daishumed.com/index.php/Userinfo/edit_photo", formData, function (data) {
+    //             alert(data['message'])
+    //             console.log(data);
+    //             vm.head_img = data['head_img'];
+    //             // alert(data['head_img']);
+    //             // console.log(data);
+    //         });
+    //     });
+    // },1000)
+</script>
+
+
+<!--插入页面元素统一JS-->
+<script src="../../js/personal_center.js"></script>
+</html>

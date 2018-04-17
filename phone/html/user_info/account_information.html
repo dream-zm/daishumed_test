@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>账户信息</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <!--vue框架-->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <script src="../../js/index_top.js"></script>
+    <!--个人中心公共.css-->
+    <link rel="stylesheet" href="../../css/user_info/user_info_index.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/user_info/account_information.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img v-on:click="to_back" class="nav__top_left" src="../../img/company_info/return_03.png" alt="">
+        账户信息
+    </div>
+    <div class="section">
+        <ul class="information_ul">
+            <li>
+                <p class="information_li_p2">登录名</p>
+                <div class="information_right">
+                    <input class="information_input" type="text" :placeholder="username" disabled="1">
+                </div>
+            </li>
+            <li v-on:click="click_mail">
+                <p class="information_li_p2">邮箱</p>
+                <div class="information_right">
+                    <input class="information_input" :placeholder="email" type="text" disabled="disabled">
+                    <img class="information_right_img" src="../../img/user_info/information_right_03.png" alt="">
+                </div>
+            </li>
+            <li v-on:click="click_pwd">
+                <p class="information_li_p2">修改密码</p>
+                <div class="information_right">
+                    <input class="information_input" type="button">
+                    <img class="information_right_img" src="../../img/user_info/information_right_03.png" alt="">
+                </div>
+            </li>
+            <li v-on:click="click_bind_phone">
+                <p class="information_li_p2">换绑手机号</p>
+                <div class="information_right">
+                    <input class="information_input" :placeholder="username"  type="text">
+                    <img class="information_right_img" src="../../img/user_info/information_right_03.png" alt="">
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+<script>
+    //新建vue对象
+    var vm = new Vue({
+        el:'#app_body',
+        data:{
+            username:'',//登录名
+            email:'',//邮箱
+            // phone_number:''//手机号
+        },
+        methods:{
+            //点击邮箱
+            click_mail(){
+                // localStorage.setItem('bind_phone_type','2')
+                // window.location.href = 'bind_phone.html'
+            },
+            //点击密码
+            click_pwd(){
+                window.location.href = 'modify_password.html'
+            },
+            //点击绑定手机号
+            click_bind_phone(){
+                localStorage.setItem('bind_phone_type','1')
+                window.location.href = 'bind_phone.html'
+            },
+            to_back(){
+                union_back();
+            }
+        }
+    });
+
+    //获取用户信息
+    function get_userInfo() {
+        yaqooNetPost('Userinfo/user_mess','',function (data) {
+            // console.log(data);
+            if(data['code'] == 1000){
+                vm.username = data['data_list']['username'];
+                vm.email = data['data_list']['email'];
+                vm.phone_number = data['data_list']['phone_number'];
+                if(vm.email == '' || vm.email == null){
+                    vm.email = '未绑定'
+                }
+            }else {
+                alert(data['message']);
+            }
+        })
+    }
+    //调用获取用户信息
+    get_userInfo();
+
+</script>
+</html>

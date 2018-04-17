@@ -1,0 +1,160 @@
+body {
+    background: #fff;
+}
+
+.find_nav {
+    width: 100%;
+    font-size: .36rem;
+    z-index: 99;
+    display: -moz-box;
+    display: -webkit-box;
+}
+
+.find_nav ul {
+    width: 100%;
+    position: relative;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.find_nav ul li {
+    float: left;
+    display: block;
+    width: 25%;
+    overflow: hidden;
+    padding-bottom: .2rem;
+    text-align: center;
+    padding-top: .1rem;
+}
+
+.find_nav ul li a {
+    font-size: 0.4rem;
+    text-align: center;
+
+}
+
+.find_nav_cur {
+    border-bottom: 1px solid #2094e6;
+}
+
+.find_nav_cur a {
+    color: #0299ec;
+}
+
+.journalism_banner {
+    width: 100%;
+    height: 3.5rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.journalism_banner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.journalism_banner_top {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    text-align: center;
+    color: #fff;
+}
+
+.journalism_banner_top_p {
+    margin: 1.06rem 0 .4rem 0;
+    font-size: .56rem;
+}
+
+.journalism_banner_top_p2 {
+    font-size: .36rem;
+}
+
+/**/
+.journalism_ul {
+
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: #f0f0f0;
+    padding-top: .2rem;
+}
+
+.journalism_ul li {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    font-size: .32rem;
+    color: #8c919b;
+    padding: .1rem 0;
+}
+.journalism_ul li:last-child{
+    padding-bottom: .5rem;
+}
+
+.journalism_div {
+    margin: 0 .2rem;
+    overflow: hidden;
+    border-bottom: 1px solid #d9d8dd;
+    padding: .2rem;
+}
+
+.journalism_div_left {
+    float: left;
+    width: 5.7rem;
+    overflow: hidden;
+}
+
+.journalism_div_left_h4 {
+    font-size: .4rem;
+    color: #2094e6;
+    margin-bottom: .2rem;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+}
+
+.journalism_div_left_p {
+    line-height: .42rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    margin-bottom: .1rem;
+}
+
+.journalism_div_img {
+    float: right;
+    width: 3.16rem;
+    height: 2rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

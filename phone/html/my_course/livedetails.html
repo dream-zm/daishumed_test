@@ -1,0 +1,473 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>直播详情</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <!--本页面引入-->
+    <link rel="stylesheet" href="../../css/course/livedetails.css">
+</head>
+<body>
+<div id="app_body" v-cloak>
+    <div class="nav__top">
+        <img src="../../img/company_info/return_03_03.png" alt="" class="nav__top_left" @click="to_live_index">
+        <span style="width: 77%;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;display: inline-block;">
+            {{live_detail.live_name}}
+        </span>
+    </div>
+    <div class="livedetails_banner">
+        <div class="livedetails_banner_div">
+            <!-- <img class="livedetails_bdiv_img" src="../../img/company_info/livedetails_07.png" alt=""> -->
+        </div>
+        <img class="livedetails_banner_img" v-bind:src="live_detail.live_thumb" alt="">
+        <div class="livedetails_banner_bottom" v-if="!time==null">
+            <img src="../../img/company_info/livedetails_xiao_13.png" alt="">距离直播还有：{{time}}
+        </div>
+    </div>
+    <div class="livedetails_guidance">
+        <div class="livedetails_guidance_section">
+            <div class="livedetails_guidance_section_one">
+                <div class="livedetails_guidance_section_top">
+                    <div class="livedetails_guidance_h4">
+                        <p class="livedetails_guidance_h4_p">
+                            {{live_detail.live_name}}
+                        </p>
+                        <p class="livedetails_guidance_h4_p2" v-if="live_detail.live_type==6">
+                            <span v-if="live_detail.spec.discount_price != null">¥{{live_detail.spec.discount_price}}</span>
+                            <span v-if="live_detail.spec.discount_price != null" style="margin-left: 10px;color: #5d5b5a;"><del>¥{{live_detail.spec.price}}</del></span>
+                            <span v-if="live_detail.spec.discount_price == null">¥{{live_detail.spec.price}}</span>
+                        </p>
+                    </div>
+                    <p class="livedetails_guidance_p">
+                        所属科目：<span>{{page_flag == 1 ? '执业医师' : page_flag == 2 ?  '执业药师' : page_flag == 3 ? '中医师承' : '' }}</span>
+                    </p>
+                    <p class="livedetails_guidance_p2">
+                        讲 师：<span>{{live_detail.teacher_names}}</span>
+                    </p>
+
+                    <p class="livedetails_guidance_p2">
+                        时 间：<span>{{live_detail.live_time}}</span>
+                    </p>
+                    <p class="livedetails_guidance_p2">
+                        进入权限：<span>
+                            {{live_detail.live_type == 1 ? '免费' : live_detail.live_type == 2 ? '注册免费' : live_detail.live_type == 3 ? '关联班型' : live_detail.live_type == 4 ? '分享免费' 
+                            : live_detail.live_type == 5 ? '直播码' : live_detail.live_type == 6 ? '付费' : '会员'
+                    }}</span>
+                    </p>
+                </div>
+                <p class="livedetails_guidance_section_bottom">
+                    {{live_detail.marked_words}}
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="curriculum_nav">
+        <ul class="curriculum_nav_ul">
+            <li class="curriculum_nav_ulli2"><p class="curriculum_nav_p">
+                课程详情
+            </p>
+                <p class="curriculum_nav_p2"></p>
+            </li>
+        </ul>
+    </div>
+    <div class="contentdiv">
+        <div class="content">
+            <div class="content_div">
+                <div class="content__div"><h4 class="content__h4"><i class="content__i"></i>
+                    简介
+                </h4>
+                    <p class="content__p">
+                        {{live_detail.live_outline}}
+                    </p></div>
+                <div class="content__div"><h4 class="content__h4"><i class="content__i"></i>
+                    详细内容
+                </h4>
+                    <p class="content__p" v-html="live_detail.live_content">
+                        
+                    </p></div>
+            </div>
+        </div>
+    </div>
+    <!--悬浮-->
+    <div class="livedetails_fixed">
+        <div class="livedetails_fixed_div">
+            <ul class="livedetails_fixed_ul">
+                <li class="livedetails_fixed_li">
+                    咨询
+                   <div style='display:none;'>
+                        <a href='http://www.live800.com'>客户服务</a>
+                    </div>
+                    <script language="javascript" src="https://v1.live800.com/live800/chatClient/staticButton.js?jid=4032764244&companyID=912809&configID=44180&codeType=custom"></script>
+                    <div style='display:none;'>
+                    <a href='http://en.live800.com'>live chat</a></div>
+                </li>
+                <li class="livedetails_fixed_li2" @click="to_watch_live(live_detail.live_url)" ref="livedetails_fixed_li2">
+                    立即进入
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div v-if="show_tip" class="show_tip">
+        <div v-if="live_detail.live_type==4&&isweixin" class="weixin_tip" @click="close">
+            <img src="../../img/course/share.png" @click.prevent="close">
+        </div>
+        
+        <div class="show_tip_container" style="" v-if="!isweixin||flag">
+            <div class="show_tip_container_top">
+               温馨提示
+               <img src="../../img/user_info/placeholder_03.png" @click.stop="close">
+            </div>
+            <div class="show_tip_container_middle">
+                <img src="../../img/live/live_tip.png" v-if="!show_code">
+                <p v-if="!show_code">{{tip}}</p>
+                <P class="show_code" v-if="show_code">{{tip}}</P>
+                <input v-if="show_code" class="show_tip_container_bottom_left_other" type="text" v-model="live_code" name="">
+            </div>
+            <div class="show_tip_container_bottom" v-if="show_login">
+                <input class="show_tip_container_bottom_left" type="button" value="注册帐号" name="" @click.stop="register">
+                <input class="show_tip_container_bottom_right" type="button" value="已注册，去登录" name="" @click.stop="login">
+            </div>
+            <div class="show_tip_container_bottom" v-if="show_buy">
+                <input class="show_tip_container_bottom_right_other" type="button" value="立即付费" name="" @click.stop="buy">
+            </div>
+            <div class="show_tip_container_bottom" v-if="show_vip">
+                <input class="show_tip_container_bottom_right_other" type="button" value="立即到商城购买" name="" @click.stop="to_buy">
+            </div>
+            <div class="show_tip_container_bottom" v-if="show_code">
+                <input class="show_tip_container_bottom_right_other" type="button" value="提交" name="" @click.stop="check_code(live_detail.live_url)">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!--公共引用-->
+<script src="../../js/jquery-2.1.4.js"></script>
+<!-- /*vue.js*/ -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="../../js/index_top.js"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            course_id: '',
+            page_flag: '',
+            live_detail: {
+                spec: {
+                        price: ''
+                    },
+                    live_type: ''
+            },
+            time: '',
+            tip: '',
+            show_login: false,
+            show_tip: false,
+            show_weixin: false,
+            show_buy: false,
+            show_vip: false,
+            course_detail: {},
+            live_code: '',
+            show_code: false,
+            share_state: false,
+            isweixin: false,
+            flag: true
+        },
+        methods: {
+            init (id) {
+                yaqooNetPost('Live/detail', {course_id: id}, function (data) {
+                    if (data.code == 1000) {
+                       app.live_detail = data.data
+                       if(isWechat()) {
+                            if(app.live_detail.live_type==4) {
+                                app.flag = false
+                            }
+                            app.isweixin = true
+
+                        } else {
+                            app.isweixin = false
+                            app.flag = true
+                        }
+                       var starttime = new Date(app.live_detail.start_time*1000)
+                       leftTime(starttime)
+                    }
+                })
+                
+            },
+            to_watch_live (url) {
+                switch (this.live_detail.live_type) {
+                    case '1':
+                        window.location.href = url
+                        break
+                    case '2':
+                        if (check_user_state()) {                           
+                            if (this.live_detail.auth == 'ok') {
+                                window.location.href = url
+                            } else {
+                               this.show_tip = true
+                               this.tip = '该直播限注册用户可进，请您注册用户并登录！'
+                               this.show_login = true
+                            }
+                        } else {
+                            this.show_tip = true
+                            this.tip = '该直播限注册用户可进，请您注册用户并登录！'
+                            this.show_login = true
+                        }
+                        break
+                    case '3':
+                        if (check_user_state()) {
+                            if (this.live_detail.auth == 'ok') {
+                                window.location.href = url
+                            } else {
+                               this.show_tip = true
+                               this.tip = '您好，您未购买过此班型课程，进入商城购买'
+                               this.show_vip = true
+                            }
+                        } else {
+                            this.show_tip = true
+                            this.tip = '请先登录'
+                            this.show_login = true
+                        }
+                        break
+                    case '4':
+                        if (check_user_state()) {
+                            if (this.live_detail.auth == 'ok') {
+                                window.location.href = url
+                            } else {
+                               if (app.share_state) {
+                                     alert('操作失败') 
+                                } else {
+                                   this.show_tip = true
+                                   this.tip = '您好，此课程需微信分享，请进入微信分享'
+                                }
+                            }
+                        } else {
+                            this.show_tip = true
+                            this.tip = '请先登录'
+                            this.show_login = true
+                        }
+                        break
+                    case '5':
+                        if (check_user_state()) {
+                            if (this.live_detail.auth=='ok') {
+                                window.location.href = url
+                            } else {
+                                this.show_tip = true
+                                this.tip = '您好，此课程需激活直播码'
+                                this.show_code = true
+                            }  
+                        } else {
+                            this.show_tip = true
+                            this.tip = '请先登录'
+                            this.show_login = true
+                        }
+                        break
+                    case '6':
+                        if (check_user_state()) {
+                            if (this.live_detail.auth == 'ok') {
+                                window.location.href = url
+                            } else {
+                               this.show_tip = true
+                               this.tip = '您好，此课程需先付费'
+                               this.show_buy = true
+                            }
+                        } else {
+                            this.show_tip = true
+                            this.tip = '请先登录'
+                            this.show_login = true
+                        }
+
+                        break
+                    case '7': 
+                        if (check_user_state()) {
+                            if (this.live_detail.auth == 'ok') {
+                                window.location.href = url 
+                            } else {
+                               this.show_tip = true
+                               this.tip = '您不是会员，请购买课程，成为会员'
+                               this.show_vip = true
+                            }
+                        } else {
+                            this.show_tip = true
+                            this.tip = '请先登录'
+                            this.show_login = true
+                        }
+                    default:
+                }
+                
+            },
+            to_live_index () {
+                window.location.href = './livelist.html'
+            },
+            close () {
+                this.show_tip = false
+                if(this.live_code) {
+                    this.live_code = ''
+                }
+                /*this.show_code = false
+                this.show_login = false
+                this.show_vip = false
+                this.show_weixin = false
+                this.show_buy = false
+                this.show_vip = false*/
+            },
+            login () {
+                window.location.href = '../login/land.html'
+            },
+            register () {
+                window.location.href = '../login/login_account.html'
+            },
+            buy () {
+                yaqooNetPost('Cart/add', {course_id: app.course_id, spec_key: app.live_detail.spec.key}, function (data) {
+                    if (data.code == 1000) {
+                       var ID=data.data.cart_id;
+                        yaqooNetPost("Cart/index", {}, function (data) {
+                            if (data.code == 1000) {
+                                for(x in data.data){
+                                    if(data.data[x].cart_id==ID){
+                                        var tempArray=[];
+                                        tempArray.push(data.data[x]);
+                                        setTempData(JSON.stringify(tempArray));
+                                        console.log(tempArray)
+                                        window.location.href = "../shopcar/submit_order.html"
+                                    }
+                                }
+                            }
+                        })            
+                    } else {
+                        alert(data['message'])
+                    }
+                })
+            },
+            to_buy () {
+                switch (parseInt(this.page_flag,10)) {
+                    case 1:
+                        window.location.href = '../course/listofcourses_six.html'
+                        window.localStorage.page_jump_info = 1
+                        break
+                    case 2:
+                        window.location.href = '../course/listofcourses_six.html'
+                        window.localStorage.page_jump_info = 2
+                        break
+                    case 3:
+                        window.location.href = '../course/listofcourses_four.html'
+                        window.localStorage.page_jump_info = 3
+                        break
+                    case 4:
+                        window.location.href = '../course/listofcourses_four.html'
+                        window.localStorage.page_jump_info = 4
+                        break
+                    default:
+                }   
+            },
+            check_code (url) {
+                if (this.live_code.length!=15) {
+                    app.tip = '直播码必须是15位'
+                } else {
+                    yaqooNetPost('Activation/activation', {cdkey_txt: app.live_code, roomid: app.live_detail.roomid}, function (data) {
+                    if (data.code == 1000) {
+                       app.show_code = false
+                       app.tip = '您已激活成功，请点击立即进入'
+                       setTimeout(function () {
+                           location.reload()
+                       },5000)
+                       
+                    } else {
+                        app.tip = data['message']
+                        } 
+                    })
+                }    
+            }
+        },
+        watch: {
+            share_state(val, oldval) {
+                if (app.share_state) {
+                    yaqooNetPost('Live/share', {course_id: app.course_id, room_id: app.live_detail.roomid}, function (data) {
+                        if (data.code == 1000) {
+                            location.reload()
+                        } else {
+                            alert(data.message)
+                        }
+                    })
+                }
+                
+            }
+        }
+    })
+
+    var path = window.location.href.split('?')[1]
+    var pathArray = path.split("&")
+    for(var i = 0; i < pathArray.length ; i++) {
+        if(pathArray[i].indexOf("=")>-1) {
+            if (pathArray[i].split('=')[0] =='course_id') {
+                app.course_id = pathArray[i].split('=')[1]
+            } else if (pathArray[i].split('=')[0] =='page_flag') {
+                app.page_flag = pathArray[i].split('=')[1]
+            }  
+
+            if (app.course_id!==''&&app.page_flag!=='') {
+                app.init(app.course_id) 
+            }   
+        } else {
+            alert("获取信息失败")
+        }
+    }
+
+    function leftTime(end, endleft) {
+      let t = this;
+      var mysetInterval = setInterval(function() {
+        if (end < new Date()) {
+          app.time = null
+          clearInterval(mysetInterval);
+          endleft && endleft();
+          return false;
+        }
+
+        var date = end - new Date();
+        var days = date / 1000 / 60 / 60 / 24;
+        var daysRound = Math.floor(days);
+        var hours = date / 1000 / 60 / 60 - 24 * daysRound;
+        var hoursRound = Math.floor(hours);
+        var minutes = date / 1000 / 60 - 24 * 60 * daysRound - 60 * hoursRound;
+        var minutesRound = Math.floor(minutes);
+        var seconds =
+          date / 1000 -
+          24 * 60 * 60 * daysRound -
+          60 * 60 * hoursRound -
+          60 * minutesRound;
+        var secondsRound = Math.floor(seconds);
+        app.time =daysRound + "天" + check_time(hoursRound) + ":" + check_time(minutesRound) + ":" + check_time(secondsRound)
+      }, 1000);
+    }
+    function leftend() {
+      console.log("倒计时结束");
+    }
+
+    function check_time (i) {
+        return i < 10 ? '0' + i : i
+    } 
+
+    /*var $body = $('body');    
+    document.title = app.live_detail.live_name*/
+        // hack在微信等webview中无法修改document.title的情况    
+       /* var $iframe = $('<iframe src="/favicon.ico"></iframe>').on('load', function () { 
+            setTimeout(function () {
+                 $iframe.off('load').remove() 
+                }, 0) 
+            }).appendTo($body)
+*/
+
+</script>
+<script src="../../js/live.js"></script>
+</html>

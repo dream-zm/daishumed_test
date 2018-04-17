@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>我的课程详情</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/curriculum_two.css">
+    <link rel="stylesheet" href="../../css/course/learning.css">
+</head>
+<body>
+
+<div id="app_body"  v-cloak>
+
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/course/return_03_03.png" alt="" @click="back">
+        {{course_data.course_type_name.split('|')[1]}}
+    </div>
+
+    <learn_top_nav init_tabs="4"></learn_top_nav>
+
+    <!--详情-->
+    <div class="contentdiv" >
+        <div class="content">
+            <div class="content_div">
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        课程介绍
+                    </h4>
+                    <p class="content__p" v-v-html="course_data.course_introduction"></p>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        包含内容
+                    </h4>
+                    <p class="content__p" v-html="course_data.contain_content"></p>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        免费赠送
+                    </h4>
+                    <p class="content__p" v-html="course_data.free_gift"></p>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        使用对象
+                    </h4>
+                    <p class="content__p" v-html="course_data.use_objects"></p>
+                </div>
+
+            </div>
+        </div>
+        <div class="content">
+            <div class="content_div">
+                <div class="content__div" v-if="teacher_list">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        师资力量
+                    </h4>
+                    <div class="content__divdiv">
+                        <ul class="content__divdivul">
+                            <li v-for="data in course_data.teacher_list" v-if="data">
+
+
+                                <img :src="data.teacher_photo" alt="" style="border-radius: 50%" v-if="data.teacher_photo">
+                                <div class="content__divdivul_div">
+                                    <p class="content__divdivul_div_p">
+                                        {{data.teacher_name}}
+                                    </p>
+                                    <p>
+                                        {{data.position}}  {{data.education}}
+                                    </p>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        课程设计思路
+                    </h4>
+                    <p class="content__p" v-html="course_data.design_ideas"></p>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        学习方式
+                    </h4>
+                    <p class="content__p" v-html="course_data.learning_style"></p>
+                </div>
+                <div class="content__div">
+                    <h4 class="content__h4">
+                        <i class="content__i"></i>
+                        关于我们
+                    </h4>
+                    <p class="content__p" v-html="course_data.about_us"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+<script type="application/javascript">
+
+
+    checkUserState(true);
+
+    var app = new Vue({
+        el: '#app_body',
+        data: {
+            course_data: {
+                course_type_name: ''
+            },//课程信息
+            teacher_list:[
+                {
+                    teacher_name: "",
+                    education: "",
+                    position: "",
+                    teacher_photo: ""
+                }
+            ]
+        },
+        methods: {
+            back(){
+                union_back();
+            },init(course_typez, course_idz)
+            {
+
+                var requestData = {
+                    course_type: course_typez,
+                    course_id: course_idz
+                };
+
+                yaqooNetPost("Course/learn", requestData, function (data) {
+
+                    if (data.code == 1000) {
+                        app.course_data = data['data'].course;
+                    }
+
+                }, false);
+
+            },
+        }
+    });
+
+    //获取其余界面跳转传过来的数据
+    var cacheInfo = localStorage.getItem("jump_detail_info");
+    var cacheInfoClient = {
+        flag: 0,
+        course_type: 0,
+        course_id: 0
+    };
+
+    if (!isNull(cacheInfo)) {
+        cacheInfoClient = JSON.parse(cacheInfo);
+    }
+
+    //page_flag: 1,//1为职业医师，2为职业药师 3卫生管理 4国医经典
+    //1为有考试方向的  2为套包  3、4为普通的
+    app.page_flag = cacheInfoClient.flag;
+
+    app.init("",cacheInfoClient.course_id);
+
+
+   // app.init("","88");
+
+</script>
+</html>

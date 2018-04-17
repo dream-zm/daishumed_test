@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <!-- <meta name="x5-fullscreen" content="true"> -->
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>答题评估</title>
+    <!--flexible布局-->
+    <script src="../../js/flexible.js"></script>
+    <!--公共引用-->
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="../../css/course/course_index.css">
+    <link rel="stylesheet" href="../../css/course/courselist.css">
+</head>
+<body>
+<div id="app_body"  v-cloak>
+    <div class="nav__top">
+        <!--暂时的头部-->
+        <img class="nav__top_left" src="../../img/company_info/return_03.png" alt="" @click="back">
+        {{course_data.course_type_name.split('|')[1]}}
+    <div class="find_nav">
+        <div class="find_nav_left">
+            <div class="find_nav_list">
+                <ul>
+                    <li tad-data="zero" class="find_nav_cur"><a href="javascript:void(0)">最新</a></li>
+                    <li tad-data="one"><a href="javascript:void(0)">执业医师</a></li>
+                    <li tad-data="two"><a href="javascript:void(0)">执业药师</a></li>
+                    <li tad-data="three"><a href="javascript:void(0)">中医师承 </a></li>
+                    <li tad-data="four"><a href="javascript:void(0)">中医师承</a></li>
+                    <li tad-data="five"><a href="javascript:void(0)">中医师承</a></li>
+                    <li class="sideline">
+                        <span></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="courselist_banner">
+        <img src="../../img/course/courselist_02.png" alt="">
+        <div class="courselist_div">
+            <div class="courselist_div_right">
+                <p>
+                    做了这么多题
+                </p>
+                <p>
+                    来看看考点掌握的情况吧
+                </p>
+                <div class="courselist_div_right_div">
+                    查看效果评估
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="courselist_nav">
+        <div class="courselist_nav_div">
+            <div class="courselist_nav_div_left courselist_nav_div_left2">
+                <p>章节练习</p>
+                <div class="courselist_nav_div_left_bottom"></div>
+            </div>
+            <div class="courselist_nav_div_left">
+                <p>章节练习</p>
+                <div class="courselist_nav_div_left_bottom"></div>
+            </div>
+        </div>
+
+    </div>
+    <!--练习-->
+    <ul class="practice">
+        <li>
+            <div class="practice_div">
+                <div class="practice_div_top">
+                    <span class="practice_div_top_span">1</span>第一章 中医基础理论章节练习
+                </div>
+                <p class="practice_in_p">
+                    上次练习答题 <span class="practice_in_p_span">15</span>/60，答对 <span class="practice_in_p_span2">10道</span>，错题率
+                    <span class="practice_in_p_span2">80%</span>，考点掌握<span class="practice_in_p_span">80%</span>
+                </p>
+                <div class="practice_div_bottom">
+                    <div class="practice_div_bottom_left">
+                        查看报告
+                    </div>
+                    <div class="practice_div_bottom_left2">
+                        查看报告
+                    </div>
+                    <div class="practice_div_bottom_left3">
+                        查看报告
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="practice_div">
+                <div class="practice_div_top">
+                    <span class="practice_div_top_span">1</span>第一章 中医基础理论章节练习
+                </div>
+                <p class="practice_in_p">
+                    上次练习答题 <span class="practice_in_p_span">15</span>/60，答对 <span class="practice_in_p_span2">10道</span>，错题率
+                    <span class="practice_in_p_span2">80%</span>，考点掌握<span class="practice_in_p_span">80%</span>
+                </p>
+                <div class="practice_div_bottom">
+                    <div class="practice_div_bottom_left">
+                        查看报告
+                    </div>
+                    <div class="practice_div_bottom_left2">
+                        查看报告
+                    </div>
+                    <div class="practice_div_bottom_left3">
+                        查看报告
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="practice_div">
+                <div class="practice_div_top">
+                    <span class="practice_div_top_span">1</span>第一章 中医基础理论章节练习
+                </div>
+                <p class="practice_in_p">
+                    上次练习答题 <span class="practice_in_p_span">15</span>/60，答对 <span class="practice_in_p_span2">10道</span>，错题率
+                    <span class="practice_in_p_span2">80%</span>，考点掌握<span class="practice_in_p_span">80%</span>
+                </p>
+                <div class="practice_div_bottom">
+                    <div class="practice_div_bottom_left">
+                        查看报告
+                    </div>
+                    <div class="practice_div_bottom_left2">
+                        查看报告
+                    </div>
+                    <div class="practice_div_bottom_left3">
+                        查看报告
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="practice_div">
+                <div class="practice_div_top">
+                    <span class="practice_div_top_span">1</span>第一章 中医基础理论章节练习
+                </div>
+                <p class="practice_in_p">
+                    上次练习答题 <span class="practice_in_p_span">15</span>/60，答对 <span class="practice_in_p_span2">10道</span>，错题率
+                    <span class="practice_in_p_span2">80%</span>，考点掌握<span class="practice_in_p_span">80%</span>
+                </p>
+                <div class="practice_div_bottom">
+                    <div class="practice_div_bottom_left">
+                        查看报告
+                    </div>
+                    <div class="practice_div_bottom_left2">
+                        查看报告
+                    </div>
+                    <div class="practice_div_bottom_left3">
+                        查看报告
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="simulation">
+        <li class="simulationli">
+            <div class="simulation_div">
+                <p class="simulation_div_p">
+                    2018中医执业 中医基础理论模拟考试
+                </p>
+                <ul class="simulation_ul">
+                    <li class="simulation_ul_li">
+                        <p>
+                            试券满分：<span class="practice_in_p_span">100分</span>
+                        </p>
+                        <p>
+                            上次得分： <span class="practice_in_p_span3">80分</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom">
+                            查看报告
+                        </div>
+                    </li>
+                    <li class="">
+                        <p>
+                            限时：<span class="practice_in_p_span">120分钟</span>
+                        </p>
+                        <p>
+                            排名： <span class="practice_in_p_span4">11名</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom simulation_ul_li_bottom2">
+                            错题重做
+                        </div>
+                    </li>
+                    <li class="simulation_ul_li2">
+                        <p>
+                            总题数：<span class="practice_in_p_span">150道</span>
+                        </p>
+                        <p>
+                            考点掌握： <span class="practice_in_p_span2">80%</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom simulation_ul_li_bottom3">
+                            马上答题
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="simulationli">
+            <div class="simulation_div">
+                <p class="simulation_div_p">
+                    2018中医执业 中医基础理论模拟考试
+                </p>
+                <ul class="simulation_ul">
+                    <li class="simulation_ul_li">
+                        <p>
+                            试券满分：<span class="practice_in_p_span">100分</span>
+                        </p>
+                        <p>
+                            上次得分： <span class="practice_in_p_span3">80分</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom">
+                            查看报告
+                        </div>
+                    </li>
+                    <li class="">
+                        <p>
+                            限时：<span class="practice_in_p_span">120分钟</span>
+                        </p>
+                        <p>
+                            排名： <span class="practice_in_p_span4">11名</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom simulation_ul_li_bottom2">
+                            错题重做
+                        </div>
+                    </li>
+                    <li class="simulation_ul_li2">
+                        <p>
+                            总题数：<span class="practice_in_p_span">150道</span>
+                        </p>
+                        <p>
+                            考点掌握： <span class="practice_in_p_span2">80%</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom simulation_ul_li_bottom3">
+                            马上答题
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="simulationli">
+            <div class="simulation_div">
+                <p class="simulation_div_p">
+                    2018中医执业 中医基础理论模拟考试
+                </p>
+                <ul class="simulation_ul">
+                    <li class="simulation_ul_li">
+                        <p>
+                            试券满分：<span class="practice_in_p_span">100分</span>
+                        </p>
+                        <p>
+                            上次得分： <span class="practice_in_p_span3">80分</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom">
+                            查看报告
+                        </div>
+                    </li>
+                    <li class="">
+                        <p>
+                            限时：<span class="practice_in_p_span">120分钟</span>
+                        </p>
+                        <p>
+                            排名： <span class="practice_in_p_span4">11名</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom simulation_ul_li_bottom2">
+                            错题重做
+                        </div>
+                    </li>
+                    <li class="simulation_ul_li2">
+                        <p>
+                            总题数：<span class="practice_in_p_span">150道</span>
+                        </p>
+                        <p>
+                            考点掌握： <span class="practice_in_p_span2">80%</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom simulation_ul_li_bottom3">
+                            马上答题
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="simulationli">
+            <div class="simulation_div">
+                <p class="simulation_div_p">
+                    2018中医执业 中医基础理论模拟考试
+                </p>
+                <ul class="simulation_ul">
+                    <li class="simulation_ul_li">
+                        <p>
+                            试券满分：<span class="practice_in_p_span">100分</span>
+                        </p>
+                        <p>
+                            上次得分： <span class="practice_in_p_span3">80分</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom">
+                            查看报告
+                        </div>
+                    </li>
+                    <li class="">
+                        <p>
+                            限时：<span class="practice_in_p_span">120分钟</span>
+                        </p>
+                        <p>
+                            排名： <span class="practice_in_p_span4">11名</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom simulation_ul_li_bottom2">
+                            错题重做
+                        </div>
+                    </li>
+                    <li class="simulation_ul_li2">
+                        <p>
+                            总题数：<span class="practice_in_p_span">150道</span>
+                        </p>
+                        <p>
+                            考点掌握： <span class="practice_in_p_span2">80%</span>
+                        </p>
+                        <div class="simulation_ul_li_bottom simulation_ul_li_bottom3">
+                            马上答题
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--vue.js-->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+
+        $(".find_nav_list").css("left", sessionStorage.left + "px");
+        $(".find_nav_list li").each(function () {
+            if ($(this).find("a").text() == sessionStorage.pagecount) {
+                $(".sideline").css({left: $(this).position().left});
+                $(".sideline").css({width: $(this).outerWidth()});
+                $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+
+                return false
+            }
+            else {
+                $(".sideline").css({left: 0});
+                $(".find_nav_list li").eq(0).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+            }
+        });
+        var nav_w = $(".find_nav_list li").first().width();
+        $(".sideline").width(nav_w);
+        $(".find_nav_list li").on('click', function () {
+
+            nav_w = $(this).width();
+            $(".sideline").stop(true);
+            $(".sideline").animate({left: $(this).position().left}, 300);
+            $(".sideline").animate({width: nav_w});
+            $(this).addClass("find_nav_cur").siblings().removeClass("find_nav_cur");
+            var fn_w = ($(".find_nav").width() - nav_w) / 2;
+            var fnl_l;
+            var fnl_x = parseInt($(this).position().left);
+            if (fnl_x <= fn_w) {
+                fnl_l = 0;
+            } else if (fn_w - fnl_x <= flb_w - fl_w) {
+                fnl_l = flb_w - fl_w;
+            } else {
+                fnl_l = fn_w - fnl_x;
+            }
+            $(".find_nav_list").animate({
+                "left": fnl_l
+            }, 300);
+            sessionStorage.left = fnl_l;
+            var c_nav = $(this).find("a").text();
+
+        });
+        var fl_w = $(".find_nav_list").width();
+        var flb_w = $(".find_nav_left").width();
+        $(".find_nav_list").on('touchstart', function (e) {
+            var touch1 = e.originalEvent.targetTouches[0];
+            x1 = touch1.pageX;
+            y1 = touch1.pageY;
+            ty_left = parseInt($(this).css("left"));
+        });
+        $(".find_nav_list").on('touchmove', function (e) {
+            var touch2 = e.originalEvent.targetTouches[0];
+            var x2 = touch2.pageX;
+            var y2 = touch2.pageY;
+            if (ty_left + x2 - x1 >= 0) {
+                $(this).css("left", 0);
+            } else if (ty_left + x2 - x1 <= flb_w - fl_w) {
+                $(this).css("left", flb_w - fl_w);
+            } else {
+                $(this).css("left", ty_left + x2 - x1);
+            }
+            if (Math.abs(y2 - y1) > 0) {
+                e.preventDefault();
+            }
+        });
+    })
+</script>
+</html>

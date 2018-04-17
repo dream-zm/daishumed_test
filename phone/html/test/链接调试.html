@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="full-screen" content="yes">
+    <meta name="x5-fullscreen" content="true">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>公共模板</title>
+    <!--flexible布局-->
+    <!--公共引用-->
+    <script src="../../js/flexible.js"></script>
+    <script src="../../js/jquery-2.1.4.js"></script>
+    <script src="../../js/index_top.js"></script>
+    <link rel="stylesheet" href="../../plug/layui/css/layui.mobile.css">
+    <link rel="stylesheet" href="../../plug/layui/css/layui.css" media="all">
+</head>
+<body>
+
+</body>
+<!--layui框架.js-->
+<script src="../../plug/layui/layui.js"></script>
+<!--插入页面元素统一JS-->
+<script src="../../js/index_footer.js"></script>
+
+
+<script type="application/javascript">
+
+
+
+
+    //添加购物车
+//            yaqooNetPost("Cart/add", {"course_id": 69,"spec_key":2}, function (data) {
+//                alert(data['message'])
+//            })
+
+
+    //        yaqooNetPost("Order/index", "", function (data) {
+    //            alert(data['message'])
+    //        })
+
+    //18510468041
+                yaqooNetPost('User/user_login',{username:18660898657,login_type:'1',sms_status:'2'},function (data) {
+                    setToken(data['token'])
+                })
+
+    //        yaqooNetPost('User/user_login',{username:18660898657,password:123456,login_type:2},function (data) {
+    //            console.log(data);
+    //            setToken(data['token'])
+    //        })
+
+
+
+
+//    yaqooNetPost('http://exam.daishumed.com/index.php?m=home&c=index&a=init', {}, function (data) {
+//
+//        console.log(data)
+//
+//    })
+
+//        yaqooNetPost('http://kangaroo.daishumed.com/index.php/Teacher/teacher_list', {t_id:11989}, function (data) {
+//
+//            console.log(data)
+//
+//        })
+//        yaqooNetPost('http://kangaroo.daishumed.com/index.php/Teacher/teacher_des', {teacher_id:1000003}, function (data) {
+//
+//            console.log(data)
+//
+//        })
+
+
+
+
+</script>
+
+</html>
